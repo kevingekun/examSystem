@@ -1,0 +1,385 @@
+<%@page language="java" contentType="text/html;charset=utf-8"%>
+<%@page import="com.wondersgroup.falcon.question.dao.EBusinesstypeDAO,java.util.List,com.wondersgroup.falcon.model.citizeninfo.HisNode,com.wondersgroup.falcon.model.citizeninfo.HisAttr,com.wondersgroup.falcon.question.model.EQuestiontype" %>
+<%@page import="com.wondersgroup.falcon.Util.*,com.wondersgroup.falcon.question.beans.*"%>
+<%@page import="java.util.*"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@taglib uri="/WEB-INF/tld/struts-bean.tld" prefix="bean"%>
+<%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
+<%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
+<%EBusinesstypeDAO ht=new EBusinesstypeDAO();
+List<HisNode> hisNodeList=ht.findServiceType();//��������
+List<HisAttr> hisAttrList=ht.findBaoXianType();//��������
+ %>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>�Ծ��ѯ</title>
+<link href="<%=request.getContextPath() %>/newcss/style.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/inc/all.css" rel="stylesheet" type="text/css"/>
+<script language="JavaScript" type="text/JavaScript" src="<%=request.getContextPath() %>/js/date.js"></script>
+<script language="JavaScript" type="text/JavaScript" src="../js/dateMy97/WdatePicker.js"></script>
+<script language="javascript">
+var bXmlHttpSupport = (typeof XMLHttpRequest != "undefined" || window.ActiveXObject);
+if (typeof XMLHttpRequest == "undefined" && window.ActiveXObject) {
+        function XMLHttpRequest() {
+            var arrSignatures = ["MSXML2.XMLHTTP.5.0", "MSXML2.XMLHTTP.4.0",
+                                 "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP",
+                                 "Microsoft.XMLHTTP"];
+                             
+            for (var i=0; i < arrSignatures.length; i++) {
+                try {        
+                    var oRequest = new ActiveXObject(arrSignatures[i]);            
+                    return oRequest;        
+                } catch (oError) { /*ignore*/ }
+            }          
+    
+            throw new Error("MSXML is not installed on your system.");               
+        }
+}    	
+function account(geshi,fenshi,zongfen){
+	document.getElementById(zongfen).value=document.getElementById(geshi).value*document.getElementById(fenshi).value;
+}
+		function checkSubmit(){			
+			if(document.all.sjMc.value==""){
+				alert("�������Ծ���ƣ�");
+				return ;
+			}
+			if(document.all.sjZf.value==""){
+				alert("�������Ծ��ܷ֣�");
+				return ;
+			}
+			if(document.all.sjDjsx.value==""){
+				alert("��ѡ��������ʱ�ޣ�");
+				return ;
+			}
+			if(document.all.sjBhgfs.value==""){
+				alert("���䲻��������ߣ�");
+				return ;
+			}
+			if(document.all.Kksj.value==""){
+				alert("��ѡ�����뿪ʼʱ�䣡");
+				return ;
+			}
+			if(document.all.Yxqjzsj.value==""){
+				alert("��ѡ��������Ч�ڽ�ֹ���ڣ�");
+				return ;
+			}
+			//��ȡ���ӵ�index�����̨��ֵ
+			var indexs=document.getElementsByName("indexname");
+			var ind="";
+			for(var j=0;j<indexs.length;j++){
+				var ind1=indexs[j].value.substring(1,2);
+				ind=ind+ind1+",";
+			}
+				ind=ind.substring(0,ind.length-1);
+				document.getElementById('index_id').value=ind;
+
+			//��ȡҳ��ķ����ܺ�
+				var ctZf=0;
+ 				var arr=document.getElementsByTagName("input");  
+ 				for(var i=0;i<arr.length;i++){ 
+	 				if(arr[i].id.indexOf("zf_")>-1){  
+		 				ctZf+=parseFloat(arr[i].value); 
+		 				// alert(arr[i].name+"\n"+arr[i].value);   
+	 				 } 
+ 				 }
+ 				if(ctZf!=document.all.sjZf.value){
+					alert("ѡ����������*����="+ctZf+",���ֲܷ���");
+					return ;
+			}
+
+			document.myform.submit();
+		}
+
+function retrieveBook(serviceId,bxId,index) {
+	if(bXmlHttpSupport) {
+		var temp=new Date().getTime();
+       var sUrl = '<%=request.getContextPath() %>/findQuestionCountByType.action?temp='+temp;
+       if(document.getElementById(serviceId).value!=''){
+			sUrl=sUrl+"&serviceType="+document.getElementById(serviceId).value
+      	 }
+       if(document.getElementById(bxId).value!=''){
+       		sUrl=sUrl+"&byType="+document.getElementById(bxId).value
+       }
+       var oRequest = new XMLHttpRequest();
+       oRequest.onreadystatechange = function() {
+       		if(oRequest.readyState == 4) {
+       			var paperfenshu = eval('(' + oRequest.responseText + ')');
+       			var string=paperfenshu.counts;
+       			var counts=string.substring(1,string.length-1).split(",");
+       			for(var i=0;i<counts.length;i++){
+       				document.getElementById("ticount"+i+"["+index).innerText=counts[i];
+       			}
+       		}
+       }
+       oRequest.open('POST', sUrl);
+       oRequest.send(null);
+    }
+}	
+String.prototype.replaceAll  = function(s1,s2){    
+	return this.replace(new RegExp(s1,"gm"),s2);    
+}
+//���
+function funAddInquire(){
+	var tbodyInquires=document.getElementById("tbodyInquires");
+	var inquireRow= tbodyInquires.insertRow(tbodyInquires.rows.length);
+	var investorCell=inquireRow.insertCell();
+	var maxIndex = parseInt(tbodyInquires.getAttribute('maxIndex'));
+	var innerHTML = document.getElementById("template").innerHTML;
+	innerHTML = innerHTML.replaceAll("_0","_"+maxIndex);
+	investorCell.innerHTML= innerHTML;
+	inquireRow.setAttribute('index',maxIndex);
+	document.getElementById("ST_YWLX_ID_"+maxIndex).selectedIndex="";
+	document.getElementById("ST_BAOXIAN_"+maxIndex).selectedIndex="";
+	tbodyInquires.setAttribute('maxIndex',maxIndex+1);
+	retrieveBook('ST_YWLX_ID_'+maxIndex,'ST_BAOXIAN_'+maxIndex,'_'+maxIndex);
+}
+//ɾ��
+function deleteInquire(obj){
+	var tbodyInquires=document.getElementById("tbodyInquires");
+	if(tbodyInquires.rows.length>1){
+		rowObj=getRowObj();
+		if(rowObj.getAttribute('index')==0){
+			alert('��һ�в���ɾ��!');
+			return;
+		}
+		if(confirm('ȷ��'+obj.title+'?')){
+			rowObj.removeNode(true);
+		}
+	}else{
+		alert('���ٱ���һ����');
+	}
+}
+
+function getRowObj(){
+	var eSrc = window.event.srcElement;	
+	event.returnValue = false;
+	var i = 0;
+	while(true){
+		if(eSrc.tagName.toUpperCase()=="TR"){	
+			if(i<1){
+				i++;
+			}else{		
+				return eSrc;
+				break;
+			}
+		}
+		eSrc=eSrc.parentElement;
+	}
+}
+</script>	
+</head>
+<body class="nrbj" onload="retrieveBook('ST_YWLX_ID_0','ST_BAOXIAN_0','_0')">
+<table width="99%" border="0" align="right" cellpadding="0" cellspacing="0" style="margin-top:10px; margin-left:8px; ">
+  <tr>
+    <td width="45%" align="left"><table border="0" align="left" cellpadding="0" cellspacing="0">
+      <tr>
+        <td  align="left" valign="middle" class="header1"></td>
+        <td  class="header2">�Զ����</td>
+        <td  class="header3"></td>
+      </tr>
+    </table></td>
+    <td width="53%"  align="left"></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" ><div id="content1" class="borader">
+<form name="myform" action="<%=request.getContextPath() %>/papersServlet" method="post">
+<input type=hidden name="actionType" value="auto">
+<input id="index_id" type="hidden" name="indexs" value=""/><!-- ��ɾ -->
+<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" >
+			     <tr class="row_height">
+			       <td height="26" colspan="8" align="center"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" class="tablistys">
+                     <tr class="row_height">
+                       <td width="8%" align="right">�Ծ���ƣ�</td>
+                       <td width="23%"><input type="text" name="sjMc" value="" class="input1">
+                           <font color="#FF0000" >*</font></td>
+                       <td width="10%" align="right">�Ծ��ܷ֣�</td>
+                       <td width="23%"><input type="text" name="sjZf" value="100" class="input1"/>
+                           <font color="#FF0000" >*</font></td>
+                       <td width="10%" align="right">���ʱ�ޣ�</td>
+                       <td><input type="text" name="sjDjsx" value="60" class="input1"/>
+                           <font color="#FF0000" >*</font></td>
+                     </tr>
+                     <tr>
+                       <td align="right" nowrap="nowrap">���ϸ�����ߣ�</td>
+                       <td><input type="text" name="sjBhgfs" value="60" class="input1"/>
+                           <font color="#FF0000" >*</font></td>
+                       <td align="right">����ʱ�䣺</td>
+                       <td><input type="text"  class="Wdate" name="Kksj" id="Kksj" onFocus="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"/>
+                           <font color="#FF0000" >*</font></td>
+                       <td align="right">��Ч��ֹ���ڣ�</td>
+                       <td><input type="text" class="Wdate" id="Yxqjzsj" name="Yxqjzsj" onFocus="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" style="width:170px"/>
+                           <font color="#FF0000" >*</font></td>
+                     </tr>
+                     <tr>
+                       <td align="right" nowrap="nowrap">&nbsp;</td>
+                       <td>&nbsp;</td>
+                       <td align="right">&nbsp;</td>
+                       <td>&nbsp;</td>
+                       <td align="right">&nbsp;</td>
+                       <td>&nbsp;</td>
+                     </tr>
+                   </table></td>
+	        </tr>	
+                 <tr class="row_height">
+			          <td>&nbsp;</td>
+			          <td height="26" align="right">&nbsp;</td>
+			          <td >&nbsp;</td>
+			          <td align="right">&nbsp;</td>
+			          <td >&nbsp;</td>
+			          <td align="center">&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td align="center">
+						<input name="button" type="button" class="submit_2" onClick="javascript:checkSubmit();" value="�Ծ�Ԥ��" />
+						<input name="button" type="button" class="submit_2" onClick="javascript:funAddInquire();" value="����" />
+					</td>
+			     </tr>               
+
+		           <tr>
+		            <td colspan="6" align="center">&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+		          </tr>
+<tbody id="tbodyInquires" maxIndex='1' style="width:100%">
+	<tr id="template" index="0" class="row_height">
+		<td >
+				<table width="99%" style="border-collapse:collapse;width: 100%; "border="0" align="center" cellpadding="0" cellspacing="0" >
+		 			 <tr>
+                       <td>�������ͣ�</td>
+							<input  type="hidden" name="indexname" value="_0"/>
+                       <td  colspan="3">
+							<select id="ST_YWLX_ID_0" name="serviceType_0" style="width: 280px" onchange="retrieveBook('ST_YWLX_ID_0','ST_BAOXIAN_0','_0');">
+												<option value="">��ѡ��</option>
+									<%
+										for (int i = 0; i < hisNodeList.size(); i++) {
+												HisNode node = (HisNode) hisNodeList.get(i);
+												out.println("<option value=" + node.getId() + "");
+												out.println(">" + node.getName() + "");
+												out.println("</option>");
+											}
+										%>
+									</select>
+					   </td>
+                       <td>�������ͣ�</td>
+                       <td colspan="3">
+							<select id="ST_BAOXIAN_0" name="bxType_0" style="width: 260px" onchange="retrieveBook('ST_YWLX_ID_0','ST_BAOXIAN_0','_0');">
+											<option value="">��ѡ��</option>
+										<%
+										for (int i = 0; i < hisAttrList.size(); i++) {
+												HisAttr node = (HisAttr) hisAttrList.get(i);
+												out.println("<option value=" + node.getId() + ">" + node.getName() + "</option>");
+											}
+										%>
+										</select>
+					  </td>
+                       <td align="right"></td>
+                       <td><input name="button" type="button" class="submit_2" onClick="deleteInquire(this);" value="ɾ��" /></td>
+                     </tr>
+         <tr class="row_height">
+            <td width="15%">��ѡ��: (�����<span id="ticount0[_0"></span>����) </td>
+            <td width="12%">����:
+            <input size="4" type="text" id="singlenumber_0"  name="singlenumber_0" value="4" onBlur="account('singlenumber_0','singlepoint_0','singlezf_0');"/>��</td>
+            <td width="12%"> ����:
+            <input size="4" type="text" id="singlepoint_0" name="singlepoint_0" value="5" onBlur="account('singlenumber_0','singlepoint_0','singlezf_0');"/>��</td>
+			<td width="12%"> �ܷ�:
+              <input size="4" type="text" id="singlezf_0" name="singlezf_0" readonly="readonly"/>��</td>
+            <td width="15%">��ѡ��:(�����<span id="ticount1[_0"></span>����)</td>
+            <td width="12%">����:
+             <input size="4" type="text" id="manynumber_0" name="manynumber_0" value="4" onBlur="account('manynumber_0','manypoint_0','manyzf_0');"/>��</td>
+            <td width="12%">����:
+              <input size="4" type="text" id="manypoint_0" name="manypoint_0" value="5" onBlur="account('manynumber_0','manypoint_0','manyzf_0');"/>��</td>
+			<td>�ܷ�:
+            <input size="4" type="text" id="manyzf_0" name="manyzf_0" value="" readonly="readonly"/>��</td>
+          </tr>
+
+         <tr>
+            <td>�ж���: (�����<span id="ticount2[_0"></span>����)</td>
+            <td>����:
+            <input size="4" type="text" id="verdictnumber_0" name="verdictnumber_0" value="2" onBlur="account('verdictnumber_0','verdictpoint_0','verdictzf_0');"/>��</td>
+            <td> ����:
+            <input size="4" type="text" id="verdictpoint_0" name="verdictpoint_0" value="5" onBlur="account('verdictnumber_0','verdictpoint_0','verdictzf_0');"/>��</td>
+			<td>�ܷ�:
+            <input size="4" type="text" id="verdictzf_0" name="verdictzf_0" readonly="readonly"/>��</td>
+            <td >�ж�˵����: (�����<span id="ticount3[_0"></span>����)</td>
+            <td >����:
+              <input size="4" type="text" id="verdictsaynumber_0" name="verdictsaynumber_0" value="2" onBlur="account('verdictsaynumber_0','verdictsaypoint_0','verdictsayzf_0');"/>��</td>
+            <td >����:
+              <input size="4" type="text" id="verdictsaypoint_0" name="verdictsaypoint_0" value="5" onBlur="account('verdictsaynumber_0','verdictsaypoint_0','verdictsayzf_0');"/>��</td>
+			  <td>�ܷ�:
+            <input size="4" type="text" id="verdictsayzf_0" name="verdictsayzf_0" value="" readonly="readonly"/>��</td>
+          </tr>
+
+          <tr>
+            <td>¼����: (�����<span id="ticount4[_0"></span>����)</td>
+            <td>����:
+            <input size="4" type="text" id="recordnumber_0" name="recordnumber_0" value="2" onBlur="account('recordnumber_0','recordpoint_0','recordzf_0');"/>��</td>
+            <td> ����:
+            <input size="4" type="text" id="recordpoint_0" name="recordpoint_0" value="5" onBlur="account('recordnumber_0','recordpoint_0','recordzf_0');"/>��</td>
+			<td>�ܷ�:
+            <input size="4" type="text" id="recordzf_0" name="recordzf_0" readonly="readonly"/>��</td>
+            <td >�����:(�����<span id="ticount5[_0"></span>����)</td>
+            <td >����:
+              <input size="4" type="text" id="fillnumber_0" name="fillnumber_0" value="2" onBlur="account('fillnumber_0','fillpoint_0','fillzf_0');"/>��</td>
+            <td >����:
+              <input size="4" type="text" id="fillpoint_0" name="fillpoint_0" value="5" onBlur="account('fillnumber_0','fillpoint_0','fillzf_0');"/>��</td>
+			  <td>�ܷ�:
+            <input size="4" type="text" id="fillzf_0" name="fillzf_0" value="" readonly="readonly"/>��</td>
+          </tr>
+
+          <tr>
+            <td>�ʴ���: (�����<span id="ticount6[_0"></span>����)</td>
+            <td>����:
+            <input size="4" type="text" id="asknumber_0" name="asknumber_0" value="2" onBlur="account('asknumber_0','askpoint_0','askzf_0');"/>��</td>
+            <td> ����:
+            <input size="4" type="text" id="askpoint_0" name="askpoint_0" value="5" onBlur="account('asknumber_0','askpoint_0','askzf_0');"/>��</td>
+			<td>�ܷ�:
+            <input size="4" type="text" id="askzf_0" name="askzf_0" readonly="readonly"/>��</td>
+            <td >���������:(�����<span id="ticount7[_0"></span>����)</td>
+            <td >����:
+              <input size="4" type="text" id="casenumber_0" name="casenumber_0" value="1" onBlur="account('casenumber_0','casepoint_0','casezf_0');"/>��</td>
+            <td >����:
+              <input size="4" type="text" id="casepoint_0" name="casepoint_0" value="10" onBlur="account('casenumber_0','casepoint_0','casezf_0');"/>��</td>
+			  <td>�ܷ�:
+            <input size="4" type="text"  id="casezf_0" name="casezf_0" readonly="readonly"/>��</td>
+          </tr>
+   <tr>
+            <td>������ѡ����: (�����<span id="ticount8[_0"></span>����)</td>
+            <td >����:
+            <input size="4" type="text" id="uncertainnumber_0" name="uncertainnumber_0" value="0" onBlur="account('uncertainnumber_0','uncertainpoint_0','uncertainzf_0');"/>��</td>
+            <td> ����:
+            <input size="4" type="text" id="uncertainpoint_0" name="uncertainpoint_0" value="5" onBlur="account('uncertainnumber_0','uncertainpoint_0','uncertainzf_0');"/>��</td>
+			<td>�ܷ�:
+            <input size="4" type="text" id="uncertainzf_0" name="uncertainzf_0" readonly="readonly"/>��</td>
+            <td >������:(�����<span id="ticount9[_0"></span>����)</td>
+            <td>����:
+              <input size="4" type="text" id="calculatenumber_0" name="calculatenumber_0" value="0" onBlur="account('calculatenumber_0','calculatepoint_0','calculatezf_0');"/>��</td>
+            <td >����:
+              <input size="4" type="text" id="calculatepoint_0" name="calculatepoint_0" value="10" onBlur="account('calculatenumber_0','calculatepoint_0','calculatezf_0');"/>��</td>
+			  <td>�ܷ�:
+            <input size="4" type="text"  id="calculatezf_0" name="calculate_0" readonly="readonly"/>��</td>
+          </tr>
+          <tr class="row_height">
+            <td height="30" colspan="8" align="center">&nbsp;</td>
+          </tr>
+</table></td></tr>
+</tbody>
+        </table>     
+</form>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>
+<script language="javascript">	
+account('singlenumber_0','singlepoint_0','singlezf_0');//��ѡ��
+account('manynumber_0','manypoint_0','manyzf_0');//��ѡ��
+account('verdictnumber_0','verdictpoint_0','verdictzf_0');//�ж���
+account('verdictsaynumber_0','verdictsaypoint_0','verdictsayzf_0');//�ж�˵����
+account('recordnumber_0','recordpoint_0','recordzf_0');//¼����
+account('fillnumber_0','fillpoint_0','fillzf_0');//�����
+account('asknumber_0','askpoint_0','askzf_0');//�ʴ���
+account('casenumber_0','casepoint_0','casezf_0');//���������
+account('calculatenumber_0','calculatepoint_0','calculatezf_0');//������
+account('uncertainnumber_0','uncertainpoint_0','uncertainzf_0');//������ѡ����
+</script>	

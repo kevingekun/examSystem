@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	 
+	
+	<!-- 专家管理中 专家新增-->
+	<bean id="zhuanjia" class="com.wondersgroup.technocracy.action.AddExpertAction">
+		<property name="addExpertService" ref="addexpertService"/>
+	</bean> 
+	<bean id="addexpertService"  parent="basicTxProxy">
+		<property name="target" ref="addexpertServiceImpl"/>
+	</bean>
+	
+	<bean id="addexpertServiceImpl" class="com.wondersgroup.technocracy.service.impl.AddExpertServiceImpl">
+		<property name="addExpertDao" ref="addExpertDao"/>
+	</bean>
+	<bean id="addExpertDao" class="com.wondersgroup.technocracy.dao.AddExpertDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 专家管理中 专家维护-->
+	<bean id="maintainexpert" class="com.wondersgroup.technocracy.action.MaintainExpertAction">
+		<property name="maintainExpertService" ref="maintainExpertService"/>
+	</bean>
+	<bean id="maintainExpertService"  parent="basicTxProxy">
+		<property name="target" ref="maintainExpertServiceImpl"/>
+	</bean>
+	<bean id="maintainExpertServiceImpl" class="com.wondersgroup.technocracy.service.impl.MaintainExpertServiceImpl">
+		<property name="maintainExpertDao" ref="maintainExpertDao"/>
+	</bean>
+	<bean id="maintainExpertDao" class="com.wondersgroup.technocracy.dao.MaintainExpertDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 专家管理中 专家查询-->
+	<bean id="query" class="com.wondersgroup.technocracy.action.QueryExpertAction">
+		<property name="queryexpertService" ref="queryExpertService"/>
+	</bean> 
+	<bean id="queryExpertService"  parent="basicTxProxy">
+		<property name="target" ref="queryExpertServiceImpl"/>
+	</bean>
+	
+	<bean id="queryExpertServiceImpl" class="com.wondersgroup.technocracy.service.impl.QueryExpertServiceImpl">
+		<property name="queryexpertDao" ref="QueryExpertDao"/>
+	</bean>
+	<bean id="QueryExpertDao" class="com.wondersgroup.technocracy.dao.QueryExpertDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 专家管理中 专家使用规则-->
+	<bean id="arrange" class="com.wondersgroup.technocracy.action.ArrangeExpertAction">
+		<property name="arrangeExpertService" ref="arrangeExpertService"/>
+	</bean> 
+	<bean id="arrangeExpertService"  parent="basicTxProxy">
+		<property name="target" ref="arrangeExpertServiceImpl"/>
+	</bean>
+	<bean id="arrangeExpertServiceImpl" class="com.wondersgroup.technocracy.service.impl.ArrangeExpertServiceImpl">
+		<property name="arrangeexpertsDao" ref="arrangeExpertDao"/>
+	</bean>
+	<bean id="arrangeExpertDao" class="com.wondersgroup.technocracy.dao.ArrangeExpertsDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 信息统计 -->
+	<bean id="infocount" class="com.wondersgroup.technocracy.action.InfoCountAction">
+		<property name="queryexpertService" ref="queryExpertService"/>
+	</bean>
+</beans>
+

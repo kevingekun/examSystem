@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="IpApproach"
+		table="ip_approach"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="approach_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Name"
+			column="name"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="Memo"
+			column="memo"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+	
+
+		<set name="IpPolicies" inverse="true">
+			<key column="approach_sn"/>
+			<one-to-many class="IpPolicy"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

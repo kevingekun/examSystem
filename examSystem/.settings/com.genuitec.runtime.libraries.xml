@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+  <container path="com.genuitec.runtime.library/com.genuitec.generic_1.4">
+    <jar-attrs id="data/libraryset/1.4//activation.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//javax.servlet.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//javax.servlet.jsp.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//jboss-j2ee.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//jboss-jaxrpc.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//jboss-jsr77.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//jboss-saaj.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//mail.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//namespace.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+    <jar-attrs id="data/libraryset/1.4//xml-apis.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+  </container>
+  <container path="com.genuitec.runtime.library/com.genuitec.generic_5.0">
+    <jar-attrs id="data/libraryset/EE_5/javaee.jar">
+      <attribute name="javadoc_location"/>
+      <attribute name="source-path-root"/>
+      <attribute name="source-path"/>
+    </jar-attrs>
+  </container>
+</project>

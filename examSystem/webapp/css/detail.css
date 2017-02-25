@@ -1,0 +1,85 @@
+a:link {COLOR: #000000; TEXT-DECORATION: none}
+a:visited {COLOR: #800000;TEXT-DECORATION: none}
+a:hover { color: #FF0000}
+a:active { color: #6699ff}
+
+a.h1{ color: #000000; text-decoration: none}
+a.h1:link { color: #000000; text-decoration: none}
+a.h1:visited { color: #000000; text-decoration: none}
+a.h1:active { color: #FF0000; text-decoration: underline}
+a.h1:hover { color: #FF0000; text-decoration: underline}
+
+a.h2{ color: #000000; text-decoration: none}
+a.h2:link { color: #000000; text-decoration: none}
+a.h2:visited { color: #000000; text-decoration: none}
+a.h2:active { color: #FF0000; text-decoration: underline}
+a.h2:hover { color: #FF0000; text-decoration: underline}
+
+
+/**/
+.t1 { font-size: 12.8px; letter-spacing: 1px; font-family: "ËÎÌו"; filter: Glow(Color=#ffffff, Strength=1)}
+.t2 { line-height: 150%; font-size: 10.5pt}
+.t3 { letter-spacing: 1px; font-family: "ËÎÌו";font-size: 10.5pt; border-color: white #57542b #57542b white; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.t4 { font-size: 10.5pt}
+
+/**/
+.c1 { font-size: 12.8px}
+.c2 { font-size: 14.8px}
+
+/**/
+.l1 { line-height: 119%}
+.l2 { line-height: 150%}
+
+/**/
+.button01 { font-size: 9pt; border-color: black black #000000; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+td { font-family: "ËÎÌו"; font-size: 10.5pt}
+br { font-size: 5px}
+form { font-size: 9pt}
+SELECT {
+BACKGROUND: White; FONT: 8pt verdana,arial,sans-serif
+}
+.Gen {
+POSITION: relative
+}
+TABLE {
+POSITION: relative
+}
+.heading {
+BACKGROUND: lightgrey; COLOR: navy
+}
+.mytext {
+BACKGROUND-COLOR: #ffffff; POSITION: relative
+}
+.yToolbar {
+BACKGROUND-COLOR: buttonface; BORDER-BOTTOM: buttonshadow 1px solid; BORDER-LEFT: buttonhighlight 1px solid; BORDER-RIGHT: buttonshadow 1px solid; BORDER-TOP: buttonhighlight 1px solid; HEIGHT: 27px; LEFT: 0px; POSITION: relative; TOP: 0px
+}
+.Btn {
+BACKGROUND-COLOR: buttonface; BORDER-BOTTOM: buttonface 1px solid; BORDER-LEFT: buttonface 1px solid; BORDER-RIGHT: buttonface 1px solid; BORDER-TOP: buttonface 1px solid; HEIGHT: 23px; POSITION: absolute; TOP: 1px; WIDTH: 23px
+}
+.Ico {
+HEIGHT: 22px; LEFT: -1px; POSITION: absolute; TOP: -1px; WIDTH: 22px
+}
+.TBSep {
+BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: buttonhighlight 1px solid; FONT-SIZE: 0px; HEIGHT: 22px; POSITION: absolute; TOP: 1px; WIDTH: 1px
+}
+.TBGen {
+FONT: 8pt verdana,arial,sans-serif; HEIGHT: 22px; POSITION: absolute; TOP: 2px
+}
+.TBHandle {
+BACKGROUND-COLOR: buttonface; BORDER-LEFT: buttonhighlight 1px solid; BORDER-RIGHT: buttonshadow 1px solid; BORDER-TOP: buttonhighlight 1px solid; FONT-SIZE: 1px; HEIGHT: 22px; POSITION: absolute; TOP: 1px; WIDTH: 3px
+}
+.BtnMouseOverUp {
+BACKGROUND-COLOR: buttonface; BORDER-BOTTOM: buttonshadow 1px solid; BORDER-LEFT: buttonhighlight 1px solid; BORDER-RIGHT: buttonshadow 1px solid; BORDER-TOP: buttonhighlight 1px solid; HEIGHT: 23px; POSITION: absolute; TOP: 1px; WIDTH: 24px
+}
+.BtnMouseOverDown {
+BACKGROUND-COLOR: buttonface; BORDER-BOTTOM: buttonhighlight 1px solid; BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: buttonhighlight 1px solid; BORDER-TOP: buttonshadow 1px solid; HEIGHT: 23px; POSITION: absolute; TOP: 1px; WIDTH: 24px
+}
+.BtnDown {
+BACKGROUND-COLOR: gainsboro; BORDER-BOTTOM: buttonhighlight 1px solid; BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: buttonhighlight 1px solid; BORDER-TOP: buttonshadow 1px solid; HEIGHT: 23px; POSITION: absolute; TOP: 1px; WIDTH: 24px
+}
+.IcoDown {
+HEIGHT: 23px; LEFT: 0px; POSITION: absolute; TOP: 0px; WIDTH: 24px
+}
+.IcoDownPressed {
+LEFT: 1px; POSITION: absolute; TOP: 1px
+}

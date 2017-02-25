@@ -1,0 +1,30 @@
+@charset "utf-8";
+/*=======全局公共样式部分======*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,acronym,address,cite,code,del,dfn,em,font,img,strong,sub,sup,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;}
+ol,ul{list-style:none;}
+:focus{outline:0;}
+table{border-collapse:collapse;border-spacing:0;}
+a{blr:expression(this.onFocus=this.blur())}
+a:link,a:visited,a:active{color:#666;text-decoration:none;} a:hover{color:#36c;text-decoration:underline;}
+.fl{float:left;}.fr{float:right;}
+.clear{clear:both;height:0;overflow:hidden;}
+.padtop10{padding-top:10px;} .fz{font-size:0;}
+.ofh{overflow:hidden;} .moa{margin:0 auto;} .ti24{text-indent:24px;}
+
+/*==登录==*/
+body{background:#efeffc url(../images/bbg.gif) top repeat-x;color:#666;font:12px/22px "SimSun","Arial Narrow";text-align:left;}
+.wrap{ background:url(../images/bg.jpg) center no-repeat;margin:0 auto;width:936px; height:117px; margin-top:30px; padding-top:390px;}
+.loginbox{height:53px;width:826px; padding-top:15px; margin:0 auto;}
+.loginbox b{color:#0080aa; font:14px/22px "微软雅黑"; display:block;}
+.login_btn{ display:block; background:url(../images/login_btn.gif) no-repeat; width:80px; height:28px;}
+.log_tbox{ background:url(../images/tbox_bg.gif) no-repeat; text-indent:6px; height:16px; width:164px; padding:6px 0; overflow:hidden;border:none;}
+.log_div{ position:relative;height:28px; width:164px;}
+.min_jp{ position:absolute; display:block; cursor:pointer; top:7px; right:6px; width:18px; height:15px;}
+
+
+
+.footer{ background:url(../images/line.jpg) top no-repeat; width:826px; height:51px; margin:0 auto;}
+.footer p{color:#028bc5; line-height:32px;}
+
+
+

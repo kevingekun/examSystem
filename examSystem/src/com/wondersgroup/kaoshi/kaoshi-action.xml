@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="test" extends="kaoshi">
+
+		<action name="epaperquestion" class="epaperquestion">
+			<result name="success">/paper/paper_question_list.jsp</result>
+		</action>
+		<!-- 成绩排名时查看试卷试题-->
+		<action name="ecjpmquestion" class="epaperquestion" >
+			<result name="success">/kaoshi/cjpm/paper_question_list.jsp</result>
+		</action>
+		
+		<!-- 页面预览-->
+		<action name="previewPaperAction" class="previewPaperAction">
+			<result name="success">/kaoshi/paper/paper_preview.jsp</result>
+		</action>
+		<!-- 审核页面预览-->
+		<action name="previewPaperActionUnchecked" class="previewPaperAction">
+			<result name="success">/kaoshi/paper/paperUnchecked_preview.jsp</result>
+		</action>
+		<!-- 审核不通过的页面预览-->
+		<action name="previewPaperActionUnpass" class="previewPaperAction">
+			<result name="success">/kaoshi/paper/paperUnpass_preview.jsp</result>
+		</action>
+		<!-- 导出试卷-->
+		<action name="Paper_word" class="previewPaperAction">
+			<result name="success">/kaoshi/paper/paper_word.jsp</result>
+		</action>
+		
+		<!-- 导出试卷无答案-->
+		<action name="Paper_out" class="previewPaperAction">
+			<result name="success">/kaoshi/paper/paper_word_noanswer.jsp</result>
+		</action>
+		
+		<!-- 导出标准试卷-->
+		<action name="FileDownload" class="downloadAction" method="FileDownload">
+           <result name="success" type="stream">  
+               <param name="contentType">application/vnd.ms-word</param>
+               <param name="contentDisposition">attachment;fileName="${downloadFileName}"</param> 
+               <param name="inputName">downloadFile</param>
+               <param name="bufferSize">1024</param>
+           </result>
+           <result name="error">/error.jsp</result>
+       </action>
+       <!-- 单独导出答案-->
+		<action name="AnswerDownload" class="downloadAnswerAction" method="FileDownload">
+           <result name="success" type="stream">
+               <param name="contentType">application/vnd.ms-word</param>
+               <param name="contentDisposition">attachment;fileName="${downloadFileName}"</param>
+               <param name="inputName">downloadFile</param>
+               <param name="bufferSize">1024</param>
+           </result>
+           <result name="error">/error.jsp</result>
+       </action>
+		
+		<!-- 删除整份试卷-->
+		<action name="deletePaperAction" class="previewPaperAction"  method="deletepaper">
+			<result name="success">/paper/paper_servelt.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 页面预览时，删除试题-->
+		<action name="delePaperQuestionAction" class="previewPaperAction" method="deleteQuestion">
+			<result name="success">/kaoshi/paper/paper_preview.jsp</result>
+		</action>
+
+		<!-- 页面预览时，到添加试题页面-->
+		<action name="selectQuestionsAction" class="selectQuestionsAction" >
+			<result name="success">/kaoshi/paper/question_list.jsp</result>
+		</action>
+		<!-- 页面预览时添加试题-->
+		<action name="addQuestionsAction" class="selectQuestionsAction" method="addQuestions">
+			<result name="success">/kaoshi/paper/question_list.jsp</result>
+		</action>
+		
+		<action name="copyPaperAction" class="copyPaperAction">
+			<result>/kaoshi/paper/paper_init_auto.jsp</result>
+		</action>
+		
+		<!-- 复制试卷保存 -->
+		<action name="addPaperAction" class="copyPaperAction" method="addPaper">
+			<result type="redirect-action">previewPaperAction?paperid=${newpaperid}</result>
+		</action>
+		
+		<action name="changeState" class="copyPaperAction" method="changeState">
+			<result>/kaoshi/paper/paper_list2.jsp</result>
+		</action>
+		
+		<action name="modify" class="copyPaperAction" method="changeState">
+			<!-- <result>/paper/paper_unpass_list_sucess.jsp</result> -->
+			<result name="success">/paper/paper_check_list.jsp</result>
+		</action>
+		<!-- 试卷审核 -->
+		<action name="papercheck" class="copyPaperAction" method="papercheck">
+			<result>/paper/paper_check_list_sucess.jsp</result>
+		</action>
+		<!-- 查找自己考试过的试卷 -->
+		<action name="myPaperAction" class="myPaperAction" >
+			<result>/kaoshi/paper/my_paper_list.jsp</result>
+		</action>
+		<!-- 查找自己考试过的试卷的试题 -->
+		<action name="myPaperQuestionAction" class="myPaperAction" method="mypaperquestions">
+			<result>/kaoshi/paper/my_paper_question.jsp</result>
+		</action>
+		<!-- 查找每个人考试过的试卷的试题 -->
+		<action name="answerPaperQuestionAction" class="myPaperAction" method="mypaperquestions">
+			<result>/kaoshi/paper/answer_paper_question.jsp</result>
+		</action>
+		
+		<!-- 查看考试人的所有答卷 -->
+		<action name="usercjpmAction" class="cjpmAction" method="findAllanswerpaperbyUserId">
+			<result>/kaoshi/cjpm/cjpm.jsp</result>
+		</action>
+		
+		<!-- 查看多个试卷的考试情况 -->
+		<action name="selectZhuHeAction" class="cjpmAction" method="selectZhuHeAnswerpaper">
+			<result>/kaoshi/cjpm/all.jsp</result>
+		</action>
+		<!-- 查询所有小组平均分统计报表 -->
+		<action name="findAllGroupAnswerpaper" class="cjpmAction" method="findAllGroupAnswerpaper">
+			<result>/kaoshi/cjpm/allgroup.jsp</result>
+		</action>
+		
+		<!-- 未参考人员列表 -->
+		<action name="nopartinexam" class="cjpmAction" method="nopartinexam">
+			<result>/kaoshi/cjpm/noPartList.jsp</result>
+		</action>
+		
+		
+		<!-- 全体成绩报表 -->
+		<action name="findAllAnswerpaper" class="cjpmAction" method="findAllUserorGroupAnswerpaper">
+			<result>/kaoshi/cjpm/all.jsp</result>
+		</action>
+		
+		<action name="myPaperQuestionWord" class="myPaperAction" method="mypaperquestions">
+			<result>/kaoshi/paper/MyPaperWord.jsp</result> 
+		</action>
+		
+		<action name="examPaperAction" class="examPaperAction">
+			<result>/kaoshi/paper/examonline.jsp</result>
+		</action>
+		<!-- 
+		<action name="examAction" class="examPaperAction" method="creatQuestions">
+			<result></result>
+		</action>
+		 -->
+		 <!--整份考试  -->
+		 <action name="examAllAction" class="examPaperAction" method="exam">
+			<result>/kaoshi/paper/examEnter.jsp</result>
+		</action>
+		<!-- 考生点参加考试时验证，监考员是否确认开始考试 -->
+		<action name="checkExam" class="examPaperAction" method="checkExam"></action>
+		
+		 <action name="examAction" class="examPaperAction" method="creatQuestions">
+			<result>/kaoshi/paper/examTitle.jsp</result>
+		</action>
+		
+		 <!--民主测评  -->
+		 <action name="cepingAllAction" class="examPaperAction" method="ceping">
+			<result>/kaoshi/paper/cepingEnter.jsp</result>
+		</action>
+		
+		 <!--民主测评列表  -->
+		 <action name="cepingfindAction" class="examPaperAction" method="findceping">
+			<result>/kaoshi/paper/mingzhucepingOnline.jsp</result>
+		</action>
+		
+		<!-- 找到类型下的题目 -->
+		
+		<action name="findtype" class="examPaperAction" method="findtype">
+			<result>/kaoshi/paper/examList.jsp</result>
+		</action>
+		
+		
+		<!-- 找到下一个题目 -->
+		
+		<action name="findQuestions" class="examPaperAction" method="findQuestions">
+			<result>/kaoshi/paper/examContent.jsp</result>
+		</action>
+		
+		<action name="examUnfinish" class="examPaperAction" method="findUnfinish">
+			<result>/kaoshi/paper/examTitle.jsp</result>
+		</action>
+		
+		
+		<!-- 新的结束考试 -->
+		<action name="exampaperActionover" class="examPaperAction" method="examover">
+			  <result type="redirect-action">myPaperAction</result>    
+		</action>
+		<action name="checkResult" class="examPaperAction" method="checkResult">
+			<result>/kaoshi/paper/autoClose.jsp</result>
+		</action>		
+		<action name="exampaperActioncommit" class="examPaperAction" method="exampaper">
+			 <!--   <result type="redirect-action">myPaperAction</result>-->
+			  <result >/kaoshi/paper/autoClose.jsp</result>
+			    <result name="invalid.token">test.jsp</result>   
+                  <interceptor-ref name="token"></interceptor-ref>   
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+		<!-- 在把试卷的状态改为考试中的时候提交拨测试卷 -->
+		<action name="examTelephonePaper" class="examPaperAction" method="examTelephonePaper">
+			<result>/kaoshi/paper/paper_list2.jsp</result>
+		</action>
+		
+		<action name="tosypaperAction" class="sypaperAction">
+			<result>/kaoshi/answer/sy_paper_list.jsp</result>
+		</action>
+
+		<action name="toViewQuestion" class="sypaperAction" method="toViewQuestion">
+			<result>/kaoshi/answer/sy_paper.jsp</result>
+		</action>
+		<!-- 审阅 -->
+		<action name="defenQuestion" class="sypaperAction" method="eanswerQuestion">
+			<result type="redirect-action">tosypaperAction?flag=${flag}</result>
+		</action>
+		<!-- 提交 -->
+		<action name="commitQuestion" class="sypaperAction" method="commit">
+			<result>/kaoshi/answer/sy_paper_list.jsp</result>
+		</action>
+		
+		<!-- 答卷查询 -->
+
+		<action name="answerPaperQuerryAction" class="answerPaperQuerryAction">
+			<result>/kaoshi/answer/answerpaper.jsp</result>
+		</action>
+		
+		
+		<!--  
+		<action name="answerPaperListAction" class="answerPaperQuerryAction" >
+			<result>/kaoshi/answer/answerpaper_list.jsp</result>
+		</action>
+		-->
+		<!-- 答卷排名-->
+		<action name="cjpmAction" class="cjpmAction">
+			<result>/kaoshi/cjpm/cjpm.jsp</result>
+		</action>
+		<!-- 成绩排名excel导出 -->
+		<!-- <action name="cjpmexcelAction" class="cjpmAction">
+			<result>/kaoshi/cjpm/cjpmexcel.jsp</result>
+		</action> -->
+		<action name="cjpmexcelAction" class="cjpmAction" method="exportExcel">
+			<!-- Result返回结果为InputSream对象，并处理下载文件的类型 -->
+			<result name="success" type="stream">
+				 <!-- contentType 指定下载文件的文件类型 —— application/vnd.ms-excel -->
+				<param name="contentType">application/vnd.ms-excel</param>
+				 <!--  返回流 excelStream为action中的流变量名称 -->
+                <param name="inputName">excelStream</param>
+                <!-- filename指定生成的文件名字 -->
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">/error.jsp</result>
+		</action>
+		<!-- 错误率导出excel -->
+		<action name="wrongPercentExcelAction" class="cjpmAction" method="wrongPercentExport">
+			<!-- Result返回结果为InputSream对象，并处理下载文件的类型 -->
+			<result name="success" type="stream">
+				 <!-- contentType 指定下载文件的文件类型 —— application/vnd.ms-excel -->
+				<param name="contentType">application/vnd.ms-excel</param>
+				 <!--  返回流 excelStream为action中的流变量名称 -->
+                <param name="inputName">excelStream</param>
+                <!-- filename指定生成的文件名字 -->
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">/error.jsp</result>
+		</action>
+		<!-- 下放试卷错误率导出excel -->
+		<action name="wrongPercentExcelAction_xf" class="cjpmAction" method="wrongPercentExport_xf">
+			<!-- Result返回结果为InputSream对象，并处理下载文件的类型 -->
+			<result name="success" type="stream">
+				 <!-- contentType 指定下载文件的文件类型 —— application/vnd.ms-excel -->
+				<param name="contentType">application/vnd.ms-excel</param>
+				 <!--  返回流 excelStream为action中的流变量名称 -->
+                <param name="inputName">excelStream</param>
+                <!-- filename指定生成的文件名字 -->
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">/error.jsp</result>
+		</action>
+		
+		<!-- 查看错误率-->
+		<action name="wrongPercent" class="cjpmAction" method="findwrongPercent">
+			<result name="success">/kaoshi/cjpm/wrongPercent_list.jsp</result>
+			<result name="success_xf">/kaoshi/cjpm/wrongPercent_list_xf.jsp</result>
+		</action>
+		<!-- 答卷排名查询-->
+		<action name="answerpaperpmquery" class="answerpaperpmquery">
+			<result>/kaoshi/answer/px_answer_paper.jsp</result>
+		</action>
+		<!-- 成绩上传一体化 -->
+		<action name="uploadgrade_index" class="uploadgrade" method="toindex">
+			<result>/kaoshi/answer/uploadgrade.jsp</result>
+		</action>
+		<action name="gradeSearch" class="gradeSearch">
+			<result>/kaoshi/answer/gradeSearch.jsp</result>
+		</action>
+		<action name="uploadgrade" class="uploadgrade">
+			<result>/kaoshi/answer/uploadgrade.jsp</result>
+		</action>
+		<!-- 成绩上传鉴定中心 -->
+		<action name="uploadgradeToJdzx" class="uploadgradeToJdzx">
+			<result>/kaoshi/answer/uploadgradeToJdzx.jsp</result>
+		</action>
+		<!-- 修改分数 -->
+		<action name="changeGrade" class="uploadgrade" method="changeGrade"></action>
+		<!-- 上传到一体化 -->
+		<action name="uploadtoyth" class="uploadgrade" method="uploadToYth"></action>
+		<!-- 上传到一体化 -->
+		<action name="uploadtoythByWs" class="uploadgrade" method="uploadToYthByWs"></action>
+		<!-- 上传到鉴定中心 -->
+		<action name="uploadToJdzxByWs" class="uploadgradeToJdzx" method="uploadToJdzxByWs"></action>
+		
+		<!-- 练习题查询-->
+		<action name="queryOneQuestion" class="lianxiAction" method="queryOneQuestion">
+			<result>/kaoshi/lx/lianxi_question.jsp</result>
+		</action>
+		<!-- 练习题开始-->
+		<action name="selectedQuestion" class="lianxiAction" method="selectedQuestion">
+			<result>/kaoshi/lx/lianxi_kaishi.jsp</result>
+		</action>
+		<!-- 记录练习信息 -->
+		<action name="lianxi" class="lianxiAction">
+			<result name="success">/kaoshi/lx/lianxi_question.jsp</result>
+			<result name="questionisnull" type="redirect-action">lianxiresult</result>
+		</action>
+		<!-- 结束练习 -->
+		<action name="lianxiresult" class="lianxiAction" method="save">
+			<result>/kaoshi/lx/lianxi_result.jsp</result>
+		</action>
+		
+		<!-- 我的练习题列表 -->
+		<action name="lianxiquestionQuery" class="lianxiquestionQuery" >
+			<result>/kaoshi/lx/lianxi_question_list_my.jsp</result>
+		</action>
+		
+		<!-- 我的练习题详细信息 -->
+		<action name="viewlianxiquestion" class="lianxiquestionQuery" method="myLianxi">
+			<result>/kaoshi/lx/lianxi_question_list.jsp</result>
+		</action>
+		
+		<!-- 人工组卷 -->
+		<action name="rgzjAction_addpaper" class="rgzjAction" method="addepaper">
+			<result type="redirect-action">previewPaperAction?paperid=${paperid}</result>
+		</action> 
+		<!-- 
+		<action name="to_addquestion" class="rgzjAction">
+			<result>/kaoshi/rgzj/addquestion.jsp</result>
+		</action>
+		 -->
+		<action name="rgzjAction_addquestion" class="rgzjAction" method="addquestions">
+			<result type="redirect-action">to_addquestion?paperid=${paperid}</result>
+		</action>
+		<!-- 显示试题详细信息 -->
+		<action name="questionDetailshow" class="questionDetailshow">
+			<result>/kaoshi/question/question_details.jsp</result>
+		</action>
+		
+		<!-- 显示建议详情 -->
+		<action name="findAdvice" class="questionDetailshow" method="findAdvice">
+			<result>/kaoshi/question/advice_detail.jsp</result>
+		</action>
+		
+		<!-- 显示录音题 -->
+		<action name="luyintilist" class="luyintilist">
+			<result>/question/luyinti_list.jsp</result>
+		</action>
+		<!--  文号查看 -->
+		<action name="wenhao_view" class="wenhao_view" method="toViewZcfg">
+			<result>/kaoshi/question/law2.jsp</result>
+		</action>
+		<action name="toview_node" class="wenhao_view" method="toViewZcfg">
+			<result>/kaoshi/question/policy.jsp</result>
+		</action>
+		<action name="toViewWdzl" class="wenhao_view" method="toViewWdzl">
+			<result>/faq/faq.jsp</result>
+		</action>
+		<action name="toViewXxzl" class="wenhao_view" method="toViewXxzl">
+			<result>/case/case.jsp</result>
+		</action>
+		<action name="toViewBszn" class="wenhao_view" method="toViewBszn">
+			<result>/service/service.jsp</result>
+		</action>
+		<!--  显示修改过的政策 -->
+		<action name="toView_UpdatedQuestions" class="toView_UpdatedQuestions" method="findPolicyNode">
+			<result>/question/PolicyNode_modify.jsp</result>
+		</action>
+		<!-- 将修改过的政策 的状态置为初始-->
+		<action name="modefy_state" class="toView_UpdatedQuestions" method="modefystate">
+			<result  type="redirect-action">toView_UpdatedQuestions</result>
+		</action>
+		
+		<!--  显示修改过的政策的相应的试题 -->
+		<action name="toView_st" class="toView_UpdatedQuestions" method="findst">
+			<result>/question/PolicyNode_st.jsp</result>
+		</action>
+		
+		<!--  显示修改过的办事指南 -->
+		<action name="toView_UpdatedService" class="toView_UpdatedQuestions" method="findServiceNode">
+			<result>/question/ServiceNode_modify.jsp</result>
+		</action>
+		
+		<!-- 将修改过的办事 的状态置为初始-->
+		<action name="modefy_Sstate" class="toView_UpdatedQuestions" method="modefySstate">
+			<result  type="redirect-action">toView_UpdatedService</result>
+		</action>
+		
+		<!--  显示修改过的办事的相应的试题 -->
+		<action name="toView_Sst" class="toView_UpdatedQuestions" method="findSst">
+			<result>/question/ServiceNode_st.jsp</result>
+		</action>
+		
+		<!--  显示修改过的问答资料 -->
+		<action name="toView_UpdatedFaq" class="toView_UpdatedQuestions" method="findFaqNode">
+			<result>/question/FaqNode_modify.jsp</result>
+		</action>
+		
+		<!--  显示修改过的问答的相应的试题 -->
+		<action name="modefy_Fstate" class="toView_UpdatedQuestions" method="modefyFstate">
+			<result  type="redirect-action">toView_UpdatedFaq</result>
+		</action>
+		
+		<!--  显示修改过的问答的相应的试题 -->
+		<action name="toView_Fst" class="toView_UpdatedQuestions" method="findFst">
+			<result>/question/FaqNode_st.jsp</result>
+		</action>
+		
+		
+		<!--  显示修改过的学习资料 -->
+		<action name="toView_UpdatedCase" class="toView_UpdatedQuestions" method="findCaseNode">
+			<result>/question/CaseNode_modify.jsp</result>
+		</action>
+		
+		<!--  显示修改过的学习的相应的试题 -->
+		<action name="modefy_Cstate" class="toView_UpdatedQuestions" method="modefyCstate">
+			<result  type="redirect-action">toView_UpdatedCase</result>
+		</action>
+		
+		<!--  显示修改过的学习的相应的试题 -->
+		<action name="toView_Cst" class="toView_UpdatedQuestions" method="findCst">
+			<result>/question/CaseNode_st.jsp</result>
+		</action>
+		
+		<!-- 新加的ajax -->
+		<action name="findquestionsByajax" class="examPaperAction" method="QuestionsByajax">
+		</action>
+	</package>
+	
+	<package name="ajax" extends="json-default">
+				<!-- 设置未参加考试原因 -->
+		<action name="nopartinexamCause" class="examPaperAction" method="nopartinexamCause">
+			<result type="json"></result>
+		</action>
+		<action name="findtypefenshu" class="findtypefenshu">
+			<result type="json">
+				<param name="root">typeFenshu</param> 
+			</result>
+		</action>
+		<action name="updatesurplus" class="findtypefenshu" method="updateSurplus">
+			<result type="json">
+				<param name="root">returnmessage</param> 
+			</result>
+		</action>
+		<!--添加答案到临时表addanswertemp  pingAddress-->
+		<action name="addanswertemp" class="findtypefenshu" method="addAnswerTemp">
+			<result type="json">
+			<param name="root">tempflag</param> 
+			</result>
+		</action>
+		<!--添加答案到临时表addanswertemp  pingAddress-->
+		<action name="pingip" class="findtypefenshu" method="pingAddress">
+			<result type="json">
+			<param name="root">listjson</param> 
+			</result>
+		</action>
+		<action name="findNum" class="findNum">
+			<result type="json"></result>
+		</action>
+		<!-- 新加的ajax -->
+		<!-- 
+		<action name="findquestionsByajax" class="examPaperAction" method="QuestionsByajax">
+		</action>
+		 -->
+		
+		<action name="findQuestionCountByType" class="findQuestionCountByType">
+			<result type="json"></result>
+		</action>
+		<action name="addquestxgcoul" class="addquestxgcoul">
+			<result type="json"></result>
+		</action>
+		<!-- 根据工种名称查找工种是否存在 -->
+		<action name="findProfessionByName" class="professionAction" method="getProfessionByName"></action>
+		<!-- 根据工种名称及等级查找题库中否存在相关记录 -->
+		<action name="findTkByjobnameAndDj" class="professionAction" method="findTkByjobnameAndDj"></action>
+		<action name="findTkByjobname" class="professionAction" method="findTkByjobname"></action>
+		
+		<action name="paperAdd" class="paperSetAction" method="paperAdd"></action>
+	</package>
+</struts>

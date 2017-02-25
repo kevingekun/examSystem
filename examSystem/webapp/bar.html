@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>bar</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #97c2cf;
+}
+-->
+</style>
+<script>
+function fr(){
+	var f = parent.document.getElementById("fr").cols;
+	
+	if(f=="208,5,*"){
+		parent.document.getElementById("fr").cols = "0,5,*";
+		document.getElementById("di").className="bar1"
+	}else{
+		parent.document.getElementById("fr").cols = "208,5,*";
+		document.getElementById("di").className="bar"
+	}
+	
+}
+function onLoad(){
+	document.getElementById("di").focus();
+}
+</script>
+</head>
+<body>
+<table width="5" border="0" cellspacing="0" cellpadding="0" height="70%">
+  <tr>
+    <td valign="middle" >
+    	<div class="bar" style="CURSOR: pointer; height:59px;" 
+    		title="收起菜单" onClick="fr()" id="di"></div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

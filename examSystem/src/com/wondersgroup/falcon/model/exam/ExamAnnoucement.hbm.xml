@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.exam">
+
+	<class name="ExamAnnoucement" table="EXAM_ANNOUNCEMENT">
+		<id name="id" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="title" type="string" column="TITLE"/>
+		<property name="content" type="string" column="CONTENT"/>
+		<property name="sendtime" type="java.util.Date" column="SENDTIME"/>				
+		<property name="effectstarttime" type="java.util.Date" />	
+		<property name="effectendtime" type="java.util.Date" />	
+		<many-to-one name="sender" column="SENDER" class="com.wondersgroup.falcon.model.archives.Users"/>
+		<many-to-one name="exampaper" column="EXAMPAPERID" class="ExamPaper"/>
+	</class>
+	
+</hibernate-mapping>

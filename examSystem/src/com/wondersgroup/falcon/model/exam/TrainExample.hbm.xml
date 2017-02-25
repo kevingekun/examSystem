@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.exam">
+
+	<class name="TrainExample">
+
+		<id name="id" type="java.lang.String">
+			<generator class="uuid" />
+		</id>		
+		<property name="title" column="title" type="string" />
+		<property name="content" column="content" type="clob" />	
+		<many-to-one name="sender" class="com.wondersgroup.falcon.model.archives.Users" lazy="false" />
+		<many-to-one name="realquestion" class="com.wondersgroup.falcon.model.exam.ExamRealQuestions" lazy="false" />
+		<property name="sendtime" type="java.util.Date" />			
+	</class>
+</hibernate-mapping>

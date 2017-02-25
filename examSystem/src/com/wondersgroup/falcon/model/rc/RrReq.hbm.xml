@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RrReq"
+		table="rr_req"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="req_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="ReqName"
+			column="req_name"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="ReqInfo"
+			column="req_info"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="ReqObj"
+			column="req_obj"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="Confirm"
+			column="confirm"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+		<many-to-one
+			name="DeptSn"
+			column="dept_sn"
+			class="RrDept"
+			not-null="false"
+		>
+		</many-to-one>
+	
+
+		<set name="RrSubjects" inverse="true" lazy="true">
+			<key column="req_sn"/>
+			<one-to-many class="RrSubject"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

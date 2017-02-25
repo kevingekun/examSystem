@@ -1,0 +1,105 @@
+BODY {
+	MARGIN: 0px
+}
+BODY,td {
+    font-size: 12px;
+}
+	a:link{
+		color: #0000CC;
+		font-size:15px;
+		text-decoration: none;
+	}
+	a:visited{
+		color:#0000CC; 
+		font-size:15px;
+		text-decoration: none;		
+	}	
+	a:hover{
+		color: #666;
+		font-size:15px;
+		text-decoration: underline;
+	}	
+	
+	a.b:link{
+		color: #000000;
+		font-size:15px;
+		text-decoration: none;
+	}
+	a.b:visited{
+		color:#000000; 
+		font-size:15px;
+		text-decoration: none;		
+	}	
+	a.b:hover{
+		color: #666;
+		font-size:15px;
+		text-decoration: underline;
+	}	
+	
+	fa:visited {
+		 COLOR:#666;TEXT-DECORATION: none
+	}
+	
+	h1{
+	margin:0px;
+	height:70px;
+	line-height:70px;
+	background: #6699CC;
+	color: #fff;
+	border-bottom:solid 1px #006699;
+	}
+	
+	.search{
+	background:#ddeeff;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-bottom:solid 1px #9ABBCB;
+	}
+	form{margin:0;
+	}
+	.result{
+	width:70%;
+		clear:both;
+	margin-bottom:20px;
+	margin-top:20px;}
+	.result h3{
+			margin:0px;
+			line-height: 25px;
+			font-size: 1.3em;
+	}
+	.linked {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.linked a{
+	
+	margin-right: 10px;
+	border:solid 1px #CCCCCC;
+	padding:3px 10px 3px 10px;
+	text-decoration: none;
+	}
+	.linked a:hover{
+	
+	margin-right: 10px;
+	border:solid 1px #0066FF;
+		background: #0066FF;
+		color: #fff;
+	
+	}
+	hr{
+	
+		border: dashed 1px #ddd;
+			display: block;
+			background:#fff;
+			height: 1px;
+	}
+	.footer{
+		font-size:0.8em;
+		border-top:solid 1px #ddd;
+		padding-top:10px;
+	}
+	.footer a{color:#666;
+	text-decoration: none;}
+	.footer a:hover{
+		text-decoration: underline;
+	}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.archives">
+
+	<class name="ExternalAnnex" table="EXTERNAL_ANNEX" >
+		<id name="id" column="ID" type="java.lang.Long">
+			<generator class="native">
+				<param name="sequence">EXTERNALANNEX_SEQ</param>
+			</generator>
+		</id>
+		<property name="uploadTime" type="java.util.Date">
+            <column name="UPLOADTIME"/>
+        </property>
+		<property name="unzipTime" type="java.util.Date">
+            <column name="UNZIPTIME"/>
+        </property>
+		<property name="unzipState" type="java.lang.Long">
+            <column name="UNZIPSTATE"/>
+        </property>
+		<property name="filePath" type="java.lang.String">
+            <column name="FILEPATH"/>
+        </property>
+       	<property name="fileName" type="java.lang.String">
+            <column name="FILENAME"/>
+        </property> 
+       	<property name="fileText" type="java.sql.Blob">
+            <column name="FILETEXT"/>
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE"/>
+        </property>  
+	</class>
+	 
+</hibernate-mapping>

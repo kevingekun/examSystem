@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.archives">
+
+	<class name="Users" >
+		<id name="id" column="user_id" type="java.lang.Long">
+			<generator class="native" />
+		</id>
+		<property name="username" type="string" unique="true" not-null="true" length="20"/>
+		<property name="realname" type="string" length="20"/>
+		<property name="password" type="string" not-null="true" length="20"/>
+		<property name="agentId" type="string" length="10"/>
+		<property name="deviceDn" type="string" length="10"/>
+		<property name="status" type="byte" />
+		<property name="enabled" type="byte"/>
+	</class>
+	
+ 
+</hibernate-mapping>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="IpPolicy"
+		table="ip_policy"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="policy_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Subject"
+			column="subject"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="Content"
+			column="content"
+			type="string"
+			not-null="false"
+			length="1024"
+		/>
+		<property
+			name="Object"
+			column="object"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="Credat"
+			column="credat"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<property
+			name="Begin"
+			column="begin"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<property
+			name="End"
+			column="end"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<many-to-one
+			name="ApproachSn"
+			column="approach_sn"
+			class="IpApproach"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+		<many-to-one
+			name="User"
+			column="USER_ID"
+			class="com.wondersgroup.falcon.model.auth.User"
+			not-null="false"
+		>
+		</many-to-one>
+	
+
+		<set name="IpInforms" inverse="true">
+			<key column="policy_sn"/>
+			<one-to-many class="IpInform"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

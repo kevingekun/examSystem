@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.citizeninfo">
+
+	<class name="PersonInfo" table="PersonInfo">
+		<id name="id" column="id" type="java.lang.Long">
+			<generator class="native">
+				<param name="sequence">personinfo_sequence</param>
+			</generator>
+		</id>
+		<property name="callid" type="java.lang.Long"/>
+		<property name="dialingno" length="20"/>
+		<property name="adduser" type="java.lang.Long"/>
+		<property name="name" length="20"/>
+		<property name="idcard" length="18"/>
+		<property name="local"/>
+		<property name="workstatus"/>
+		<property name="company" length="200"/>
+		<property name="companyproperty" length="1"/>
+		<property name="mobile" length="14"/>
+		<property name="PASNumber" length="14"/>
+		<property name="telephone" length="30"/>
+		<property name="email" length="60"/>
+		<property name="receivemessage" />
+		<property name="receivemail"/>
+		<property name="dt" type="java.util.Date"/>
+		<property name="way" length="2"/>
+		<property name="comments" length="400"/>
+		
+		<property name="groupId" type="java.lang.Long"/>
+		
+		<set name="rrResources" inverse="true" lazy="true">
+			<key column="CALLER_SN"/>
+			<one-to-many class="com.wondersgroup.falcon.model.rc.RrResource"/>
+		</set>
+		
+		
+		<!--
+		<property name="isZctz" length="1"/>
+		<property name="isShdc" length="1"/>
+		
+		<many-to-one 
+			name="groupId" 
+			class="com.wondersgroup.falcon.model.citizeninfo.DicInfo"
+			cascade="none"
+			outer-join="false"
+			update="true"
+			insert="true"
+			access="property"
+			column="groupId"
+			not-null="false"
+			lazy="false"/>	
+				-->
+	</class>
+
+	<class name="CompanyInfo" table="CompanyInfo">
+		<id name="id" column="id">
+			<generator class="native">
+				<param name="sequence">companyinfo_sequence</param>
+			</generator>
+		</id>
+		
+		<property name="callid" type="java.lang.Long"/>
+		<property name="dialingno" length="20"/>
+		<property name="adduser" type="java.lang.Long"/>
+		<property name="name" length="200"/>
+		<property name="property" length="40"/>
+		<property name="telephone" length="30"/>
+		<property name="comments" length="400"/>
+		<property name="address" length="200"/>
+		<property name="postcode" length="20"/>
+		<property name="person" length="20"/>
+		<property name="receivemessage" length="2"/>
+		<property name="receivemail" length="2"/>
+		<property name="email" length="60"/>
+		<property name="dt" type="java.util.Date"/>
+		<property name="mobile" length="30"/>
+		<set name="rrResources" inverse="true" lazy="true">
+			<key column="COMPANY_SN"/>
+			<one-to-many class="com.wondersgroup.falcon.model.rc.RrResource"/>
+		</set>
+		<property name="groupId" type="java.lang.Long"/>
+	</class>
+	
+	<class name="DicInfo" table="DIC_INFO">
+		<id name="id" column="id">
+			<generator class="native">
+				<param name="sequence">SEQ_DICINFO</param>
+			</generator>
+		</id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" length="80" />
+        </property>
+        <property name="type" type="char">
+            <column name="TYPE" />
+        </property>
+        <property name="removed" type="char">
+            <column name="REMOVED" />
+        </property>
+    </class>
+ 
+</hibernate-mapping>

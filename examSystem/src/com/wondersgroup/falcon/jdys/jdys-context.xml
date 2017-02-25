@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<description>jiandingyaosu Context</description>
+	<!-- 鉴定要素 -->
+	<bean id="jdys" class="com.wondersgroup.falcon.jdys.action.JdAction">
+		<property name="jdService" ref="jdService"></property>
+	</bean>
+	<bean id="relatedPaper" class="com.wondersgroup.falcon.jdys.action.RelatedPaperAction">
+		<property name="jdService" ref="jdService"></property>
+	</bean>
+	<bean id="jdService" parent="basicTxProxy">
+		<property name="target" ref="jdServiceImpl"></property>
+	</bean>
+	<bean id="jdServiceImpl" class="com.wondersgroup.falcon.jdys.serviceImpl.JdServiceImpl">
+		<property name="jdDAO" ref="jdDao"></property>
+	</bean>
+	<bean id="jdDao" class="com.wondersgroup.falcon.jdys.dao.JdDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="ztsj" class="com.wondersgroup.falcon.jdys.action.ztzjAction">
+		<!-- <property name="jdService" ref="jdService"></property> -->
+	</bean>
+</beans>
+

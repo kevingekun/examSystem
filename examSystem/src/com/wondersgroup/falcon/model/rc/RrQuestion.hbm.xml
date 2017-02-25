@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RrQuestion"
+		table="rr_question"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="question_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="QuestionCont"
+			column="question_cont"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="QuestionType"
+			column="question_type"
+			type="string"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="AnswerType"
+			column="answer_type"
+			type="string"
+			not-null="false"
+			length="2"
+		/>
+		<many-to-one
+			name="SubjectSn"
+			column="subject_sn"
+			class="RrSubject"
+			not-null="false"
+		>
+		</many-to-one>
+	
+
+		<set name="RrAnswers" inverse="true" lazy="true" order-by="answer_sn">
+			<key column="question_sn"/>
+			<one-to-many class="RrAnswer"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

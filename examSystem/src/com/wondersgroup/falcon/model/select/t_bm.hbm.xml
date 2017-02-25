@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.select">
+
+	<class name="T_bm" table="t_bm">
+		<id name="bmid" type="java.lang.String">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="bmmc" type="string" length="255"/>
+		
+		
+	</class>
+	
+	
+</hibernate-mapping>

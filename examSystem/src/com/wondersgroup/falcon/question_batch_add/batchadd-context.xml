@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<description>question batch add Context</description>
+	<bean id="batchAddAction" class="com.wondersgroup.falcon.question_batch_add.action.BatchAddAction">
+		<property name="batchAddService" ref="batchAddService"></property>
+	</bean>
+	<bean id="batchAddService" parent="basicTxProxy">
+		<property name="target" ref="batchAddServiceImpl"></property>
+	</bean>
+	<bean id="batchAddServiceImpl" class="com.wondersgroup.falcon.question_batch_add.serviceImpl.BatchAddServiceImpl">
+		<property name="batchAddDAO" ref="batchAddDAO"></property>
+	</bean>
+	<bean id="batchAddDAO" class="com.wondersgroup.falcon.question_batch_add.dao.BatchAddDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="templateDownload" class="com.wondersgroup.falcon.question_batch_add.action.TemplateDownloadAction">
+	</bean>
+	
+	<bean id="info_jdys_Download" class="com.wondersgroup.falcon.question_batch_add.action.Info_Jdys_DownloadAction">
+		<property name="batchAddService" ref="batchAddService"></property>
+	</bean>
+	
+</beans>
+

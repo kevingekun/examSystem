@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<description>kaoshi Context</description>
+	<!-- =================================================================== -->
+	<!-- 集合 Bean Transaction Proxy Define                                -->
+	<!-- =================================================================== -->
+	<bean id="userState" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="1" value="正常"></entry>
+				<entry key="2" value="锁定"></entry>
+				<entry key="3" value="不可用"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<!-- =================================================================== -->
+	<!-- Action Bean Transaction Proxy Define                                -->
+	<!-- =================================================================== -->
+	<bean id="topMenuViewAction" class="com.wondersgroup.popedom.action.MenuViewAction" singleton="false">
+		<property name="euserMenusService" ref="euserMenusService"/>
+	</bean>
+	
+	<bean id="eauthority" class="com.wondersgroup.popedom.action.AuthorityAction" singleton="false">
+		<property name="eauthorityService" ref="eauthorityService"></property>
+	</bean>
+	
+	<bean id="userMeanuTreeView" class="com.wondersgroup.popedom.action.UserMeanuTreeView" singleton="false">
+		<property name="euserMenusService" ref="euserMenusService"></property>
+		<property name="eauthorityService" ref="eauthorityService"></property>
+	</bean>
+	
+	<bean id="userview" class="com.wondersgroup.popedom.action.UserAction" singleton="false">
+		<property name="euserService" ref="euserService"></property>
+		<property name="userState" ref="userState"></property>
+		<property name="eauthorityService" ref="eauthorityService"></property>
+	</bean>
+	
+	<bean id="updateAuthUser" class="com.wondersgroup.popedom.action.AuthorityUserAction" singleton="false">
+		<property name="euserService" ref="euserService"></property>
+		<property name="eauthorityService" ref="eauthorityService"></property>
+	</bean>
+	<!-- 考务安排查询 -->
+	<bean id="examarrangement" class="com.wondersgroup.popedom.action.ExamArrangementAction">
+		<property name="addstaffService" ref="AddStaffService"/>
+	</bean>
+	<!-- 鉴定批次考试安排 -->
+	<bean id="arrange_jdpc" class="com.wondersgroup.popedom.action.Arrange_jdpcAction">
+		<property name="addstaffService" ref="AddStaffService"/>
+	</bean>
+	
+	<!-- 考生人员新增 -->
+	<bean id="addstaff" class="com.wondersgroup.popedom.action.AddStaffAction">
+		<property name="addstaffService" ref="AddStaffService"/>
+	</bean> 
+	<bean id="AddStaffService"  parent="basicTxProxy">
+		<property name="target" ref="AddStaffServiceImpl"/>
+	</bean>
+	
+	<bean id="AddStaffServiceImpl" class="com.wondersgroup.popedom.service.impl.AddStaffServiceImpl">
+		<property name="addStaffDao" ref="AddStaffDao"/>
+	</bean>
+	<bean id="AddStaffDao" class="com.wondersgroup.popedom.dao.AddStaffDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!-- 人员管理中  人员新增 保存姓名 密码 -->
+	<bean id="addexaminee" class="com.wondersgroup.popedom.action.AddExamineeAction">
+		<property name="addexamineeService" ref="addexamineeService"/>
+	</bean> 
+	<bean id="addexamineeService"  parent="basicTxProxy">
+		<property name="target" ref="addexamineeServiceImpl"/>
+	</bean>
+	
+	<bean id="addexamineeServiceImpl" class="com.wondersgroup.popedom.service.impl.AddExamineeServiceImpl">
+		<property name="addExamineeDao" ref="addExamineeDao"/>
+	</bean>
+	<bean id="addExamineeDao" class="com.wondersgroup.popedom.dao.AddExamineeDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	
+	
+	
+	
+	<!-- =================================================================== -->
+	<!-- service Bean Implement Define                                            -->
+	<!-- =================================================================== -->
+	
+	<bean id="euserMenusServiceImpl" class="com.wondersgroup.popedom.service.impl.EUserMenusServiceImpl" >
+		<property name="euserMenusDao" ref="euserMenusDao"/>
+	</bean>
+	<bean id="euserMenusService" parent="basicTxProxy">
+		<property name="target" ref="euserMenusServiceImpl"/>
+	</bean>
+	
+	<bean id="eauthorityServiceImpl" class="com.wondersgroup.popedom.service.impl.EAuthorityServiceImpl" >
+		<property name="eauthoritydao" ref="eauthorityDao"/>
+	</bean>
+	<bean id="eauthorityService" parent="basicTxProxy">
+		<property name="target" ref="eauthorityServiceImpl"/>
+	</bean>
+	
+	<bean id="euserServiceImpl" class="com.wondersgroup.popedom.service.impl.EUserServiceImpl" >
+		<property name="euserDao" ref="euserDao"/>
+	</bean>
+	<bean id="euserService" parent="basicTxProxy">
+		<property name="target" ref="euserServiceImpl"/>
+	</bean>
+	
+	
+	
+	<!-- =================================================================== -->
+	<!-- DAO Bean Implement Define                                            -->
+	<!-- =================================================================== -->
+	
+	<bean id="euserMenusDao" class="com.wondersgroup.popedom.dao.EUserMenusDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="eauthorityDao" class="com.wondersgroup.popedom.dao.EAuthorityDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="euserDao" class="com.wondersgroup.popedom.dao.EuserDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!-- 用户分组action UserTeamAction -->
+	<bean id="usertameaction" class="com.wondersgroup.popedom.action.UserTeamAction" singleton="false">
+		<property name="teamservice" ref="teamservice"></property> 
+	</bean>
+	<bean id="teamservice" parent="basicTxProxy">
+		<property name="target" ref="teamServiceImpl"/>
+	</bean>
+	<bean id="teamServiceImpl" class="com.wondersgroup.popedom.service.impl.EUserTeamServiceImpl" >
+		<property name="euserteamDao" ref="euserteamDao"/>
+	</bean>
+	<bean id="euserteamDao" class="com.wondersgroup.popedom.dao.EUserTeamDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 监控信息action MonitorAction -->
+	<bean id="monitoraction" class="com.wondersgroup.popedom.action.MonitorAction" singleton="false">
+		<property name="monitorservice" ref="monitorservice"></property> 
+	</bean>
+	<bean id="monitorservice" parent="basicTxProxy">
+		<property name="target" ref="monitorServiceImpl"/>
+	</bean>
+	<bean id="monitorServiceImpl" class="com.wondersgroup.popedom.service.impl.MonitorServiceImpl" >
+		<property name="monitorDao" ref="monitorDao"/>
+	</bean>
+	<bean id="monitorDao" class="com.wondersgroup.popedom.dao.MonitorDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 试卷上传一体化 -->
+	<bean id="uploadPaperDao" class="com.wondersgroup.popedom.dao.UploadPaperDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="uploadPaperServiceImpl" class="com.wondersgroup.popedom.service.impl.UploadPaperServiceImpl">
+		<property name="uploadPaperDao" ref="uploadPaperDao"></property>
+		<property name="addExamineeDao" ref="addExamineeDao"/>
+	</bean>
+	<bean id="uploadPaperService" parent="basicTxProxy">
+		<property name="target" ref="uploadPaperServiceImpl"/>
+	</bean>
+	<bean id="uploadPaperAction" class="com.wondersgroup.popedom.action.UploadPaperAction">
+		<property name="uploadPaperService" ref="uploadPaperService"></property> 
+	</bean>
+	<bean id="uploadPaper_xfAction" class="com.wondersgroup.popedom.action.uploadPaper_xfAction">
+		<property name="uploadPaperService" ref="uploadPaperService"></property> 
+	</bean>
+	
+	<!-- 试卷从一体化下载 -->
+	<bean id="downloadPaperDao" class="com.wondersgroup.popedom.dao.DownloadPaperDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="downloadPaperServiceImpl" class="com.wondersgroup.popedom.service.impl.DownloadPaperServiceImpl">
+		<property name="downloadPaperDao" ref="downloadPaperDao"></property>
+	</bean>
+	<bean id="downloadPaperService" parent="basicTxProxy">
+		<property name="target" ref="downloadPaperServiceImpl"/>
+	</bean>
+	<bean id="downloadPaperAction" class="com.wondersgroup.popedom.action.DownloadPaperAction">
+		<property name="downloadPaperService" ref="downloadPaperService"></property> 
+	</bean>
+	
+</beans>
+

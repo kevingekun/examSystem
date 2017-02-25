@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.auth">
+
+	<class name="User" table="USERS" >
+		<id name="id" column="user_id">
+			<generator class="native">
+				<param name="sequence">user_id_sequence</param>
+			</generator>
+		</id>
+		<property name="username" type="string" unique="true" not-null="true" length="20"/>
+		<property name="realname" type="string" length="20"/>
+		<!-- property name="userbianhao" type="string" length="20"/ -->
+		<property name="password" type="string" not-null="true" length="20"/>
+		<property name="agentId" type="string" length="10"/>
+		<property name="deviceDn" type="string" length="10"/>
+		<many-to-one name="group" column="group_id" not-null="true" lazy="false"/>
+		<many-to-one name="usertype" column="usertype" not-null="true" lazy="false"/>
+		<property name="status" type="byte" />
+		<property name="enabled" type="byte"/>
+		
+		<property name="userstar" type="string" column="USERSTAR"/>
+		<property name="createtime" type="java.util.Date" column="CREATETIME"/>	
+		<property name="sex" type="string" column="SEX"/>
+		
+		<!-- property name="flag" type="byte"/>
+		<property name="visible" type="int"/>
+		<property name="sex" type="string"/>
+		<property name="putong" type="string"/>
+		<property name="color" type="string"/>		 -->
+		
+		<set name="authorities" table="USER_AUTHORITIES" lazy="false">
+			<key column="user_id"/>
+			<many-to-many column="authority_id" class="Authority"/>
+		</set>
+	</class>
+	<class name="UserType" table="USERTYPE">
+		<id name="usertypeid" column="USERTYPEID">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="usertypename" type="string"/>	
+		<set name="usermenus" table="USER_TYPE_MENUS" lazy="false" sort="com.wondersgroup.falcon.model.auth.UTMComparator" batch-size="30">
+			<key column="USERTYPEID"/>
+			<many-to-many column="MENUID" class="UserMenus"/>
+		</set>
+	</class>
+	
+	<class name="UserMenus" table="USER_MENUS">
+		<id name="menuid" column="MENUID">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="parentid" type="string"/>	
+		<property name="menuname" type="string"/>
+		<property name="ordering" type="java.lang.Long"/>	
+		<property name="menuepath" type="string"/>
+				
+		<set name="usertype" table="USER_TYPE_MENUS" lazy="false">
+			<key column="MENUID"/>
+			<many-to-many column="USERTYPEID" class="UserType"/>
+		</set>
+	</class>		
+	<class name="Group" table="GROUPS">
+		<id name="id" column="group_id">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="name" type="string" length="20"/>
+		<property name="acdGroup" type="string" length="10"/>
+		<property name="description" type="string" length="200"/>
+		<set name="users" table="USERS" inverse="true">
+			<key column="group_id"/>
+			<one-to-many class="com.wondersgroup.falcon.model.archives.Users"/>
+		</set>		
+	</class>
+	
+	<class name="Authority" table="AUTHORITIES">
+		<id name="id" column="authority_id">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="name" type="string" length="20"/>
+		<property name="description" type="string" length="200"/>
+		<set name="users" table="USER_AUTHORITIES" inverse="true" lazy="false">
+			<key column="authority_id"/>
+			<many-to-many column="user_id" class="User"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

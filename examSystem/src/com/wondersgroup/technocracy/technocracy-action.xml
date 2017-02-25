@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="technocracy" extends="struts-default">
+		<!-- 专家新增 -->
+		<action name="addexpert" class="zhuanjia" >
+			<result name="success">/authority/AddExpert.jsp</result>
+		</action>
+		<action name="addexperts" class="zhuanjia" method="saveExpert">
+		<!-- 	<result name="success">authority/AddExpert.jsp</result> -->
+		</action>
+		<action name="queryexpert" class="zhuanjia" method="queryexpert">
+		</action>
+
+		<!-- 专家维护 -->
+		<action name="maintainexpert" class="maintainexpert" >
+			<result name="success">authority/maintain_expert.jsp</result>
+		</action>
+		<action name="checkExpert" class="maintainexpert" method="checkExpert">
+			<result name="success">authority/maintain_expert.jsp</result>
+		</action>
+		<action name="deleteExpert" class="maintainexpert" method="deleteExpert">
+		</action>
+		<action name="updateExpert" class="maintainexpert" method="updateExpert">
+		</action>
+ 
+		 <!-- 专家查询 -->
+ 
+		 <action name="findExpertById" class="maintainexpert" method="findExpertById">
+		</action>
+ 
+		 <action name="expertquery"  class="query"  >
+		 	<result name="success">authority/expertquery.jsp</result>
+		</action>
+ 
+		 <action name="query"  class="query"  >
+		 	<result name="success">authority/expertquery.jsp</result>
+		</action>
+		  <action name="detailquery"  class="query" method="detail" >
+		 	 <result name="success">authority/detailinfo.jsp</result>
+		</action>
+		 <!-- 专家使用规则-->
+		<action name="arangeexpert" class="arrange">
+		 	 <result name="success">authority/arrangequery.jsp</result>
+		</action>
+		<!-- 自动安排专家 -->
+		<action name="autoarrange" class="arrange" method="arrangeExpertAuto"></action>
+		<!-- 自动安排专家20161025演示 -->
+		<action name="arrangeExpertAutoSubmit" class="arrange" method="arrangeExpertAutoSubmit"></action>
+		<action name="arangequery" class="arrange" method="arrangeexpert">
+		 	 <result name="success">authority/duty.jsp</result>
+		</action>
+		<!-- 专业关联工种 -->
+		<action name="relateMajorAndProfession" class="arrange" method="relateMajorAndProfession">
+		 	 <result name="success">authority/major_profession.jsp</result>
+		 	 <result name="error">/error.jsp</result>
+		</action>
+		<!-- 修改专家 -->
+		<action name="modifyexpert" class="arrange">
+		 	 <result name="success">authority/modifyexpert.jsp</result>
+		</action>
+		<action name="checkexpert" class="arrange" method="checkexpert">
+		 	 <result name="success">authority/checkexpert.jsp</result>
+		</action>
+		<action name="autocheckexpert" class="arrange" method="checkexpert">
+		 	 <result name="success">authority/autocheckexpert.jsp</result>
+		</action>
+		<action name="deleteuseofexpert" class="arrange" method="deleteUseOfExpert"></action>
+		
+		<action name="replaceexpert" class="arrange" method="redict" >
+		 	 <result name="success">authority/replaceexpert.jsp</result> 
+		</action>
+		<action name="replept" class="arrange" method="replept">
+		 	 <result name="success">authority/resonofreplace.jsp</result>
+		</action>
+		<action name="rep" class="arrange" method="replaceExpert">
+			<result type="redirect-action">modifyexpert.action</result>
+		 	<!--  <result name="success">authority/resonofreplace.jsp</result> -->
+		 	 <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="query2" class="query">
+		 	 <result name="success">authority/replaceexpert.jsp</result> 
+		</action>
+		<action name="query1" class="query">
+		 	 <result name="success">authority/arrangeexpert.jsp</result> 
+		</action>
+		 
+		<action name="redict"  class="arrange"  method="redict" >
+		 	 <result name="success">authority/arrangeexpert.jsp</result> 
+		</action>
+		<action name="findcid"  class="arrange"  method="findcid" >
+		</action>
+		<action name="duty"  class="arrange"  method="duty" >
+		 <result name="success">authority/arrangeexpert.jsp</result>
+		</action>
+		<!-- 信息统计 -->
+		<action name="agecount" class="infocount" method="ageCount"></action>
+		<action name="usernumcount" class="infocount" method="usenumCount"></action>
+		<action name="academiccount" class="infocount" method="academicCount"></action>
+		<action name="categorycount" class="infocount" method="categoryCount"></action>
+	</package>
+		 
+</struts>

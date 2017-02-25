@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.call">
+
+	<class name="HisZhijiankaohe" table="HIS_ZHIJIANKAOHE">
+		<id name="id" type="java.lang.Long">
+			<generator class="native">
+				<param name="sequence">ZHIJIANKAOHE_SEQUENCE</param>
+			</generator>
+		</id>
+		<property name="parentid" type="string" />
+		<property name="name" type="string" />
+		<property name="value" type="string" />
+		<property name="biaozhun" type="string" />
+		<property name="comments" type="string" />
+		<property name="sort" type="int" />
+		<property name="visible" type="string" />
+	</class>
+</hibernate-mapping>

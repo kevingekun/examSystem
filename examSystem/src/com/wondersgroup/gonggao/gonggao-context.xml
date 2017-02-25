@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<description>kaoshi Context</description>
+	<!-- =================================================================== -->
+	<!-- 集合 Bean Transaction Proxy Define                                -->
+	<!-- =================================================================== -->
+	<bean id="paperState" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="0" value="未考试"></entry>
+				<entry key="1" value="考试中"></entry>
+				<entry key="2" value="已结束"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<!-- =================================================================== -->
+	<!-- Action Bean Transaction Proxy Define                                -->
+	<!-- =================================================================== -->
+	<bean id="ggview" class="com.wondersgroup.gonggao.action.GgAction" singleton="false">
+		<property name="ggService" ref="ggService"/>
+	</bean>
+	<!-- =================================================================== -->
+	<!-- service Bean Implement Define                                            -->
+	<!-- =================================================================== -->
+	<!-- 公告service -->
+	<bean id="ggServiceImpl" class="com.wondersgroup.gonggao.service.impl.GgServiceImpl" >
+		<property name="ggDao" ref="ggDao"/>
+	</bean>
+	<bean id="ggService" parent="basicTxProxy">
+		<property name="target" ref="ggServiceImpl"/>
+	</bean>
+	
+	<!-- =================================================================== -->
+	<!-- DAO Bean Implement Define                                            -->
+	<!-- =================================================================== -->
+	<bean id="ggDao" class="com.wondersgroup.gonggao.dao.GgDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 公告维护-->
+	<bean id="gonggao" class="com.wondersgroup.gonggao.action.GgmaintainAction">
+		<property name="ggmaintainService" ref="GgmaintainService"/>
+	</bean> 
+	<bean id="GgmaintainService"  parent="basicTxProxy">
+		<property name="target" ref="GgmaintainServiceImpl"/>
+	</bean>
+	
+	<bean id="GgmaintainServiceImpl" class="com.wondersgroup.gonggao.service.impl.GgmaintainServiceImpl">
+		<property name="mggDao" ref="MggDao"/>
+	</bean>
+	<bean id="MggDao" class="com.wondersgroup.gonggao.dao.MggDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+</beans>
+

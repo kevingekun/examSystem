@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+        <property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>
+        <property name="hibernate.query.factory_class"> org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+       	<property name="hibernate.connection.monitor.time">true</property>
+       	<property name="hibernate.connection.monitor.trace">true</property>
+       	<property name="hibernate.connection.monitor.delay">5</property>
+       	<property name="hibernate.connection.monitor.period">30</property>
+       	<property name="hibernate.connection.monitor.timeout">60</property>
+		<property name="hibernate.cglib.use_reflection_optimizer">true</property>
+		<property name="hibernate.connection.pool_size">10</property>	
+		<property name="show_sql">false</property>
+		<property name="hbm2ddl.auto">none</property>
+		<property name="hibernate.jdbc.batch_size">10</property>
+		 
+		 
+		 
+		<mapping
+			resource="com/wondersgroup/falcon/question/model/EQuentionUnchecked.hbm.xml" />
+	<!--用来记录建议修改的记录-->
+		<mapping resource="com/wondersgroup/falcon/question/model/EAdvice.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/login/login.hbm.xml" />
+		<mapping
+			resource="com/wondersgroup/falcon/question/model/EBusinesstype.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/question/model/EImportance.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/question/model/EQuestions.hbm.xml" />
+		<mapping
+			resource="com/wondersgroup/falcon/question/model/EQuestiontype.hbm.xml" />
+		<!--用来记录由于政策法规改动而修改过的试题-->
+		<mapping resource="com/wondersgroup/falcon/question/model/EModefy.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/paper/model/EAnswerpaper.hbm.xml" />
+		<mapping
+			resource="com/wondersgroup/falcon/paper/model/EAnswerquestions.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/paper/model/EPaperquestions.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/paper/model/EPapers.hbm.xml" />
+		<mapping
+			resource="com/wondersgroup/falcon/paper/model/EPaperquestions_temp.hbm.xml" />
+		<mapping resource="com/wondersgroup/kaoshi/bo/EExercise.hbm.xml" />
+		<mapping resource="com/wondersgroup/kaoshi/bo/EAnswertemp.hbm.xml" />
+		<mapping resource="com/wondersgroup/kaoshi/bo/EExercisequestions.hbm.xml" />
+	<!-- 用户权限管理用到的配置文件 -->
+		<mapping resource="com/wondersgroup/popedom/bo/MenuOperationRight.hbm.xml" />
+		<mapping resource="com/wondersgroup/popedom/bo/UserDevolveMenus.hbm.xml" />
+		<mapping resource="com/wondersgroup/popedom/bo/UserMenus.hbm.xml" />
+		<mapping resource="com/wondersgroup/popedom/bo/UserTeam.hbm.xml" />
+		<mapping resource="com/wondersgroup/popedom/bo/auth.hbm.xml" />
+		<!-- <mapping resource="com/wondersgroup/popedom/bo/EUserAuthrity.hbm.xml" /> -->
+		
+	<!-- 专家管理用到的配置文件 -->
+		<mapping resource="com/wondersgroup/technocracy/bo/AddExpert.hbm.xml" />	
+		<mapping resource="com/wondersgroup/technocracy/bo/AddExperts.hbm.xml" />		 	 
+	 	<mapping resource="com/wondersgroup/technocracy/bo/HZ92.hbm.xml" />		 	 
+		<mapping resource="com/wondersgroup/technocracy/bo/HZ93.hbm.xml" />
+		<mapping resource="com/wondersgroup/technocracy/bo/HZ94.hbm.xml" />
+		
+		
+		<mapping resource="com/wondersgroup/kaoshi/bo/RECORDORIGINALDATA.hbm.xml" />
+		<mapping resource="com/wondersgroup/kaoshi/bo/EKaoshi.hbm.xml" />
+		<mapping resource="com/wondersgroup/gonggao/bo/TBm.hbm.xml" />
+		<mapping resource="com/wondersgroup/gonggao/bo/TGg.hbm.xml" />
+		<mapping resource="com/wondersgroup/gonggao/bo/TGgfj.hbm.xml" />
+		<mapping resource="com/wondersgroup/gonggao/bo/TGglm.hbm.xml" />
+		<mapping resource="com/wondersgroup/gonggao/bo/Mgg.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/archives/ArchiveLog.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/archives/Attribute.hbm.xml" />
+		<mapping
+			resource="com/wondersgroup/falcon/model/archives/ExternalAnnex.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/archives/FaxPhrase.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/archives/Node.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/archives/VoicePhrase.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/dic/DicReleasestate.hbm.xml" />
+		<!-- 新加用户组映射 -->
+		<mapping resource="com/wondersgroup/falcon/model/group.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/citizeninfo/hisnode.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/citizeninfo/hisattr.hbm.xml" />
+	
+		
+		<!--新增映射  -->
+		<mapping resource="com/wondersgroup/kaoshi/bo/EKaoshiGroup.hbm.xml" />
+		<mapping resource="com/wondersgroup/kaoshi/bo/Estar.hbm.xml" />
+		<mapping resource="com/wondersgroup/kaoshi/bo/Qingkuang.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/model/citizeninfo/papertype.hbm.xml" />
+		<!-- 测试用 -->
+		<mapping resource="com/wondersgroup/popedom/bo/EuserTest.hbm.xml" />
+		<!-- 人员分组 -->
+		<mapping resource="com/wondersgroup/falcon/model/auth/UserTeam.hbm.xml" />
+		<!-- 监控信息 -->
+		<mapping resource="com/wondersgroup/popedom/bo/ELogMonitor.hbm.xml" />
+		<mapping resource="com/wondersgroup/popedom/bo/EExamArrange.hbm.xml" />
+		<mapping resource="com/wondersgroup/popedom/bo/HZ95.hbm.xml" />
+		<mapping class="com.wondersgroup.kaoshi.bo.E_Users_Temp" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Station_xf" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Cz70" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Tdjobexamdot" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Tjobsubject" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Tkcategory" />
+		<mapping class="com.wondersgroup.falcon.question.model.Tmdot" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Ae02" />
+		<mapping class="com.wondersgroup.kaoshi.bo.EPapersSet" />
+		<mapping class="com.wondersgroup.kaoshi.bo.EPaperTeam" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Admission_card_file" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Admission_card_pc" />
+		<mapping class="com.wondersgroup.kaoshi.bo.Admission_card_user" />
+		<mapping class="com.wondersgroup.popedom.bo.Users_yth" />
+		<mapping class="com.wondersgroup.popedom.bo.Euserauthorith" />
+		<mapping class="com.wondersgroup.shaoxing.model.Temp_cur_c" />
+		<mapping class="com.wondersgroup.shaoxing.model.Temp_cur" />
+		<mapping class="com.wondersgroup.local.bo.Answerpaper_ws" />
+		<mapping class="com.wondersgroup.local.bo.Elogmonitor_ws" />
+		<mapping class="com.wondersgroup.local.bo.Tjobsubject_ws" />
+		<mapping resource="com/wondersgroup/falcon/question/model/EQuestions_temp.hbm.xml" />
+		<mapping resource="com/wondersgroup/falcon/paper/model/EPaperquestions_tmp.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>

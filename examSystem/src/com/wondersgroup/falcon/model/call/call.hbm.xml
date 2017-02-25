@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.call">
+
+	<class name="Summary" table="Summary">
+		<id name="id" column="id">
+			<generator class="native">
+				<param name="sequence">TEMP</param>
+			</generator>
+		</id>
+
+		<property name="callid" type="java.lang.Long"/>
+		<property name="userid" type="java.lang.Long"/>
+		<property name="summary" length="400"/>
+		<property name="eventtime" type="java.util.Date"/>
+	</class>
+	<!--来电概要补填 -->
+	<class name="Summary_later" table="Summary_later">
+		<id name="id" column="id">
+			<generator class="native">
+				<param name="sequence">TEMP</param>
+			</generator>
+		</id>
+
+		<property name="callid" type="java.lang.Long"/>
+		<property name="userid" type="java.lang.Long"/>
+		<property name="summary" length="400"/>
+		<property name="eventtime" type="java.util.Date"/>
+		<property name="begintime" type="java.util.Date"/>
+	</class>
+
+	<class name="ServiceType" table="ServiceType">
+		<id name="id" column="id">
+			<generator class="native">
+				<param name="sequence">TEMP</param>
+			</generator>
+		</id>
+
+		<property name="callid" type="java.lang.Long"/>
+		<property name="userid" type="java.lang.Long"/>
+		<property name="servicetype" length="8"/>
+		<property name="eventtime" type="java.util.Date"/>
+		<property name="flag" type="string"/>
+	</class>
+	
+		<class name="HisServiceType" table="His_ServiceType">
+		<id name="id" column="id">
+			<generator class="native">
+				<param name="sequence">TEMP</param>
+			</generator>
+		</id>
+
+		<property name="callid" type="java.lang.Long"/>
+		<property name="userid" type="java.lang.Long"/>
+		<property name="servicetype" length="8"/>
+		<property name="eventtime" type="java.util.Date"/>
+		<property name="flag" type="string"/>
+	</class>
+
+	<class name="LeaveWord" table="LeaveWord">
+		<id name="id" column="id">
+			<generator class="native">
+				<param name="sequence">leave_word_sequence</param>
+			</generator>
+		</id>
+
+		<property name="callid" type="java.lang.Long"/>
+		<property name="telephone" length="20"/>
+		<property name="leavetime" type="java.util.Date"/>
+		<property name="wavefilename" length="100"/>
+		<property name="leavewordtype" type="java.lang.Character"/>
+		<property name="name" length="20"/>
+		<property name="company"  length="200"/>
+		<property name="address"  length="200"/>
+		<property name="postalcode" length="6"/>
+		<property name="leavewordsummary" length="400"/>
+		<property name="needreply" type="java.lang.Boolean"/>
+		<property name="replymode" type="java.lang.Character"/>
+		<property name="replytelephone" length="30"/>
+		<property name="replyfax" length="30"/>
+		<property name="replyemail" length="60"/>
+		<property name="expectreplytime" type="java.util.Date"/>
+		<many-to-one 
+			name="dealuser" 
+			class="com.wondersgroup.falcon.model.auth.User"
+			cascade="none"
+			outer-join="false"
+			update="true"
+			insert="true"
+			access="property"
+			column="dealuser"
+			not-null="false"/>
+		<property name="dealtime" type="java.util.Date"/>
+		<property name="dealstatus" type="java.lang.Character"/>
+		<property name="replysummary" length="600"/>
+		<property name="replyresult" type="java.lang.Character"/>
+		<many-to-one 
+			name="replyuser" 
+			class="com.wondersgroup.falcon.model.auth.User"
+			cascade="none"
+			outer-join="false"
+			update="true"
+			insert="true"
+			access="property"
+			column="replyuser"
+			not-null="false"/>
+		<property name="replytime" type="java.util.Date"/>
+	</class>
+        
+</hibernate-mapping>

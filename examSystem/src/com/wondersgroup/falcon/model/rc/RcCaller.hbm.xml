@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RcCaller"
+		table="rc_caller"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="CALLER_SN"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Name"
+			column="NAME"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Identity"
+			column="IDENTITY"
+			type="string"
+			not-null="false"
+			length="18"
+		/>
+		<property
+			name="Sex"
+			column="SEX"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+		<property
+			name="Age"
+			column="AGE"
+			type="integer"
+			not-null="false"
+			length="3"
+		/>
+		<property
+			name="Occupation"
+			column="OCCUPATION"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Addr"
+			column="ADDR"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="Pocode"
+			column="POCODE"
+			type="string"
+			not-null="false"
+			length="6"
+		/>
+		<property
+			name="Company"
+			column="COMPANY"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="Tel"
+			column="TEL"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Household"
+			column="household"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+	
+
+		<set name="RcForms" inverse="true">
+			<key column="CALLER_SN"/>
+			<one-to-many class="RcForm"/>
+		</set>
+
+		<set name="RrResults" inverse="true">
+			<key column="CALLER_SN"/>
+			<one-to-many class="RrResult"/>
+		</set>
+
+		<!--
+		<set name="IpInforms" inverse="true">
+			<key column="CALLER_SN"/>
+			<one-to-many class="IpInform"/>
+		</set>
+		 -->
+
+	</class>	
+</hibernate-mapping>

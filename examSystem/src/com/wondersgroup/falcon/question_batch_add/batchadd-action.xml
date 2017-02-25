@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="batchadd" extends="kaoshi">
+		<action name="batchAddAction_*" class="batchAddAction" method="{1}">
+			<!-- <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">application/vnd.ms-excel</param>
+                <constant name="struts.multipart.maxSize" value="9000000"/>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack" /> -->
+            <result name="success">question/question_add_batch_common.jsp</result>
+            <result name="success_cmp">question/question_add_batch_cmp_right.jsp</result>
+             <result name="success_manual">authority/manualImport.jsp</result>
+             <result name="success_printcard">authority/manualImport_printcard.jsp</result>
+             <result name="error">/error.jsp</result>
+              <result name="error1">/error.jsp</result>
+              
+              <result name="users_save_success">authority/manualImport_printcard.jsp</result>
+             <result name="users_save_error">/error.jsp</result>
+             <result name="file_save_error">/error.jsp</result>
+		</action>
+		
+		<action name="templateDownload" class="templateDownload">
+            <result name="success" type="stream">
+               <param name="contentType">application/vnd.ms-excel</param>
+               <param name="contentDisposition">attachment;fileName="${downloadFileName}"</param> 
+               <param name="inputName">templateFile</param>
+               <param name="bufferSize">1024</param>
+           </result>
+           <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="info_jdys_Download" class="info_jdys_Download" method="jdysInfoDownload">
+            <result name="success" type="stream">
+               <param name="contentType">application/vnd.ms-excel</param>
+               <param name="contentDisposition">attachment;fileName="${downloadFileName}"</param> 
+               <param name="inputName">excelStream</param>
+               <param name="bufferSize">1024</param>
+           </result>
+           <result name="error">/error.jsp</result>
+		</action>
+	</package>
+</struts>

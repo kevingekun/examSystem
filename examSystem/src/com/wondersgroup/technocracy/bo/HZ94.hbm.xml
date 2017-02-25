@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.wondersgroup.technocracy.bo.HZ94" table="HZ94" >
+        <id name="hzz400" column="hzz400">
+            <generator class="native">
+				<param name="sequence">seq_hzz400</param>
+			</generator>
+        </id>
+        <property name="hzz003" type="java.lang.String">
+            <column name="hzz003" />
+        </property>
+        <property name="ccz137" type="java.lang.String">
+            <column name="ccz137" />
+        </property>
+        <property name="aae013" type="java.lang.String">
+            <column name="aae013" />
+        </property>
+    </class>
+</hibernate-mapping>

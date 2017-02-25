@@ -1,0 +1,23 @@
+#
+#Mon Jul 06 13:32:36 CST 2009
+genBasicCompId=false
+sessionFactoryName=com.wondersgroup.falcon.model.exam.HibernateSessionFactory
+profile=
+daoSFId=
+version=3.1
+jndiPath=
+detectM2M=false
+reStrategyClass=
+springDaoFile=
+useJavaTypes=false
+keyGenerator=sequence
+libInstallFolder=
+addLibs2Project=false
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+reSettingsFile=/falnewexam/hibernate.reveng.xml
+configFile=/falnewexam/src/hibernate.cfg.xml
+createConfigFile=false
+addLibs2Classpath=false
+baseDaoClass=BaseHibernateDAO

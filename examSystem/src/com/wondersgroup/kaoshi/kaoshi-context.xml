@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<description>kaoshi Context</description>
+	<!-- =================================================================== -->
+	<!-- 集合 Bean Transaction Proxy Define                                -->
+	<!-- =================================================================== -->
+	<bean id="paperState" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="0" value="未考试"></entry>
+				<entry key="1" value="考试中"></entry>
+				<entry key="2" value="已结束"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<!-- =================================================================== -->
+	<!-- Action Bean Transaction Proxy Define                                -->
+	<!-- =================================================================== -->
+	<bean id="epaperquestion" class="com.wondersgroup.kaoshi.action.EpaperquestionsAction" singleton="false">
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+		<property name="epaperservice" ref="epaperservice"></property>
+	</bean>
+	
+	<bean id="previewPaperAction" class="com.wondersgroup.kaoshi.action.PreviewPaperAction" singleton="false">
+		<property name="epaperservice" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+	</bean>
+	
+	<bean id="downloadAction" class="com.wondersgroup.kaoshi.action.DownloadAction" singleton="false">
+		<property name="epaperservice" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+	</bean>
+	
+	<bean id="downloadAnswerAction" class="com.wondersgroup.kaoshi.action.DownloadAnswerAction" singleton="false">
+		<property name="epaperservice" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+	</bean>
+	
+	<bean id="selectQuestionsAction" class="com.wondersgroup.kaoshi.action.SelectQuestionsAction" singleton="false">
+		<property name="equestionsService" ref="equestionsService"></property>
+		<property name="epaperservice" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+	</bean>
+	
+	<bean id="copyPaperAction" class="com.wondersgroup.kaoshi.action.CopyPaperAction" singleton="false">
+		<property name="epaperservice" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+	</bean>
+
+	<bean id="myPaperAction" class="com.wondersgroup.kaoshi.action.MyPaperAction" singleton="false">
+		<description>查询我的试卷</description>
+		<property name="eanswerpaperService" ref="eanswerpaperService"/>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+		<property name="sjzt" ref="paperState"></property>
+	</bean>
+	
+	<bean id="examPaperAction" class="com.wondersgroup.kaoshi.action.ExamonlineAction" singleton="false">
+		<property name="epaperservice" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+		<property name="eanswerpaperService" ref="eanswerpaperService"/>
+	</bean>
+	
+	<bean id="sypaperAction" class="com.wondersgroup.kaoshi.action.SyPaperAction" singleton="false">
+		<property name="eanswerpaperService" ref="eanswerpaperService"/>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+		<property name="euserService" ref="euserService"></property>
+	</bean>
+	
+	<bean id="answerPaperQuerryAction" class="com.wondersgroup.kaoshi.action.AnswerPaperQuerryAction" singleton="false">
+		<property name="eanswerpaperService" ref="eanswerpaperService"/>
+	</bean>
+	
+	<bean id="lianxiAction" class="com.wondersgroup.kaoshi.action.LianxiAction" singleton="false">
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+		<property name="equestionsService" ref="equestionsService"></property>
+		<property name="eexerciseService" ref="eexerciseService"></property>
+	</bean>
+	
+	<bean id="lianxiquestionQuery" class="com.wondersgroup.kaoshi.action.LianxiquestionQuery" singleton="false">
+		<property name="eexerciseService" ref="eexerciseService"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+	</bean>
+	<bean id="cjpmAction" class="com.wondersgroup.kaoshi.action.CjpmAction" singleton="false">
+		<property name="eanswerpaperService" ref="eanswerpaperService"/>
+	</bean>
+	
+	<bean id="rgzjAction" class="com.wondersgroup.kaoshi.action.RgzjAction" singleton="false">
+		<property name="epapersService" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+		<property name="equestionsService" ref="equestionsService"></property>
+	</bean>
+	
+	<bean id="findtypefenshu" class="com.wondersgroup.kaoshi.action.AjaxPaperFenshu" singleton="false">
+		<description>根据试卷类型找到这个类型的分数</description>
+		<property name="epaperservice" ref="epaperservice"></property>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+		<property name="eanswerpaperService" ref="eanswerpaperService"/>
+	</bean>
+	
+	
+	<bean id="findNum" class="com.wondersgroup.kaoshi.action.AjaxQuestionNum" singleton="false">
+		<description>根据试题ID找到出题次数</description>
+		<property name="epaperquestionsService" ref="epaperquestionsService"/>
+	</bean>
+	
+	<bean id="questionDetailshow"  class="com.wondersgroup.kaoshi.action.QuestionAction" singleton="false">
+		<property name="equestionsService" ref="equestionsService"></property>
+	</bean>
+	
+	<bean id="answerpaperpmquery" class="com.wondersgroup.kaoshi.action.PaperListAction" singleton="false">
+		<property name="epapersService" ref="epaperservice"></property>
+		<property name="sjzt" ref="paperState"></property>
+	</bean>
+	<!-- 成绩上传一体化 -->
+	<bean id="uploadgrade" class="com.wondersgroup.kaoshi.action.UploadGradeAction" singleton="false">
+		<property name="epapersService" ref="epaperservice"></property>
+	</bean>
+	<!-- 成绩查询 -->
+	<bean id="gradeSearch" class="com.wondersgroup.kaoshi.action.GradeSearchAction" singleton="false">
+		<property name="epapersService" ref="epaperservice"></property>
+	</bean>
+	<!-- 成绩上传 鉴定中心-->
+	<bean id="uploadgradeToJdzx" class="com.wondersgroup.kaoshi.action.UploadGradeToJdzxAction" singleton="false">
+		<property name="epapersService" ref="epaperservice"></property>
+	</bean>
+	<bean id="findQuestionCountByType" class="com.wondersgroup.kaoshi.action.AjaxPaperFindQuestionCountByType" singleton="false">
+		<description>根据题目的类型找到这个类型题目的数量</description>
+		<property name="equestionsService" ref="equestionsService"></property>
+	</bean>
+	<bean id="luyintilist" class="com.wondersgroup.kaoshi.action.LuyingAction" singleton="false">
+		<description>录音题 </description>
+		<property name="recordoriginaldataService" ref="recordoriginaldataService"></property>
+	</bean>
+	<bean id="addquestxgcoul" class="com.wondersgroup.kaoshi.action.AjaxUpdateCol" singleton="false">
+		<description>试题增加建议修改次数 </description>
+		<property name="equestionsService" ref="equestionsService"></property>
+	</bean>
+	
+	<bean id="wenhao_view" class="com.wondersgroup.kaoshi.action.ToViewZcfg">
+		<property name="euserService" ref="euserService"/>
+	</bean>
+	<bean id="toView_UpdatedQuestions" class="com.wondersgroup.kaoshi.action.QueryUpdateQuestion" singleton="false">
+		<property name="equestionsService" ref="equestionsService"></property>
+	</bean>
+	<!-- =================================================================== -->
+	<!-- service Bean Implement Define                                            -->
+	<!-- =================================================================== -->
+	<!-- 试题试卷链接service -->
+	<bean id="epaperquestionsServiceImpl" class="com.wondersgroup.kaoshi.service.impl.EpaperquestionsServiceImpl" >
+		<property name="epaperquestionsDAO" ref="epaperquestionsDAO"/>
+		<property name="equestiontypeDAOImpl" ref="equestiontypeDAOImpl"></property>
+	</bean>
+	<bean id="epaperquestionsService" parent="basicTxProxy">
+		<property name="target" ref="epaperquestionsServiceImpl"/>
+	</bean>
+	
+	<!-- 试卷service -->
+	<bean id="epaperserviceImpl" class="com.wondersgroup.kaoshi.service.impl.EPaperserviceImpl">
+		<property name="epapersDAOImpl" ref="epapersDAOImpl"></property>
+	</bean>
+	<bean id="epaperservice" parent="basicTxProxy">
+		<property name="target" ref="epaperserviceImpl"/>
+	</bean>
+	
+	<!-- 试题service -->
+	<bean id="equestionsServiceImpl" class="com.wondersgroup.kaoshi.service.impl.EQuestionsServiceImpl">
+		<property name="dao" ref="equestionsDAO"></property>
+	</bean>
+	<bean id="equestionsService" parent="basicTxProxy">
+		<property name="target" ref="equestionsServiceImpl"/>
+	</bean>
+	
+	<!-- 答题service -->
+	<bean id="eanswerpaperServiceImpl" class="com.wondersgroup.kaoshi.service.impl.EAnswerpaperServiceImpl">
+		<property name="eanswerpaperDAOImpl" ref="eanswerpaperDAOImpl"></property>
+	</bean>
+	<bean id="eanswerpaperService" parent="basicTxProxy">
+		<property name="target" ref="eanswerpaperServiceImpl"/>
+	</bean>
+	
+	<!-- 练习service -->
+	<bean id="eexerciseServiceImpl" class="com.wondersgroup.kaoshi.service.impl.EExerciseServiceImpl">
+		<property name="eexerciseDAOImpl" ref="eexerciseDAOImpl"></property>
+	</bean>
+	<bean id="eexerciseService" parent="basicTxProxy">
+		<property name="target" ref="eexerciseServiceImpl"/>
+	</bean>
+	
+	<!-- 录音提service -->
+	<bean id="recordoriginaldataServiceImpl" class="com.wondersgroup.kaoshi.service.impl.RecordoriginaldataServiceImpl">
+		<property name="rdDao" ref="recordoriginaldataDao"></property>
+	</bean>
+	<bean id="recordoriginaldataService" parent="basicTxProxy">
+		<property name="target" ref="recordoriginaldataServiceImpl"/>
+	</bean>
+	
+	<!-- =================================================================== -->
+	<!-- DAO Bean Implement Define                                            -->
+	<!-- =================================================================== -->
+	<bean id="epaperquestionsDAO" class="com.wondersgroup.kaoshi.dao.EpaperquestionsDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="epapersDAOImpl" class="com.wondersgroup.kaoshi.dao.EPapersDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="equestiontypeDAOImpl" class="com.wondersgroup.kaoshi.dao.EQuestiontypeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+
+	<bean id="equestionsDAO" class="com.wondersgroup.kaoshi.dao.EquestionsDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="eanswerpaperDAOImpl" class="com.wondersgroup.kaoshi.dao.EAnswerpaperDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="eexerciseDAOImpl" class="com.wondersgroup.kaoshi.dao.EExerciseDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="recordoriginaldataDao" class="com.wondersgroup.kaoshi.dao.RecordoriginaldataDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	 
+	<!-- 工种 -->
+	<bean id="professionDao" class="com.wondersgroup.kaoshi.dao.ProfessionDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="professionServiceImpl" class="com.wondersgroup.kaoshi.service.impl.ProfessionServiceImpl">
+		<property name="professionDao" ref="professionDao"></property>
+	</bean>
+	<bean id="professionService" parent="basicTxProxy">
+		<property name="target" ref="professionServiceImpl"></property>
+	</bean>
+	<bean id="professionAction" class="com.wondersgroup.kaoshi.action.ProfessionAction">
+		<property name="professionService" ref="professionService"></property>
+	</bean>
+	<!-- 整套试题录入 -->
+	<bean id="paperSetDao" class="com.wondersgroup.kaoshi.dao.PaperSetDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="paperSetServiceImpl" class="com.wondersgroup.kaoshi.service.impl.PaperSetServiceImpl">
+		<property name="paperSetDao" ref="paperSetDao"></property>
+	</bean>
+	<bean id="paperSetService" parent="basicTxProxy">
+		<property name="target" ref="paperSetServiceImpl"></property>
+	</bean>
+	<bean id="paperSetAction" class="com.wondersgroup.kaoshi.action.PaperSetAction">
+		<property name="paperSetService" ref="paperSetService"></property>
+	</bean>
+</beans>
+

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RrSubject"
+		table="rr_subject"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="subject_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="SubjectName"
+			column="subject_name"
+			type="string"
+			not-null="false"
+			length="256"
+		/>
+		<property
+			name="SubjectDesc"
+			column="subject_desc"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="Begin"
+			column="begin"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<property
+			name="End"
+			column="end"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<property
+			name="SubjectStat"
+			column="subject_stat"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+		<property
+			name="CreDate"
+			column="cre_date"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<many-to-one
+			name="ReqSn"
+			column="req_sn"
+			class="RrReq"
+			not-null="false"
+		>
+		</many-to-one>
+	
+
+		<set name="RrQuestions" inverse="true" lazy="true" order-by="question_sn">
+			<key column="subject_sn"/>
+			<one-to-many class="RrQuestion"/>
+		</set>
+
+		<set name="RrResources" inverse="true" lazy="true">
+			<key column="subject_sn"/>
+			<one-to-many class="RrResource"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

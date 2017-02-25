@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="Users"
+		table="USERS"
+	>
+		<id
+			name="Id"
+			type="integer"
+			column="USER_ID"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Username"
+			column="USERNAME"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Realname"
+			column="REALNAME"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Password"
+			column="PASSWORD"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Agentid"
+			column="AGENTID"
+			type="string"
+			not-null="false"
+			length="10"
+		/>
+		<property
+			name="GroupId"
+			column="GROUP_ID"
+			type="integer"
+			not-null="false"
+			length="19"
+		/>
+		<property
+			name="Status"
+			column="STATUS"
+			type="integer"
+			not-null="false"
+			length="3"
+		/>
+		<property
+			name="Enabled"
+			column="ENABLED"
+			type="integer"
+			not-null="false"
+			length="3"
+		/>
+	
+
+		<set name="RcResearchs" inverse="true">
+			<key column="USER_ID"/>
+			<one-to-many class="RcResearch"/>
+		</set>
+
+		<set name="RcForms" inverse="true">
+			<key column="USER_ID"/>
+			<one-to-many class="RcForm"/>
+		</set>
+
+		<set name="RcUrgents" inverse="true">
+			<key column="USER_ID"/>
+			<one-to-many class="RcUrgent"/>
+		</set>
+
+		<set name="RcFeedbacks" inverse="true">
+			<key column="USER_ID"/>
+			<one-to-many class="RcFeedback"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

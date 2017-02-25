@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="kaoshi" extends="struts-default"></package>
+	<include file="com/wondersgroup/kaoshi/kaoshi-action.xml"></include>
+	<include file="com/wondersgroup/gonggao/gonggao-action.xml"></include>
+	<include file="com/wondersgroup/popedom/popedom-action.xml"></include>
+	<include file="com/wondersgroup/falcon/jdys/jdys-action.xml"></include>
+ 
+	<include file="com/wondersgroup/technocracy/technocracy-action.xml"></include>
+ 
+	<include file="com/wondersgroup/falcon/question_batch_add/batchadd-action.xml"></include>
+ 
+</struts>
+

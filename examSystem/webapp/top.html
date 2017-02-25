@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>头部</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="523"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="1024" height="106">
+      <param name="movie" value="images/banner_new.swf" />
+      <param name="quality" value="high" />
+      <embed src="images/banner_new.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="1024" height="106"></embed>
+    </object></td>
+    <td width="*" background="images/banner_background3.jpg">&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="44" height="33" background="images/nav_background.jpg"></td>
+    <td width="100%" align="center" background="images/nav_background.jpg"  id="td_w"><iframe src="top_nav.htm" allowtransparency="true" width="100%" marginwidth="0"  height="33" marginheight="0" scrolling="No"frameborder="0" id="frm_navlist" border="0" framespacing="2" noresize="noresize" vspale="0"> </iframe></td>
+    <td background="images/nav_background.jpg">&nbsp;</td>
+    <td width="44" background="images/nav_background.jpg">
+      <script>
+function runstar2(a,time,flag){
+	if (1 == flag){runx=setInterval("run_a("+a+")",10)}
+	else{runx=setInterval("run2_a("+a+")",10)}
+
+}
+function runover2(){
+clearInterval(runx)
+}
+function run_a(a){
+scrollx=frm_frdlist.document.body.scrollLeft
+scrolly=frm_frdlist.document.body.scrollTop
+scrollx=scrollx+a
+frm_frdlist.window.scroll(scrollx,scrolly)
+}
+function run2_a(a){
+scrollx=frm_navlist.document.body.scrollLeft
+scrolly=frm_navlist.document.body.scrollTop
+scrollx=scrollx+a
+frm_navlist.window.scroll(scrollx,scrolly)
+}
+function x_down_a(theobject){
+	object=theobject
+	
+	while(object.filters.alpha.opacity>60){
+		object.filters.alpha.opacity+=-60
+	}
+}
+function x_up_a(theobject){
+	object=theobject
+	while(object.filters.alpha.opacity<60){
+		object.filters.alpha.opacity+=60
+	}
+}
+function wback(){
+	if(frm_frdlist.history.length==0){window.history.back()}
+	else{frm_frdlist.history.back()}
+}
+</script></td>
+  </tr>
+</table>
+</body>
+</html>

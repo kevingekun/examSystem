@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="gaonggao" extends="kaoshi">
+		<!-- 公告列表 -->
+	    <action name="ggview" class="ggview">
+			<result name="success">/gonggao/gg_list.jsp</result>
+		</action>
+		<!-- 公告详细信息 -->
+	    <action name="ggdetial" class="ggview" method="viewgg">
+			<result name="success">/gonggao/gg_detail.jsp</result>
+		</action>
+		<!-- to添加公告信息 -->
+	    <action name="toggadd" class="ggview" method="toaddgg">
+			<result name="success">/gonggao/gg_add.jsp</result>
+		</action>
+		<!-- 添加公告信息 -->
+	    <action name="ggadd" class="ggview" method="addgg">
+			<result type="redirect-action">ggview.action</result>
+		</action>
+		<!-- 删除公告信息 -->
+	    <action name="ggdel" class="ggview" method="removegg">
+			<result type="redirect-action">ggview</result>
+		</action>
+		<!-- 下载附件 -->
+	    <action name="download" class="ggview" method="downloadfj">
+		     <result name="success" type="stream">
+		     	
+		         <param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+		         
+		          <param name="contentDisposition">attachment;filename="${chinaName}"</param>
+		         <param name="bufferSize">2048</param>  
+		         <param name="inputName">inputStream</param>       
+	       	</result>
+       	
+		</action>
+		 <action name="ggmaintain"  class="gonggao" >
+			<result  >/gonggao/ggmaintain.jsp</result> 
+			<!-- <result  type="redirect-action">ggmaintain.action</result> -->
+			
+		</action>
+		<action name="maintainadd"  class="gonggao"  method="maintainadd" >
+			<result  >/gonggao/maintainadd.jsp</result>
+		</action>
+		<action name="maintains"  class="gonggao"  method="addnotice" >
+		 <!-- <result  >/gonggao/ggmaintain.jsp</result>  --> 
+		 <result  type="redirect-action">ggmaintain.action</result>
+		 
+		</action>
+		
+		<!-- 修改公告 -->
+		<!-- <action name="modify"  class="gonggao"   >
+			<result  >/gonggao/modifyadd.jsp</result>
+		</action> -->
+		<action name="modifies"  class="gonggao"  method="queryadd" >
+		<!-- 	<result  type="redirect-action">ggmaintain.action</result> -->
+		<result  >/gonggao/modifyadd.jsp</result>
+		</action>
+		<action name="saveadd"  class="gonggao"  method="saveadd" >
+<!-- 		<result  >/gonggao/ggmaintain.jsp</result> -->
+<result  type="redirect-action">ggmaintain.action</result>
+		</action>
+	</package>
+</struts>

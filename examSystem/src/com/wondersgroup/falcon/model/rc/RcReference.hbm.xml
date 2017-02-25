@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RcReference"
+		table="rc_reference"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="reference_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Name"
+			column="name"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="Addr"
+			column="addr"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="Tel"
+			column="tel"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Agent"
+			column="agent"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Leader"
+			column="leader"
+			type="string"
+			not-null="false"
+			length="20"
+		/>
+		<property
+			name="Stat"
+			column="stat"
+			type="string"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="Memo"
+			column="memo"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="LeaderName"
+			column="leader_name"
+			type="string"
+			not-null="false"
+			length="125"
+		/>
+		<property
+			name="LeaderDuty"
+			column="leader_duty"
+			type="string"
+			not-null="false"
+			length="125"
+		/>
+		<property
+			name="LeaderPhone"
+			column="leader_phone"
+			type="string"
+			not-null="false"
+			length="125"
+		/>
+		<property
+			name="RegistNumber"
+			column="regist_number"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+	
+
+		<set name="RcForms" inverse="true">
+			<key column="reference_sn"/>
+			<one-to-many class="RcForm"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

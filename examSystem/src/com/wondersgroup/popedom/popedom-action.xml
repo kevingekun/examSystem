@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="popedom" extends="kaoshi">
+
+		<action name="topMenuViewAction" class="topMenuViewAction">
+			<result>/top.jsp</result>
+		</action>
+		<action name="leftMenuViewAction" class="topMenuViewAction"
+			method="leftMenuView">
+			<result name="success">/menu/menu_index.jsp</result>
+		</action>
+		<action name="logout" class="topMenuViewAction" method="logOut">
+			<result name="success">${logOutUrl}</result>
+		</action>
+
+		<!-- 显示所有角色 -->
+		<action name="eauthority" class="eauthority">
+			<result>/authority/authority_info.jsp</result>
+		</action>
+		<!-- 权限更新 -->
+		<action name="authorityManagement" class="eauthority" method="authorityRenewal">
+			<result>/authority/authority_renewal.jsp</result>
+		</action>
+		<action name="authorityRenewal" class="eauthority" method="renewal"></action>
+
+		<!-- 显示分配菜单 -->
+		<action name="userMeanuTreeView" class="userMeanuTreeView">
+			<result>/authority/authority_distribute.jsp</result>
+		</action>
+
+		<!-- 菜单分配 -->
+		<action name="updateuserMeanu" class="userMeanuTreeView"
+			method="addUserMenuToAuthority">
+			<result type="redirect-action">eauthority.action</result>
+		</action>
+
+		<!-- 考试屏蔽人员管理 -->
+		<action name="kaoshi" class="userview" method="getallkaoshi">
+			<result>/authority/kaoshi.jsp</result>
+		</action>
+		<!--  释放屏蔽人员  -->
+
+
+		<!-- 释放屏蔽人员 -->
+		<action name="deleteeKaoshi" class="userview" method="deleteeKaoshi">
+			<result name="success" type="redirect-action">kaoshi.action</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 角色新增 -->
+		<action name="addNewEauthority" class="eauthority" method="addEauthority">
+			<result type="redirect-action">eauthority.action</result>
+		</action>
+		<!-- to角色更改 -->
+		<action name="toupdateEauthority" class="eauthority" method="toupdateEauthority">
+			<result>/authority/authority_update.jsp</result>
+		</action>
+		<!-- 角色更改 -->
+		<action name="updateEauthority" class="eauthority" method="updateEauthority">
+			<result type="redirect-action">eauthority.action</result>
+		</action>
+
+		<!-- 角色删除 -->
+		<action name="deleteEauthority" class="eauthority" method="deleteEauthority">
+			<result name="success" type="redirect-action">eauthority.action</result>
+			<result name="error">/error.jsp</result>
+		</action>
+
+		<!-- 显示用户 -->
+		<action name="userview" class="userview">
+			<result>/authority/lookup_user.jsp</result>
+		</action>
+		<!-- 检查原始密码 -->
+		<action name="checkPassword" class="userview" method="checkPassword"></action>
+		<action name="updateUser" class="userview" method="updateUser"></action>
+		<!-- 显示角色 -->
+		<action name="viewAuthUser" class="updateAuthUser">
+			<result>/authority/authority_user.jsp</result>
+		</action>
+
+		<!-- 用户分配角色 -->
+		<action name="updateAuthUser" class="updateAuthUser" method="update">
+			<result name="success" type="redirect-action">userview.action</result>
+		</action>
+		
+		<!-- 用户删除 -->
+		<action name="deleteUser" class="userview" method="deleteUser">
+			<result name="success" type="redirect-action">viewAuthUser.action</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 考务安排查询 -->
+		<action name="examArrangement" class="examarrangement">
+			<result name="success">/authority/exam_arrangement.jsp</result>
+		</action>
+		
+		<!-- 教师机关联查询 -->
+		<action name="jiaoshiji" class="arrange_jdpc"  method="jiaoshiji">
+			<result name="success">/authority/jiaoshijiguanlian.jsp</result>  
+		</action>
+		<!-- 教师机关联 -->
+		<action name="relatesj" class="arrange_jdpc"  method="relatesj">  
+			 <result name="success" type="redirect-action">jiaoshiji.action</result>
+		</action>
+		<!-- 删除鉴定批次 -->
+		<action name="deleteJdpc" class="arrange_jdpc"  method="deleteJdpc">  
+			<result name="success" type="redirect-action">arrangejdpc.action</result>
+		</action>
+		<!-- 准考证打印  删除鉴定批次-->
+		<action name="deletePrintCard" class="arrange_jdpc"  method="deletePrintCard">  
+		</action>
+		<!-- 准考证打印预览 -->
+		<action name="printView" class="arrange_jdpc"  method="printView">
+			<result name="success">/authority/print.jsp</result>  
+		</action>
+		<!-- 查看详细鉴定批次 -->
+		<action name="getDetailJdpc" class="arrange_jdpc"  method="getDetailJdpc">  
+			<result name="success" type="redirect-action">arrangejdpc.action</result>
+		</action>
+		<!-- 准考证打印 考生信息查看 -->
+		<action name="getDetailPrintCard" class="arrange_jdpc"  method="getDetailPrintCard">  
+		</action>
+		
+		<!-- 考出考生信息 -->
+		<action name="sinfoExport" class="examarrangement" method="exportSinfo">
+		 	<!-- Result返回结果为InputSream对象，并处理下载文件的类型 -->
+			<result name="success" type="stream">
+				 <!-- contentType 指定下载文件的文件类型 —— application/vnd.ms-excel -->
+				<param name="contentType">application/vnd.ms-excel</param>
+				 <!--  返回流 excelStream为action中的流变量名称 -->
+                <param name="inputName">excelStream</param>
+                <param name="bufferSize">1024</param>
+                <!-- filename指定生成的文件名字 -->
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+            </result>
+            <result name="error">/error.jsp</result>
+		</action>
+		<!-- 考出考场信息 -->
+		<action name="rinfoExport" class="examarrangement" method="exportRinfo">
+		 	<!-- Result返回结果为InputSream对象，并处理下载文件的类型 -->
+			<result name="success" type="stream">
+				 <!-- contentType 指定下载文件的文件类型 —— application/vnd.ms-excel -->
+				<param name="contentType">application/vnd.ms-excel</param>
+				 <!--  返回流 excelStream为action中的流变量名称 -->
+                <param name="inputName">excelStream</param>
+                <!-- filename指定生成的文件名字 -->
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">/error.jsp</result>
+		</action>
+		<!-- 鉴定批次考试安排 -->
+		<action name="arrangejdpc" class="arrange_jdpc">
+			<result name="success">/authority/arrange_jdpc.jsp</result>
+		</action>
+		<action name="arrangePrintCard" class="arrange_jdpc" method="arrangePrintCard">
+			<result name="success">/authority/print_card_arrange.jsp</result>
+		</action>
+		<action name="checksjmc" class="arrange_jdpc" method="checkSjmc"></action>
+		<action name="relateJdpcAndSjmc" class="arrange_jdpc" method="relateJdpcAndSjmc">
+			<result name="success" type="redirect-action">arrangejdpc.action</result>
+		</action>
+		<action name="relateksAndkspc" class="arrange_jdpc" method="relateksAndkspc">
+			<result name="success" type="redirect-action">arrangePrintCard.action</result>
+		</action>
+		<!-- 试卷上传一体化 -->
+		<action name="uploadPaper" class="uploadPaperAction">
+			<result name="success">/paper/paper_upload.jsp</result>
+		</action>
+		<!-- 试卷下放 -->
+		<action name="uploadPaper_xf" class="uploadPaper_xfAction">
+			<result name="success">/paper/uploadPaper_xf.jsp</result>
+		</action>
+		
+		<action name="uploadPaperToYth" class="uploadPaperAction" method="uploadPaperToYth"></action>
+		<!-- 查看已关联鉴定所的试卷 -->
+		<action name="getAlready_paper" class="uploadPaperAction" method="getAlready_paper"></action>
+		<!-- 查看已上传一体化试卷 -->
+		<action name="getAlreadyUploadPaper" class="uploadPaperAction" method="getAlreadyUploadPaper"></action>
+		<!-- 根据已上传试卷查询已关联的鉴定所 -->
+		<action name="getAlreadyTeamDetails" class="uploadPaperAction" method="getAlreadyTeamDetails"></action>
+		<!-- 关联试卷和鉴定所 -->
+		<action name="relatePaperAndTeam" class="uploadPaperAction" method="relatePaperAndTeam">
+			<result name="success" type="redirect-action">uploadPaper.action</result>
+		</action>
+		<!-- 关联试卷和鉴定所  下放 -->
+		<action name="relatePaperAndTeam_xf" class="uploadPaper_xfAction" method="relatePaperAndTeam_xf">
+			<result name="success" type="redirect-action">uploadPaper_xf.action</result>
+		</action>
+		<!-- 根据已下载的试卷查询已关联的鉴定所 -->
+		<action name="getAlreadyDloadTeamDetails_xf" class="uploadPaper_xfAction" method="getAlreadyDloadTeamDetails_xf"></action>
+		<!-- 查看已下放鉴定所的试卷 -->
+		<action name="getAlready_paper_xf" class="uploadPaper_xfAction" method="getAlready_paper_xf"></action>
+		<!-- 根据试卷查询已关联的鉴定所 -->
+		<action name="getAlready_team" class="uploadPaperAction" method="getAlready_team">
+		</action>
+		<!-- 根据试卷查询已下放的鉴定所 -->
+		<action name="getAlready_team_xf" class="uploadPaper_xfAction" method="getAlready_team_xf">
+		</action>
+		<!-- 查看已下载，get已经下载的试卷信息 -->
+		<action name="getAlready_xf_Paper" class="uploadPaper_xfAction" method="getAlready_xf_Paper">
+		</action>
+		<!-- 查看某下放点的下放记录 -->
+		<action name="getStationRecordOfXf" class="uploadPaper_xfAction" method="getStationRecordOfXf"></action>
+		<!-- 取消已关联的鉴定所 -->
+		<action name="remove_team" class="uploadPaperAction" method="remove_team">
+		</action>
+		<!-- 取消已关联的鉴定所 -->
+		<action name="remove_team_xf" class="uploadPaper_xfAction" method="remove_team_xf">
+		</action>
+			<!-- 试卷下放鉴定所 -->
+		<action name="xf_paper" class="uploadPaper_xfAction" method="xf_paper">
+		</action>
+		<!-- 试卷从一体化下载 -->
+		<action name="downloadPaper" class="downloadPaperAction">
+			<result name="success">/paper/paper_download.jsp</result>
+		</action>
+		<action name="downloadPaperBySjid" class="downloadPaperAction" method="downloadPaperBySjid"></action>
+		<action name="deletePaperBySjid" class="downloadPaperAction" method="deletePaperBySjid"></action>
+		<action name="deleteUserBySjid" class="downloadPaperAction" method="deleteUserBySjid"></action>
+		
+		<!-- 考生人员新增 -->
+		<action name="addstaff" class="addstaff"  >
+			<result name="success">/authority/addstaff.jsp</result>
+			<result name="error">/error.jsp</result>
+			 
+		</action>
+		<action name="adduser" class="addstaff"   >
+			<result name="success">/authority/addstaff.jsp</result>
+		</action>
+		<!-- 人员管理 人员新增 -->
+		<action name="addexaminee" class="addexaminee" method="addexaminee">
+			<result name="success"  type="redirect-action">userview.action</result>  
+		</action>
+		<!-- 人员管理 人员新增中获得角色列表-->
+		<action name="addrole" class="addexaminee"  method="getrole">
+			<result name="success"  >/authority/addexaminee.jsp</result>  
+		</action>
+		
+		<!-- 查询人员是否重复 -->
+		<action name="queryuser" class="addexaminee" method="queryuser">
+		</action>
+		
+		
+		<!-- 人员分组 usertameaction-->
+		<action name="queryusertype" class="usertameaction" >
+			<result name="success" >user_team.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 考点信息维护 queryteam -->
+		<action name="queryteam" class="usertameaction" method="queryTeamByid">
+			<result name="success">authority/query_team.jsp</result>
+			<result name="error">authority/query_pteam.jsp</result>
+		</action>
+		<action name="updateTeam" class="usertameaction" method="updateTeam">
+			<result name="success">authority/updatesuccess.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		<action name="chekcTeamByName" class="usertameaction" method="getTeamByName"></action>
+		<action name="addTeam" class="usertameaction" method="addTeam">
+			<result name="success">/authority/user_teamadd.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<!-- 监控信息MonitorAction -->
+		<action name="monitorexaminee" class="monitoraction" >
+			<result name="success">/authority/monitorexaminee.jsp</result>
+		</action>
+		<action name="startExam" class="monitoraction" method="startExam"></action>
+		<action name="startLogin" class="monitoraction" method="startLogin"></action>
+		<action name="forbiddenExam" class="monitoraction" method="forbiddenExam"></action>
+		<action name="cleanIp" class="monitoraction" method="cleanIp"></action>
+		<action name="cleanExam" class="monitoraction" method="cleanExam"></action>
+		<action name="delayTime" class="monitoraction" method="delayTime"></action>
+		
+		<!-- 获取缺考考生信息 -->
+		<action name="getUnExamUser" class="monitoraction" method="getUnExamedUser"></action>
+		
+		<action name="examarrange" class="monitoraction" method="queryArrange" >
+			<result name="success">/authority/user_arrange.jsp</result>
+			<result name="error">query_pteam.jsp</result>
+		</action>
+	
+		<action name="arrangeuser" class="monitoraction" method="queryArrangeUser" >
+			<result name="success">/authority/user_exam.jsp</result>
+			<result name="error">query_pteam.jsp</result>
+		</action>
+	</package>
+		<package name="ajaxip" extends="json-default">
+		<action name="queryip" class="monitoraction" method="queryPingIp" >
+			<result type="json">
+				<param name="root">fenshu</param> 
+			</result>
+		</action>
+		<action name="updateqiangzhi" class="monitoraction" method="updateMonitor" >
+			 <result type="json">
+				<param name="root">fenshu</param> 
+			</result>
+		</action>
+		</package>
+</struts>

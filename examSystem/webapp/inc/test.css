@@ -1,0 +1,45 @@
+.wraptable{
+	background:#F7F7F7;  border:solid 1px #3094C0; color:#999; font-size:12px;
+}
+.wrap{
+	margin:5px;
+}
+.type{
+	color:#217A95;
+}
+.q{
+	background:#fff; border:solid 1px #CAE6EE; padding:10px;height:100%; overflow:hidden; color:#000; font-size:14px; margin-bottom:5px;
+}
+.option{
+	margin-top:10px; padding-top:10px; border-top: dotted 1px #D6D6D6
+}
+.option b{
+	color:#8C8C8C; font-size:12px; float:left;
+}
+.left{
+	float:left;
+}
+.clear{
+	clear:both;
+}
+#wendatidaan{
+	width:90%; border:solid 1px #CAE6EE;
+}
+.buttons{
+	clear:both; margin-left:68px; margin-top:5px;
+}
+.buttons button,.buttons input{
+	border:solid 1px #82ACD6;background:#EDF8FF;color:#0079B7;float:left;margin-right:5px;height:20px;line-height:20px
+}
+.answer{
+	margin-top:10px; height:100%; overflow:hidden; display:none; clear:both
+}
+.answer b{
+	color:#8C8C8C; font-size:12px; float:left;
+}
+.answercontent{
+	display:block; float:left; line-height:22px; font-size:14px;
+}
+.buttons input {
+    margin-right:50px;
+}

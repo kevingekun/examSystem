@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.exam">
+
+	<class name="ExamQuestions" table="EXAM_QUESTIONS">
+		<id name="questionid" column="QUESTIONTID" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="questionname" type="string" column="QUESTIONNAME"/>
+	</class>
+	
+	<class name="ExamQuestionType" table="EXAM_QUESTIONTYPE">
+		<id name="typeid" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="typename" type="string" column="TYPENAME"/>
+		<property name="identiname" type="string" column="IDENTINAME"/>
+		<property name="ischeck" type="int"/>
+	</class>
+	
+	<class name="ExamRqueKeys" table="EXAM_RQUES_KEYS">
+		<id name="id" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="ordering" column="ORDERING" type="int"></property>
+		<many-to-one name="examrques" class="ExamRealQuestions" column="REALQUESID" unique="true" lazy="false"/>
+		<many-to-one name="examkey" class="ExamKeys" column="KEYID" unique="true" lazy="false"/>
+	</class>
+	
+	<class name="ExamRealQuestions" table="EXAM_REALQUESTIONS">
+		<id name="realquesid" column="REALQUESID" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="businesstype" type="string" column="BUSINESSTYPE"/>
+		<property name="correctkey" type="string" column="CORRECTKEY"/>		
+		<many-to-one name="examquestions" class="ExamQuestions" column="QUESTIONID" unique="true" lazy="false"/>
+		<many-to-one name="examquestype" class="ExamQuestionType" column="TYPEID" unique="true" lazy="false"/>
+		<many-to-one name="importance" class="ExamImportance" column="IMPID"  unique="true" lazy="false"/>	
+		<set name="examrqueskeys" cascade="all" inverse="true" sort="com.wondersgroup.falcon.model.exam.SkComparator" batch-size="30">
+			<key column="REALQUESID"></key>
+			<one-to-many class="com.wondersgroup.falcon.model.exam.ExamRqueKeys"/>
+		</set>
+	</class>	
+</hibernate-mapping>

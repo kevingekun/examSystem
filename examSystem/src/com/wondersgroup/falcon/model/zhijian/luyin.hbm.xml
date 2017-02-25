@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.zhijian">
+
+	<class name="Luyin" table="LUYIN">
+		<id name="recordreference" type="string">
+			<generator class="uuid">
+			</generator>
+		</id>
+		<property name="agentid" type="string"/>
+		<property name="startrecordtime" />	
+		<property name="callerid" type="string"/>
+		<property name="recordlength" type="java.lang.Long"/>
+		<property name="flag" type="string"/>
+		<property name="directionflag" type="string"/>
+		<property name="reservedthree" type="string"/>
+		<property name="type" type="string" />
+		<property name="startime"  />
+		<property name="endtime"  />
+		<property name="sort" type="string" />
+		<property name="zhonglei" type="string" />
+		<property name="name" type="string" />
+		<property name="zhuidian" type="string" />
+		<property name="comments" type="string" />
+		<property name="gonghao" type="string" />
+		<property name="phoneid" type="string" />
+		<property name="callid" type="string" />
+		<property name="id" type="java.lang.Long"/>
+	</class>
+	
+</hibernate-mapping>

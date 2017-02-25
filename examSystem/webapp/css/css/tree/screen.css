@@ -1,0 +1,24 @@
+html, body {height:100%; margin: 0; padding: 0; }
+
+html>body {
+	font-size: 16px; 
+	
+} /* Reset Base Font Size */
+
+
+
+h1 { font-size: large }
+
+#banner { padding: 15px;  color: white; font-size: large; border-bottom: 1px solid #ccc;
+    background: url(bg.gif) repeat-x; text-align: center }
+#banner a { color: white; }
+
+
+a img { border: none; }
+
+body {
+	
+	font-size:12px;
+	
+	
+}

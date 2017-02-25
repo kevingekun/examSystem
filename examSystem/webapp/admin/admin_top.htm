@@ -1,0 +1,398 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>无标题文档</title>
+<link href="../inc/all.css" rel="stylesheet" type="text/css">
+<style type=text/css>
+td { 
+    font-size: 12px;
+    color: #000000;
+    line-height: 150%;
+    }
+.sec0 {
+  	background-image: url("images/bg_jinshu.gif");
+    cursor: hand;
+    color: #000000;
+    border-left: 0px solid #FFFFFF;
+    border-top: 0px solid #FFFFFF;
+    border-right: 0px solid  #FFFFFF;
+    border-bottom: 0px solid #FFFFFF
+    }      
+    
+.sec1 { 
+    background-image: url("images/11.gif");
+    cursor: hand;
+    color: #000000;
+    border-left: 0px solid #FFFFFF;
+    border-top: 0px solid #FFFFFF;
+    border-right: 0px solid  #FFFFFF;
+    border-bottom: 0px solid #FFFFFF
+    }
+.sec2 { 
+    background-image: url("images/bg1_jinshu.gif");
+    cursor: hand;
+    color: #ffffff;
+    border-left: 0px solid #FFFFFF; 
+    font-weight: bold; 
+    }
+.sec3{
+	cursor: hand;
+    border-right: 0px solid #FFFFFF;
+      border-top: 0px solid #FFFFFF;
+
+   }
+.sec4 { 
+	cursor: hand;
+    background-image: url("images/bg_jinshu.gif");
+    color: #ffffff;
+    }   
+   
+.main_tab {
+    background-color: #8CC9FB;
+    color: #ffffff;
+    border-left:1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF; 
+
+    }
+</style>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v6.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+function linkfax(){
+	parent.frames.left.frames.mainFrame.tree.location = "fax_tree.jsp";
+	parent.rightframe.location = "fax_right.jsp";
+}
+
+function linkauthority(){
+	parent.frames.left.frames.topFrame.location = "../authority/authority_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../authority/authority_left.htm";
+	parent.rightframe.location = "../authority/lookup_user.jsp";
+	secBoard(1)
+}
+
+function linkFeedbackstat(){
+	parent.frames.left.frames.topFrame.location = "../rc/feedback_state/feedbackstat_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rc/feedback_state/feedbackstat_left.htm";
+	parent.rightframe.location = "../rc/feedback_state/listFeedbackStat.jsp";
+	secBoard(3);
+}
+
+function linkCategory(){
+	parent.frames.left.frames.topFrame.location = "../rc/category/category_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rc/category/category_left.htm";
+	parent.rightframe.location = "../rc/category/listCategory.jsp";
+	secBoard(3);
+}
+
+function linkCaller(){
+	parent.frames.left.frames.topFrame.location = "../rc/caller/caller_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rc/caller/caller_left.htm";
+	parent.rightframe.location = "../rc/caller/listCaller.jsp";
+	secBoard(3);
+}
+
+function linkReference(){
+	parent.frames.left.frames.topFrame.location = "../rc/reference/reference_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rc/reference/reference_left.htm";
+	parent.rightframe.location = "../rc/reference/listReference.jsp";
+	secBoard(3);
+}
+
+function linkForm(){
+	parent.frames.left.frames.topFrame.location = "../rc/form/form_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rc/form/form_left.htm";
+	parent.rightframe.location = "../rc/form/listForm.jsp";
+	secBoard(3);
+}
+function linkAuthgroup(){
+	parent.frames.left.frames.topFrame.location = "../rc/authgroup/authgroup_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rc/authgroup/authgroup_left.htm";
+	parent.rightframe.location = "../rc/authgroup/listAuth.jsp";
+	secBoard(3);
+}
+function linkDept(){
+	parent.frames.left.frames.topFrame.location = "../rr/dept/dept_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rr/dept/dept_left.htm";
+	parent.rightframe.location = "../rr/dept/listDept.jsp";
+	secBoard(2);
+}
+function linkReq(){
+	parent.frames.left.frames.topFrame.location = "../rr/req/req_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rr/req/req_left.htm";
+	parent.rightframe.location = "../rr/req/listReq.jsp";
+	secBoard(2);
+}
+function linkSubject(){
+	parent.frames.left.frames.topFrame.location = "../rr/subject/subject_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rr/subject/subject_left.htm";
+	parent.rightframe.location = "../rr/subject/listReq.jsp";
+	secBoard(2);
+}
+function linkQuestion(){
+	parent.frames.left.frames.topFrame.location = "../rr/question/question_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rr/question/question_left.htm";
+	parent.rightframe.location = "../rr/question/listSubject.jsp";
+	secBoard(2);
+}
+
+function linkAnswer(){
+	parent.frames.left.frames.topFrame.location = "../rr/answer/answer_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../rr/answer/answer_left.htm";
+	parent.rightframe.location = "../rr/answer/listQuestion.jsp";
+	secBoard(2);
+}
+
+function linkApproach(){
+	parent.frames.left.frames.topFrame.location = "../ip/approach/approach_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../ip/approach/approach_left.htm";
+	parent.rightframe.location = "../ip/approach/listApproach.jsp";
+	secBoard(4);
+}
+
+
+function linkPolicy(){
+	parent.frames.left.frames.topFrame.location = "../ip/policy/policy_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../ip/policy/policy_left.htm";
+	parent.rightframe.location = "../ip/policy/listPolicy.jsp";
+	secBoard(4);
+}
+
+
+function linkInform(){
+	parent.frames.left.frames.topFrame.location = "../ip/inform/inform_left_top.htm";
+	parent.frames.left.frames.mainFrame.tree.location = "../ip/inform/inform_left.htm";
+	parent.rightframe.location = "../ip/inform/listPolicy.jsp";
+	secBoard(4);
+}
+
+function linkvoice(){
+	parent.frames.left.frames.mainFrame.tree.location = "voice_tree.jsp";
+	parent.rightframe.location = "voice_right.jsp";
+}
+function secBoard2(n)
+{
+  for(i=0;i<mainTable.cells.length;i++)
+    mainTable.cells[i].className="sec0";
+    mainTable.cells[n].className="sec4";
+//    alert(n)
+    if(n==0){
+		parent.frames.left.frames.mainFrame.tree.location = "policy_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_1.jsp";
+		parent.rightframe.location = "policy_right.jsp";
+    }
+    if(n==1){
+    	parent.frames.left.frames.mainFrame.tree.location = "ser_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_2.jsp";
+		parent.rightframe.location = "ser_right.jsp";
+    }
+    if(n==2){
+		parent.frames.left.frames.mainFrame.tree.location = "ansq_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_3.jsp";
+		parent.rightframe.location = "ansq_right.jsp";
+    }
+    if(n==3){
+		parent.frames.left.frames.mainFrame.tree.location = "medi_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_5.jsp";
+		parent.rightframe.location = "medi_right.jsp";
+    }    
+    if(n==4){
+		parent.frames.left.frames.mainFrame.tree.location = "insti_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_6.jsp";
+		parent.rightframe.location = "insti_right.jsp";
+    }
+    if(n==5){
+		parent.frames.left.frames.mainFrame.tree.location = "news_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_7.jsp";
+		parent.rightframe.location = "news_right.jsp";
+    }
+    if(n==6){
+		parent.frames.left.frames.mainFrame.tree.location = "case_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_4.jsp";
+		parent.rightframe.location = "case_right.jsp";
+    }
+    if(n==7){
+		parent.frames.left.frames.mainFrame.tree.location = "advi_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_8.jsp";
+		parent.rightframe.location = "advi_right.jsp";
+    }   
+    if(n==8){
+		parent.frames.left.frames.mainFrame.tree.location = "fback_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_9.jsp";
+		parent.rightframe.location = "fback_right.jsp";
+    }   
+    if(n==9){
+		parent.frames.left.frames.mainFrame.tree.location = "edit_left.html";
+		parent.frames.left.frames.topFrame.location = "leftop_10.jsp";
+		parent.rightframe.location = "popup.jsp";
+    }
+
+     if(n==11){
+		parent.frames.left.frames.mainFrame.tree.location = "exam_managemenu.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_13.jsp";
+		parent.rightframe.location = "exam_subjectadd.jsp";
+    } 
+     
+     if(n==10){
+		parent.frames.left.frames.mainFrame.tree.location = "his_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_11.jsp";
+		parent.rightframe.location = "his_right.jsp";
+    }
+     if(n==12){
+     	parent.frames.left.frames.mainFrame.tree.location = "edit_right.html";
+		parent.frames.left.frames.topFrame.location = "leftop_12.jsp";
+		parent.rightframe.location="sortguanli.jsp";
+    }   
+}
+
+//-->
+</script>
+<script language=javascript>
+<!--
+function secBoard(n)
+{
+  for(i=0;i<secTable.cells.length;i++)
+    secTable.cells[i].className="sec1";
+  	secTable.cells[n].className="sec2";
+    if(n==0){
+    	for(j=0;j<mainTable.cells.length;j++){
+    			mainTable.cells[j].className="sec0";
+    	    	mainTable.cells[0].className="sec4";
+    	}
+		parent.frames.left.frames.mainFrame.tree.location = "policy_tree_1.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_1.jsp";
+		parent.rightframe.location = "policy_right.jsp";
+    }
+    if(n==2){
+       for(j=0;j<mainTable.cells.length;j++){
+    			mainTable.cells[j].className="sec0";
+    			mainTable.cells[11].className="sec4";
+    	}
+	//    	parent.frames.LeftFrm.location = "law/law.htm";
+    }
+    if(n==1){
+       for(j=0;j<mainTable.cells.length;j++){
+    			mainTable.cells[j].className="sec0";
+    			mainTable.cells[11].className="sec4";
+    	}
+		parent.frames.left.frames.mainFrame.tree.location = "exam_managemenu.jsp";
+		parent.frames.left.frames.topFrame.location = "leftop_13.jsp";    	
+		parent.rightframe.location = "exam_subjectadd.jsp";
+    }   
+    
+  for(i=0;i<mainTable.tBodies.length;i++)
+    mainTable.tBodies[i].style.display="none";
+  	mainTable.tBodies[n].style.display="block";
+  }
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#004482">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr> 
+		<td height="48"> 
+			<table width="90%" border="0" cellspacing="0" cellpadding="0">
+			    <tr> 
+					<td width="0"></td>
+					<td><img src="images/head001.jpg" width="1024" height="48"></td>
+			    </tr>
+			</table>
+		</td>
+	</tr>
+	<tr> 
+		<td height="25"  bgcolor="#0C73C7" background="images/k1_03.gif" class=sec3> 
+			<table height="25" border=0 cellpadding=0 cellspacing=0 id=secTable style="display:block;" id=sec2  >
+				<tr height=20 align=center> 
+					<td  width=7% onclick="secBoard(0)" class=sec2>知识库</td>
+					<!--
+					<td class=sec1 width=7% onclick="secBoard(1)" >来电概要</td>
+					<td class=sec1 width=7% onclick="secBoard(2)" >信息查询</td>
+					<td class=sec1 width=7% onclick="secBoard(3)" >信息交流公告</td>	
+					-->
+					<td class=sec1 width=7% onclick="secBoard(1)" >考试培训</td>					
+					<td width=40% class=sec1 ></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table  cellspacing=0 cellpadding=0 width=100% id=mainTable border=0>
+	<tbody style="display:block;" >
+		<tr height=24 background="images/bg_jinshu.gif" align=center >
+			<td width=10% onclick="secBoard2(0)" class=sec4>文件目录</td>
+			<td width=10% class=sec0  onclick="secBoard2(1)">业务知识</td>
+			<td width=10% class=sec0  onclick="secBoard2(2)" >答复口径</td>
+			<td width=10% class=sec0  onclick="secBoard2(3)" >医药信息</td>
+			<td width=10% class=sec0  onclick="secBoard2(4)" >相关机构</td>
+			<td width=10% class=sec0  onclick="secBoard2(5)">最新要闻</td>
+			<td width=10% class=sec0  onclick="secBoard2(6)">各类培训</td>
+			<td width=10% class=sec0  onclick="secBoard2(7)">咨询问答</td>
+			<td width=10% class=sec0  onclick="secBoard2(8)">使用反馈</td>
+			<td width=10% class=sec0  id=editbutton onclick="secBoard2(9)">文本编辑器</td>
+			
+		</tr>
+	</tbody>
+	<!--
+	<tbody style="display:none;">
+		<tr height=24 background="images/bg_jinshu.gif" align=center >
+			<td width=5% onclick="secBoard2(10)" class=sec4>概要记录</td> 
+			
+			<td width=5% onclick="secBoard2(11)" class=sec0>用户信息</td>
+			<td width=5% onclick="secBoard2(12)" class=sec0>险种管理</td>
+			<td width=50% class=sec0 ></td>
+		</tr>
+	</tbody >
+	<tbody style="display:none;">
+		<tr height=24 background="images/bg_jinshu.gif" align=center >
+			<td width=7% onclick="secBoard2(14)" class=sec4>帐户状态余额</td> 
+			<td width=7% onclick="secBoard2(15)" class=sec0>消费纪录查询</td>
+			<td width=5% onclick="secBoard2(16)" class=sec0>挂失</td>
+			<td width=50% class=sec0 ></td>
+		</tr>
+	</tbody>
+	<tbody style="display:none;">
+		<tr>
+			<td height="24" background="images/bg_jinshu.gif">&nbsp;<a href="#" onclick="">暂无</a></td>
+		</tr>
+	</tbody>	
+		
+	-->
+
+	<tbody style="display:none;">
+		<tr>
+			<td height="24" background="images/bg_jinshu.gif">&nbsp;</td>
+			<td width=9% onclick="secBoard2(11)" class=sec4>考试管理</td> 	
+			<td width=89% class=sec0 ></td>				
+		</tr>
+	</tbody>	
+</table>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.exam">
+
+	<class name="ExamPaper" table="EXAM_PAPER">
+		<id name="examid" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="examname" type="java.lang.String" column="EXAMNAME"/>	
+		<property name="examtype" type="java.lang.String" column="EXAMTYPE"/>			
+		<property name="effectstarttime" column="EFFECTSTARTTTIME"/>			
+		<property name="examtime" type="string" column="EXAMTIME"/>			
+		<property name="effectendtime"  column="EFFECTENDTIME"/>	
+		<property name="exammark" type="java.lang.String" column="EXAMMARK"/>			
+		<set name="paperquestion" cascade="all" inverse="true" sort="com.wondersgroup.falcon.model.exam.EsComparator" batch-size="30">
+			<key column="examid"/>
+			<one-to-many class="ExamPaperQuestions" />
+		</set>	
+		<set name="examanswers" cascade="all" inverse="true">
+			<key column="examid"></key>
+			<one-to-many class="ExamAnswers" />
+		</set>	
+	</class>
+	
+	<class name="ExamPaperQuestions" table="EXAM_RQUES_PAPER">
+		<id name="id" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="questionmarks"  type="java.lang.String" column="QUESTIONMARKS" />
+		<property name="ordering"  column="ORDERING" />		
+		<many-to-one name="realquestion" class="ExamRealQuestions" column="REALQUESID" unique="true" lazy="false" />
+		<many-to-one name="exampaper" class="ExamPaper" column="EXAMID" unique="true" lazy="false"/>
+	</class>
+	
+
+</hibernate-mapping>

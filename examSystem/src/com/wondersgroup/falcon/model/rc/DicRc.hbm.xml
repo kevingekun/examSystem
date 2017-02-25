@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="DicRc"
+		table="dic_rc"
+	>
+		<id
+			name="Id"
+			type="java.lang.Long"
+			column="id"
+		>
+		</id>
+
+		<property
+			name="name"
+			column="name"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+
+
+	</class>	
+</hibernate-mapping>

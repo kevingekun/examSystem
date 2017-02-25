@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webappbnd:WebAppBinding xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:webappbnd="webappbnd.xmi" xmi:id="WebAppBinding_1" virtualHostName="default_host">
+  <webapp href="WEB-INF/web.xml#WebApp"/>
+  <resRefBindings xmi:id="ResourceRefBinding_1103618683468" jndiName="jdbc/SHYBDBPool">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_1103618683468"/>
+  </resRefBindings>
+  <resRefBindings xmi:id="ResourceRefBinding_1103618875156" jndiName="jdbc/SHYBFaxDBPool">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_1103618875156"/>
+  </resRefBindings>
+  <resRefBindings xmi:id="ResourceRefBinding_1103618875157" jndiName="jdbc/SHYBReportPool">
+    <bindingResourceRef href="WEB-INF/web.xml#ResourceRef_1103618875157"/>
+  </resRefBindings>
+</webappbnd:WebAppBinding>

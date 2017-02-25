@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.archives">
+
+	<class name="VoicePhrase">
+		<id name="voiceId">
+			<generator class="assigned" />
+		</id>
+		<property name="parent_id" column="parent_id" />
+		<property name="phraseId" unique="true" not-null="true" />
+		<property name="ordering" type="int" not-null="true" />
+		<property name="body" type="string" length="2000" not-null="true" />
+		<property name="dir" type="boolean" not-null="true" />
+	</class>
+	 
+</hibernate-mapping>

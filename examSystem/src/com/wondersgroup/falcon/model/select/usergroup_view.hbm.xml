@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.select">
+
+	<class name="Usergroup_view" table="usergroup_view">
+		<id name="user_id" type="java.lang.String">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="gonghao" type="string" length="255"/>
+		<property name="group_id" type="string" length="255"/>
+		<property name="realname" type="string" length="255"/>
+		<property name="status" type="string" length="255"/>
+	</class>
+	
+	
+</hibernate-mapping>

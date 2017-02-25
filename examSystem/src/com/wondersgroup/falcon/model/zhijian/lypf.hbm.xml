@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.zhijian">
+
+	<class name="Lypf" table="LYPF">
+		<id name="id" type="string">
+			<generator class="uuid">
+			</generator>
+		</id>
+		<property name="bkpr" type="string"/>
+		<property name="pftime" />	
+		<property name="pfr" type="string"/>
+		<property name="zf" type="double"/>
+		<property name="beizhu" type="string"/>
+		<property name="vcid" type="string"/>
+		<property name="zjid" type="string"/>
+		<property name="mark" type="double"/>
+		<property name="sumark" type="double"/>
+		<property name="lytime" />	
+	</class>
+	
+</hibernate-mapping>

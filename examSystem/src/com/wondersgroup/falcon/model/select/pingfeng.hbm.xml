@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.select">
+
+	<class name="pingfeng" table="ZHIJIANPINGFEN">
+		<id name="pingfenid" column="pingfenid" type="java.lang.String">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="mark" type="string" length="255"/>
+		
+		<property name="gonghao" type="string" length="255"/>
+		
+		<property name="auth" type="string" length="255"/>
+		
+		<property name="tjflag" type="string" length="255"/>
+		
+		<property name="riqi" type="java.util.Date" />
+		
+	</class>
+	
+	
+</hibernate-mapping>

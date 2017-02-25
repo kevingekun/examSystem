@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.citizeninfo">
+
+	<class name="History" table="HISTORY1">
+		<id name="id" type="java.lang.Long">
+			<generator class="native">
+				<param name="sequence">HISTORY_SEQUENCE</param>
+			</generator>
+		</id>
+		<property name="type" type="string" />
+		<many-to-one  name="user"  class="com.wondersgroup.falcon.model.archives.Users" unique="true" column="gonghao" property-ref="agentId" not-null="true"/>
+		<property name="callid" type="string" />
+		<property name="startime"  />
+		<property name="endtime"  />
+		<property name="sort" type="string" />
+		<property name="zhonglei" type="string" />
+		<property name="name" type="string" />
+		<property name="zhuidian" type="string" />
+		<property name="comments" type="string" />
+		<many-to-one  name="reservedthree"  class="com.wondersgroup.falcon.model.zhijian.RECORDORIGINALDATA" column="phoneid" unique="true" insert="false" update="false" property-ref="reservedthree" not-null="true"/>
+		<many-to-one  name="calllog"  class="Manualcall_log" unique="true" column="phoneid" property-ref="callid" not-null="true"/>
+	</class>
+	
+	
+</hibernate-mapping>

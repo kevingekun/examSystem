@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.popedom.bo">
+
+	<class name="EUser" table="USERS">
+		<id name="id" column="user_id">
+			<generator class="native">
+				<param name="sequence">SEQ_USER_ID</param>
+			</generator>
+		</id>
+		<property name="username" type="string" not-null="true" length="20"/>
+		<property name="realname" type="string" length="20"/>
+		<property name="password" type="string" not-null="true" length="20"/>
+		<property name="agentId" type="string" length="10"/>
+		<property name="deviceDn" type="string" length="10"/>
+		<many-to-one name="group" column="group_id" not-null="false" lazy="false"/>
+		<property name="status" type="byte" />
+		<property name="enabled" type="byte"/>
+		<property name="color" type="string"/>
+		<property name="userflag" type="string"/>
+		<property name="userType" type="string"/>
+		<property name="visible" type="byte"/>
+		<property name="flag" type="byte"/>
+		<property name="iskaohe" type="byte"/>
+		
+		<property name="userstar" type="string" column="USERSTAR"/>
+		<property name="createtime" type="java.util.Date" column="CREATETIME"/>	
+		<property name="sex" type="string" column="SEX"/>
+		<property name="userbianhao" type="string" column="USERBIANHAO"/>
+		<property name="olduserbianhao" type="string" column="OLDUSERBIANHAO"/>
+		
+		
+		<!--<property name="devolve" type="byte"/>
+		-->
+		
+		<set name="authorities" table="E_USER_AUTHORITIES" lazy="false" inverse="false" order-by="authority_id">
+			<key column="user_id"/>
+			<many-to-many column="authority_id" class="EAuthority"/>
+		</set>
+<!--		
+		 <set name="userTeamRelations" inverse="true">
+            <key>
+                <column name="USER_ID" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.wondersgroup.falcon.model.auth.UserTeamRelation" />
+        </set>
+
+        <set name="teams" table="USER_TEAM_RELATION" cascade="all" inverse="false" lazy="false"  >
+        	<key column="USER_ID"/>
+        	<many-to-many column="TEAM_ID" class="com.wondersgroup.falcon.model.auth.UserTeam"></many-to-many>
+        </set>
+-->
+	</class>
+	
+	<class name="EGroup" table="GROUPS">
+		<id name="id" column="group_id">
+			<generator class="assigned">
+				<param name="sequence">E_GROUP_ID_SEQUENCE</param>
+			</generator>
+		</id>
+		<property name="name" type="string" length="20"/>
+		<property name="acdGroup" type="string" length="10"/>
+		<property name="description" type="string" length="200"/>
+	</class>
+	
+	<class name="EAuthority" table="E_AUTHORITIES">
+		<id name="id" column="authority_id">
+			<generator class="native">
+				<param name="sequence">E_AUTHORTIY_ID_SEQUENCE</param>
+			</generator>
+		</id>
+		<property name="name" type="string" length="20"/>
+		<property name="description" type="string" length="200"/>
+		<property name="state" type="byte" column="STATE"/>  
+		<property name="userid" type="long" column="USER_ID"/>  
+		
+		<set name="users" table="E_USER_AUTHORITIES" inverse="true" lazy="true">
+			<key column="authority_id"/>
+			<many-to-many column="user_id" class="EUser"/>
+		</set>
+		<set name="operations" table="E_AUTHORITIES_OPERATION_RIGHT" inverse="true" lazy="true">
+			<key column="authority_id"/>
+			<many-to-many column="RIGHT_ID" class="EMenuOperationRight"/>
+		</set>
+		
+		<set name="menus" table="E_AUTHORITIES_MENUS" inverse="false" lazy="false" cascade="all" >
+			<key column="AUTHORITY_ID"/>
+			<many-to-many column="MENU_ID" class="EUserMenus"/>
+		</set>
+	</class>
+
+	<class name="EUserLayout" table="E_USERLAYOUT">
+		<id name="id" column="dn">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="ordering" type="integer" />
+		<many-to-one name="user" class="EUser" column="user_id" lazy="false"/>
+	</class>
+
+</hibernate-mapping>

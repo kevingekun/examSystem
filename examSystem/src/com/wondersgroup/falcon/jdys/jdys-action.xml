@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC    
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="jdys" extends="kaoshi">
+		<!--鉴定要素  -->
+		<action name="findJdys" class="jdys" method="findJd"></action>
+		<!--根据工种id获取工种等级  -->
+		<action name="findDjByGzid" class="jdys" method="findGzdjByGzid"></action>
+		<!-- 根据工种id、等级获取鉴定要素树 -->
+		<action name="findTreeOfJdys" class="jdys" method="treeOfJdys"></action>
+		<!-- 新增鉴定要素 -->
+		<action name="saveOrUpdateJdys" class="jdys" method="saveOrUpdateJdys"></action>
+		<action name="getJdys" class="jdys" method="getJdys"></action>
+		<!-- 新增题库-用于抽卷组卷 -->
+		<action name="tkAdd" class="jdys" method="tkAdd"></action>
+		<!-- 查找已关联考生的试卷 -->
+		<action name="getRelatedPaper" class="relatedPaper" method="getRelatedPaper"></action>
+		<!-- 查找已关联试卷的鉴定批次 -->
+		<action name="getRelatedJdpc" class="relatedPaper" method="getRelatedJdpc"></action>
+		<!-- 取消鉴定批次与试卷的关联 -->
+		<action name="removeJdpc" class="relatedPaper" method="removeJdpc"></action>
+		<!-- 查找已关联考场-->
+		<action name="getRelatekc" class="relatedPaper" method="getRelatekc"></action>
+		<!-- 查找已关联试卷 -->
+		<action name="getRelatedsj" class="relatedPaper" method="getRelatedsj"></action>
+		<!-- 移除试卷关联 -->
+		<action name="removesj" class="relatedPaper" method="removesj"></action>
+		<!-- 整套试卷获取试卷名称 -->
+		<action name="ztzj" class="ztsj" method="getEPapers_set"></action>
+		<action name="changePaper"  class="relatedPaper"  method="changePaper"></action>
+		<action name="updatePaper"  class="relatedPaper"  method="updatePaper"></action>
+		<action name="clearTime"  class="relatedPaper"  method="clearTime"></action>
+		<action name="jdysBatchAdd" class="jdys" method="jdysBatchAdd">
+			<result name="success"></result>
+		</action>
+		<!-- 新增题库类别 -->
+		<action name="tkCategoryAdd" class="jdys" method="tkCategoryAdd"></action>
+		<!-- 新增工种校验 -->
+		<action name="gzCheck" class="jdys" method="gzCheck"></action>
+		<!-- cz70新增工种 -->
+		<action name="gzAdd" class="jdys" method="gzAdd"></action>
+		
+	</package>
+</struts>

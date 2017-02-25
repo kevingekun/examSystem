@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RcForm"
+		table="rc_form"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="form_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Persons"
+			column="persons"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="Cont"
+			column="cont"
+			type="string"
+			not-null="false"
+			length="2000"
+		/>
+		<property
+			name="Keys"
+			column="keys"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="Hid"
+			column="hid"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+		<property
+			name="Memo"
+			column="memo"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="Dt"
+			column="dt"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<property
+			name="TjDt"
+			column="tjdt"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<property
+			name="DealDt"
+			column="dealdt"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		
+		<property
+			name="Stat"
+			column="stat"
+			type="string"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="Proceeding"
+			column="proceeding"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			name="Resultable"
+			column="resultable"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+		<many-to-one
+			name="Authority"
+			column="AUTHORITY_ID"
+			class="com.wondersgroup.falcon.model.auth.Authority"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="CallerSn"
+			column="CALLER_SN"
+			class="RcCaller"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+		<many-to-one
+			name="User"
+			column="USER_ID"
+			class="com.wondersgroup.falcon.model.auth.User"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+		<many-to-one
+			name="CategorySn"
+			column="category_sn"
+			class="RcCategory"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+		<many-to-one
+			name="ReferenceSn"
+			column="reference_sn"
+			class="RcReference"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+	
+
+		<set name="rcType" inverse="true" lazy="true" order-by="id">
+			<key column="form_sn"/>
+			<one-to-many class="RcType"/>
+		</set>
+
+
+		<set name="RcResearchs" inverse="true" order-by="research_sn">
+			<key column="form_sn"/>
+			<one-to-many class="RcResearch"/>
+		</set>
+
+		<set name="RcUrgents" inverse="true" order-by="urgent_sn">
+			<key column="form_sn"/>
+			<one-to-many class="RcUrgent"/>
+		</set>
+
+		<set name="RcFeedbacks" inverse="true" order-by="feedback_sn">
+			<key column="form_sn"/>
+			<one-to-many class="RcFeedback"/>
+		</set>
+
+
+	</class>	
+</hibernate-mapping>

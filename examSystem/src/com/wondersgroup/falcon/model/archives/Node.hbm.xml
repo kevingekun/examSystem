@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.archives">
+
+	<class name="Node" abstract="true">
+		<id name="id" type="java.lang.Long">
+	    <generator class="native">
+				<param name="sequence">SEQ_NODE</param>
+		</generator>
+		</id>
+		<set name="children" cascade="all" inverse="true" sort="com.wondersgroup.falcon.model.archives.NodeComparator" batch-size="30">
+			<key column="parent_id" />
+			<one-to-many class="Node" />
+		</set>
+		<many-to-one name="parent" class="Node" column="parent_id" lazy="false" />
+		
+		<property name="ordering" type="int" />
+		<property name="name" type="string" />
+	    <!-- <property name="usertype" type="java.lang.Byte" /> -->
+
+		<property name="visible" type="boolean" />
+		
+		<union-subclass name="PolicyNode" table="POLICYNODE">
+			<many-to-one name="attribute"  column="ATTRIBUTE" class="PolicyAttr" unique="true" cascade="all" lazy="false" />
+		</union-subclass>
+
+		<union-subclass name="FaqNode">
+			<many-to-one name="attribute" class="FaqAttr" unique="true" cascade="all" lazy="false" />
+		</union-subclass>
+		
+		<union-subclass name="ServiceNode">
+			<many-to-one name="attribute" class="ServiceAttr" unique="true" cascade="all" lazy="false" />
+		</union-subclass>
+		
+		<union-subclass name="CaseNode">
+			<many-to-one name="attribute" class="CaseAttr" unique="true" cascade="all" lazy="false" />
+		</union-subclass>
+	
+	<!-- 
+		<union-subclass name="VoiceNode">
+			<property name="voiceFile" type="java.lang.String" length="2000"/>
+		</union-subclass>
+		
+		 
+		<union-subclass name="FaxNode">
+			<property name="voiceFile" type="java.lang.String" />
+			<property name="faxFile" type="java.lang.String" />
+			<property name="faxid" type="java.lang.String" />
+			<property name="htmlfile" type="java.lang.String" />
+		</union-subclass>
+		-->
+	</class>
+	
+ 
+</hibernate-mapping>

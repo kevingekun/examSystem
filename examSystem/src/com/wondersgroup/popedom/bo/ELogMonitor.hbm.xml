@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.popedom.bo">
+
+	<class name="ELogMonitor" table="E_LogMonitor">
+		<id name="logid" column="logid">
+			<generator class="native">
+				<param name="sequence">SEQ_LOGMONITOR</param>
+			</generator>
+		</id>
+		<property name="userid" type="long"/>
+		<property name="examid" type="long" />
+		<property name="ip" type="string" />
+		<property name="logindate" type="java.util.Date"/>
+		<property name="startdate" type="java.util.Date" />
+		<property name="enddate" type="java.util.Date" />
+		<property name="flag" type="string"/>
+		<property name="state" type="string"/>
+		<property name="Surplus" type="string"/>
+		<property name="cheatflag" type="string"/>
+		<property name="Remarks" type="string"/>
+		<property name="ifxz" type="string"/>
+	</class>
+	
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.zhijian">
+
+	<class name="E_questions" table="E_QUESTIONS">
+		<id name="st_id" type="string">
+			<generator class="uuid">
+			</generator>
+		</id>
+		<property name="st_fjlj" type="string"/>
+		
+		
+	</class>
+	
+</hibernate-mapping>

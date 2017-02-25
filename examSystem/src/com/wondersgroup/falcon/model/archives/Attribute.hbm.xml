@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.archives">
+
+	<class name="Attribute" abstract="true">
+		<id name="id" type="java.lang.Long">
+		<generator class="native">
+				<param name="sequence">SEQ_NODE</param>
+		</generator>
+		</id>
+		<property name="keyword" type="java.lang.String" />
+		<!--  <property name="businessType" type="java.lang.String" />-->
+		<property name="htmlFile" type="java.lang.String" />
+		
+		<!-- <property name="filetext" type="clob" />
+		
+		<property name="status" type="java.lang.String" />
+		<property name="releasestate_id" type="java.lang.String" />
+		-->
+		<!--  
+		<many-to-one name="dicReleasestate" class="com.wondersgroup.falcon.model.dic.DicReleasestate" fetch="select" lazy="false">
+            <column name="RELEASESTATE_ID" precision="3" scale="0" />
+        </many-to-one> 
+        -->
+        <!--
+		<property name="createtime" type="java.util.Date" />
+		<property name="createuser" type="java.lang.String" />
+		<property name="remark" type="java.lang.String" />
+		<property name="policy" type="java.lang.String" />
+		-->
+		<union-subclass name="PolicyAttr" table="policyAttr">
+			<property name="effective" type="java.lang.Long" />
+			<property name="fileno" type="java.lang.String" />
+			<property name="issuer" type="java.lang.String" />
+			<!--  <property name="receiver" type="java.lang.String" />
+			<property name="issueDt" type="java.util.Date" />
+			<property name="effectiveDt" type="java.util.Date" />-->
+			<property name="expiredDt" type="java.util.Date" />
+			<property name="faxFile" type="java.lang.String" length="1" />
+			<property name="year" type="java.lang.Long" />
+			<!--  <property name="newdoc" type="java.lang.Long" length="1"  />
+			<property name="tailor" type="java.lang.Long" length="1"  />
+			<property name="redtop" type="java.lang.Long" length="1"  />-->
+			<!--<property name="external" type="java.lang.Long" length="1"  />
+			 <property name="externalTime" type="java.util.Date" /> -->
+			<!--<property name="modifyTime" type="java.util.Date" />
+			 <property name="filetype" type="java.lang.String" /> 
+			<property name="modifystate" type="java.lang.Long" length="3"  />-->
+		</union-subclass>
+
+		<union-subclass name="FaqAttr">
+				<!-- <property name="voiceFile" type="java.lang.String" />
+		
+			<property name="tablerecord" type="java.lang.String" />
+			
+			 <property name="modifystate" type="java.lang.Long" length="3"  />
+			  -->
+		</union-subclass>
+
+		<union-subclass name="ServiceAttr">
+			<property name="faxFile" type="java.lang.String" />
+			<!--  
+			<property name="organtype" type="java.lang.Long" length="3"  />
+			<property name="tailor" type="java.lang.Long" length="1"  />
+			<property name="external" type="java.lang.Long" length="1"  />
+			<property name="externalTime" type="java.util.Date" />
+			<property name="modifyTime" type="java.util.Date" />
+			<property name="modifystate" type="java.lang.Long" length="3"  />-->
+		</union-subclass>
+		
+		<union-subclass name="CaseAttr">	
+			<!-- <property name="modifystate" type="java.lang.Long" length="3"  />	 -->
+		</union-subclass>
+			
+	</class>
+	
+</hibernate-mapping>

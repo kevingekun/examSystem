@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.archives">
+
+	<class name="FaxPhrase">
+		<id name="voiceId">
+			<generator class="assigned" />
+		</id>
+		<property name="parent_id" column="parent_id" />
+		<property name="phraseId" unique="true" not-null="true" />
+		<property name="ordering" type="int" not-null="true" />
+		<property name="body" type="org.springframework.orm.hibernate3.support.ClobStringType" />
+		<property name="dir" type="boolean" not-null="true" />
+		<!-->
+		edit by cjj 
+		07-06-06
+	    <-->
+		<property name="faxid" type="java.lang.String" />
+	</class>
+	 
+</hibernate-mapping>

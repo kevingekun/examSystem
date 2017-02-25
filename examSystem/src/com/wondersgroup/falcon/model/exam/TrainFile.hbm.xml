@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.exam">
+
+	<class name="TrainFile">
+
+		<id name="id" type="java.lang.String">
+			<generator class="uuid" />
+		</id>		
+		<property name="title" column="title" type="string" />
+		<property name="type" column="type" type="int" />
+		<property name="content" column="content" type="clob" />	
+		<many-to-one name="sender" class="com.wondersgroup.falcon.model.archives.Users" lazy="false" />
+		<property name="sendtime" type="java.util.Date" />
+		<set name="fujian" cascade="all" inverse="false">
+			<key column="TRAINFILEID"></key>
+			<one-to-many class="TrainFileFujian"/>
+		</set>				
+	</class>
+	
+	<class name="TrainFileFujian">
+		<id name="id" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="name" column="name" type="string" />
+		<property name="address" column="ADDRESS" type="string" />	
+		<many-to-one name="trainfile" column="TRAINFILEID" class="TrainFile" lazy="false" />
+		<property name="code" type="string" />
+	</class>
+</hibernate-mapping>

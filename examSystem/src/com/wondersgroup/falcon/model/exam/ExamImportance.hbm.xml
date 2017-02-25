@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.exam">
+
+	<class name="ExamImportance" table="EXAM_IMPORTANCE">
+		<id name="impid" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="impname" type="string" column="IMPNAME"/>	
+	</class>
+	
+	<class name="ExamEnterCount" table="EXAM_ENTERCOUNT">
+		<id name="id" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="entertime" type="java.util.Date" column="ENTERTIME"/>
+		<many-to-one name="users" column="USERID" class="com.wondersgroup.falcon.model.archives.Users"/>
+		<many-to-one name="exampaper" column="EXAMPAPERID" class="ExamPaper"/>	
+	</class>	
+</hibernate-mapping>

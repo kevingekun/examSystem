@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.zhijian">
+
+	<class name="ZJKPZPSJ" table="ZJKPZPSJ">
+		<id name="id" type="java.lang.Long">
+			<generator class="native">
+				<param name="sequence">ZJKPZPSJ_SEQUENCE</param>
+			</generator>
+		</id>
+		<property name="name" type="string"/>
+		<property name="maxmark" type="string"/>	
+		<property name="minmark" type="string"/>
+		<property name="beizhu" type="string"/>
+		<property name="parentid" type="string"/>
+		<property name="visible" type="string"/>
+		<property name="sort" type="int"/>
+	</class>
+	
+</hibernate-mapping>

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RrResource"
+		table="rr_resource"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="resource_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Stat"
+			column="STAT"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+		<many-to-one
+			name="SubjectSn"
+			column="subject_sn"
+			class="RrSubject"
+			not-null="false"
+		>
+		</many-to-one>
+		
+		<!-- 
+		<many-to-one
+			name="CallerSn"
+			column="CALLER_SN"
+			class="RrCaller"
+			not-null="false"
+		>
+		</many-to-one>
+		 -->
+		<many-to-one
+			name="personInfo"
+			column="CALLER_SN"
+			class="com.wondersgroup.falcon.model.citizeninfo.PersonInfo"
+			not-null="false"
+		>
+		</many-to-one>
+		
+		<many-to-one
+			name="companyInfo"
+			column="COMPANY_SN"
+			class="com.wondersgroup.falcon.model.citizeninfo.CompanyInfo"
+			not-null="false"
+		>
+		</many-to-one>
+		
+		<many-to-one
+			name="User"
+			column="USER_ID"
+			class="com.wondersgroup.falcon.model.auth.User"
+			not-null="false"
+		>
+		</many-to-one>
+
+
+	</class>	
+</hibernate-mapping>

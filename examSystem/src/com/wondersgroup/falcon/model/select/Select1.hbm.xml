@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.select">
+
+	<class name="Select1" table="ZHIJIAN_SELECT">
+		<id name="id" column="id" type="java.lang.String">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="recordlength" type="string" length="255"/>
+		<property name="startrecordtime" />
+		<property name="stoprecordtime" />
+		<property name="agentid" type="string" length="255"/>
+		<property name="recordreference" type="string" length="255"/>
+		<property name="sort" type="string" length="255"/>
+		<property name="baoxian" type="string" length="255"/>
+		<property name="type" type="string" length="255"/>
+		<property name="fuwu" type="string" length="255"/>
+		<property name="flag" type="string" length="255"/>
+		<property name="callerid" type="string" length="255"/>
+		<property name="patch" type="string" length="255"/>
+		<property name="zhijianid" type="string" length="255"/>
+		<property name="voiceip" type="string" length="255"/>
+		<property name="rootdisk" type="string" length="255"/>
+		<property name="voiceid" type="string" length="255"/>
+		<property name="channel" type="string" length="255"/>
+		<property name="extension" type="string" length="255"/>
+		<property name="directionflag" type="string" length="255"/>
+		<property name="chouyangtime" type="string" length="255"/>
+		<property name="comments" type="string" length="255"/>
+		<property name="tjflag" type="string" length="255"/>
+		<property name="modifyapplyflag" type="string" length="255"/>
+		<property name="modifyreason" type="string" length="255"/>
+		<property name="shenheren" type="string" length="255"/>
+		<property name="shenhereason" type="string" length="255"/>
+		<property name="dianxingflag" type="string" length="255"/>
+		<property name="dianxingflag2" type="string" length="255"/>
+		<property name="dianxingflag3" type="string" length="255"/>
+		<property name="dianxingflag4" type="string" length="255"/>
+		<property name="sureflag" type="string" length="255"/>
+		<property name="groupname" type="string" length="255"/>
+		<property name="groupid" type="string" length="255"/>
+		<property name="dafenren" type="string" length="255"/>
+		<property name="dafenren2" type="string" length="255"/>
+		<property name="dafenren3" type="string" length="255"/>
+		<property name="dafenren4" type="string" length="255"/>
+	</class>
+	
+	
+</hibernate-mapping>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+
+<beans>
+	<description>
+		Spring Configuration of CuteFramework Console Application.
+	</description>
+
+	<import resource="applicationContext-acegi-security.xml" /> 
+	<import resource="com/wondersgroup/kaoshi/kaoshi-context.xml"/>
+	<import resource="com/wondersgroup/gonggao/gonggao-context.xml"/>
+	<import resource="com/wondersgroup/popedom/popedom-context.xml"/>
+	<import resource="com/wondersgroup/falcon/jdys/jdys-context.xml"/> 
+	<import resource="com/wondersgroup/technocracy/technocracy-context.xml"/>
+	<import resource="com/wondersgroup/falcon/question_batch_add/batchadd-context.xml"/> 
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<description>属性配置接入</description>
+		<property name="locations">
+			<list>
+				<value>classpath:database.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- =================================================================== -->
+	<!-- 数据源配置 (jdbc & jndi)			                                     -->
+	<!-- =================================================================== -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<description>JDBC 数据源配置</description>
+		<property name="driverClassName" value="${hibernate.connection.driver_class}" />
+		<property name="url" value="${hibernate.connection.url}" />
+		<property name="username" value="${hibernate.connection.username}" />
+		<property name="password" value="${hibernate.connection.password}" />
+	</bean>
+	
+	<!-- 链接服务器weblogic上的数据源   -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<description>JNDI 数据源配置</description>
+		<property name="jndiName" value="JDZX" />
+	</bean> -->
+
+	 <bean id="listenableDataSource" class="com.wondersgroup.falcon.hibernate.ListenableDataSource"
+	 	init-method="init">
+	 	<property name="listenedStatictis">
+	 		<bean class="com.wondersgroup.falcon.hibernate.ListenedStatictis">
+	 			<property name="listenPeriod" value="5"></property>
+	 			<property name="timeout" value="10"></property>
+	 			<property name="showTime" value="true"></property>
+	 			<property name="showTrace" value="true"></property>
+	 			<property name="connectionUnWrappers">
+	 				<list>
+	 					<bean class="com.wondersgroup.falcon.hibernate.impl.WebLogicConnectionUnWrapper"></bean>
+	 				</list>
+	 			</property>
+	 		</bean>
+	 	</property>
+	 	<property name="rawDataSource" ref="dataSource"></property>
+	 </bean>
+	<!-- =================================================================== -->
+	<!-- Spring Lob Handler Define                                           -->
+	<!-- =================================================================== -->
+	<bean id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"
+		lazy-init="true" />
+		
+	<bean id="oracleLobHandler"
+		class="org.springframework.jdbc.support.lob.OracleLobHandler">
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor" />
+	</bean>
+
+	<bean id="defaultLobHandler"
+		class="org.springframework.jdbc.support.lob.DefaultLobHandler">
+	</bean>
+	 
+	<!-- =================================================================== -->
+	<!-- Hibernate SessionFactory 配置			                            -->
+	<!-- =================================================================== -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<description>Hibernate SessionFactory 配置</description>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"	value="classpath:hibernate.cfg.xml" />
+		<property name="lobHandler" ref="oracleLobHandler" />
+	</bean>
+	
+	<!-- =================================================================== -->
+	<!-- Transaction Define                                                  -->
+	<!-- =================================================================== -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean class="com.wondersgroup.falcon.persistence.HibernateUtil">
+		<description>HibernateUtil初始化</description>
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+	</bean>
+	<!-- jdbc事务 -->
+	<bean class="com.wondersgroup.falcon.persistence.jdbc.JdbcUtil">
+		<property name="defaultDsName" value="hibernate"></property>
+	</bean>
+	
+	<bean id="commonJdbcDao" class="com.wondersgroup.wssip.commons.dao.impl.CommonJdbcDaoImpl">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+	</bean>
+	<bean class="com.wondersgroup.wssip.commons.dao.CommonJdbcDaoUtils">
+		<constructor-arg>
+			<ref bean="commonJdbcDao"/>
+		</constructor-arg>
+	</bean>
+
+	<bean id="basicTxProxy" abstract="true"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="execute*">PROPAGATION_REQUIRED</prop>
+				<prop key="do*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_SUPPORTS</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

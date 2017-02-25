@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.exam">
+
+	<class name="ExamAnswers" table="EXAM_ANSWERPAPER">
+		<id name="examanswerid" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="username" type="string" column="USERNAME"/>	
+		<property name="usetime" type="string" column="USETIME"/>			
+		<property name="starttime" type="java.util.Date" column="STARTTIME"/>			
+		<property name="endtime" type="java.util.Date" column="ENDTIME"/>
+		<property name="wholemark" type="int" column="WHOLEMARK"/>
+		<many-to-one name="examanswerstatus" class="com.wondersgroup.falcon.model.exam.ExamAnswerStatus" column="STATUS" unique="true"  lazy="false"/>		
+		<many-to-one name="exampaper" class="com.wondersgroup.falcon.model.exam.ExamPaper" column="EXAMID" unique="true"  lazy="false"/>		
+		<set name="examansrques" cascade="all"  sort="com.wondersgroup.falcon.model.exam.EasComparator" batch-size="30">
+			<key column="EXAMANSERID"></key>
+			<one-to-many class="ExamAnswersQuestions" />
+		</set>	
+	</class>
+	
+	<class name="ExamAnswersQuestions" table="EXAM_ANSWER_RQUES">
+		<id name="id" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>		
+		<property name="marks" type="java.lang.String" />	
+		<property name="correctkey" type="java.lang.String" />				
+		<property name="answerkey" type="java.lang.String" />	
+		<property name="gainmark" type="int"/>
+		<property name="ordering" type="int" />							
+		<many-to-one name="examanswer" class="com.wondersgroup.falcon.model.exam.ExamAnswers" column="EXAMANSERID" unique="true" lazy="false"/>		
+		<many-to-one name="examrealques" class="com.wondersgroup.falcon.model.exam.ExamRealQuestions" column="REALQUESID" unique="true" lazy="false"/>					
+	</class>
+	
+	<class name="ExamAnswerStatus" table="EXAM_ANSWERSTATUS">
+		<id name="id" type="java.lang.String">
+			<generator class="uuid"></generator>
+		</id>
+		<property name="statusname" type="string" column="STATUSNAME"/>	
+	</class>
+</hibernate-mapping>

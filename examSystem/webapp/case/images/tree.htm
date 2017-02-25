@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
+<head>
+	<title>部门一览</title>
+</head>
+<script src="tree.js"></script>
+
+
+<body >
+
+<table cellpadding="6" cellspacing="0" border="0" width="16%">
+  <tr> 
+  
+    <td width="100%" valign="top"> 
+      <table bgcolor="#999999" cellspacing="1" cellpadding="3" border="0" width="64%">
+        <tr bgcolor="#ffffff"> 
+          <td align="left"> 
+            <table width="176" border="0" cellspacing="0" cellpadding="0">
+              <tr> 
+                <td><font color=red size= -1><b><font color="#ff0000">部门</font></b>一览</font><br>
+                  <br>
+                </td>
+              </tr>
+              <tr> 
+                <td colspan=2 align=left> 
+                  
+                  <font size=-1> <a href="#" onClick=expandClicked(items['0'])>全部展开</a> 
+                  &nbsp;<a href="#" onClick=colapseClicked(items['0'])>全部合拢</a> 
+                  
+                  </font></td>
+              </tr>
+              <tr> 
+                <td  height="22"> 
+                  <!--- 部门树 begin -->
+                  <span> <br>
+                  <script language=JavaScript>
+
+
+level1 = new Item("unit.gif","unit.gif","unit.gif",null,16,16,"DD","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level1);
+
+level2 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"Q","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level2);
+
+level3 = new Item("folder.gif","folder_open.gif","folder.gif",null,16,16,"W","",false,false,null,"#000000","","'#' onclick=alert('fff')","");
+addItem(level3);
+         
+level12 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"W444","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level12,level3);
+         
+level5 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"e","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level5,level1);
+
+
+level5 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"eR","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level5,level1);
+
+
+level6 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"ee","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level6,level5);
+
+level9 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"F","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level9,level6);
+
+
+level7 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"GG","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level7);
+
+level8 = new Item("folder.gif","folder.gif","folder.gif",null,16,16,"RR","",false,false,null,"#000000","","'#' onclick=show('')","");
+addItem(level8,level7);
+
+
+
+renderSitemap("true", false, "#000000", "#000000", "", "" );
+</script>
+                  <script>
+function show(cid,clayer,cfullname,cupname,FID,RID)
+{
+	//window.returnValue=cid+"^"+cfullname;
+	//window.close();	
+}
+</script>
+                  </span> 
+                  <!----部门树 end   -->
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+

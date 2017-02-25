@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="RcUrgent"
+		table="rc_urgent"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="urgent_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Name"
+			column="name"
+			type="string"
+			not-null="false"
+			length="255"
+		/>
+		<property
+			name="Cont"
+			column="cont"
+			type="string"
+			not-null="false"
+			length="512"
+		/>
+		<property
+			column="memo"
+			length="512"
+			name="Memo"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			name="Dt"
+			column="dt"
+			type="date"
+			not-null="false"
+			length="7"
+		/>
+		<many-to-one
+			name="FormSn"
+			column="form_sn"
+			class="RcForm"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="User"
+			column="USER_ID"
+			class="com.wondersgroup.falcon.model.auth.User"
+			not-null="false"
+		>
+		</many-to-one>
+		<many-to-one
+			name="Authority"
+			column="AUTHORITY_ID"
+			class="com.wondersgroup.falcon.model.auth.Authority"
+			not-null="false"
+		>
+		</many-to-one>
+
+	</class>	
+</hibernate-mapping>

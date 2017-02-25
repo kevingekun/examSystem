@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.wondersgroup.falcon.model.rc">
+	<class
+		name="IpInform"
+		table="ip_inform"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="inform_sn"
+		>
+			<generator class="org.hibernate.id.UUIDHexGenerator"/>
+		</id>
+
+		<property
+			name="Stat"
+			column="stat"
+			type="string"
+			not-null="false"
+			length="1"
+		/>
+		
+		<property
+			name="userid"
+			column="userid"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		
+	<!--
+		<many-to-one
+			name="CallerSn"
+			column="CALLER_SN"
+			class="RcCaller"
+			not-null="false"
+		>
+		</many-to-one>
+	-->			
+		<many-to-one
+			name="personInfo"
+			column="CALLER_SN"
+			class="com.wondersgroup.falcon.model.citizeninfo.PersonInfo"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+	<!-- 单位采集用户 -->
+		<many-to-one
+			name="companyInfo"
+			column="COMPANY_SN"
+			class="com.wondersgroup.falcon.model.citizeninfo.CompanyInfo"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+
+
+
+		<many-to-one
+			name="PolicySn"
+			column="policy_sn"
+			class="IpPolicy"
+			not-null="false"
+			fetch="join"
+		>
+		</many-to-one>
+
+
+	</class>	
+</hibernate-mapping>
