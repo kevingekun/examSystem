@@ -1,106 +1,73 @@
 <%@ page contentType = "text/html;charset=utf-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
-<%@taglib uri="elile.tld" prefix="elile"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
-<html>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>增加角色</title>
-<link href="<%=request.getContextPath() %>/newcss/style.css" rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath() %>/inc/all.css" rel="stylesheet" type="text/css"/>
-
-
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>增加角色</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<%-- <link href="<%=request.getContextPath() %>/newcss/style.css" rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath() %>/inc/all.css" rel="stylesheet" type="text/css"/> --%>
 </head>
-<script>
-
-function onDblSelect(id){
-	if (tree.hasChildren(id) > 0){
-		if (tree.getOpenState(id) == 1) 
-			tree.closeItem(id);
-		else tree.openItem(id);
-			return;
-	}
-
-}
-
-		
-function initMenu(){
-	
-	for(var i=1; i<=2; i++){
-		document.all["menudiv"+i].style.display="none";
-		document.all["menulink"+i].style.background="#CCCCCC";
-	}
- }
-
-function showMenu(i){
-		document.all["menudiv"+i].style.display="";
-		document.all["menulink"+i].style.background="#EEEEEE";
-}
-
-function changemenu(i){
-	initMenu();
-	showMenu(i);
-}
-
+<script type="text/javascript" src="bootstrap/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
 function checkform(form){
 	if(form.name.value==""){
 		alert("请输入角色名称!"); return false;
 	}
-	if(form.value==""){
+	if(form.description.value==""){
 		alert("请输入角色说明!"); return false;
 	}
 	return true;
-	
 }
-
 function cancel(){
 	history.go(-1);
 }
 </script>
-<body class="nrbj">
-<table width="99%" border="0" align="right" cellpadding="0" cellspacing="0" style="margin-top:10px; margin-left:8px; ">
-  <tr>
-    <td width="45%" align="left"><table border="0" align="left" cellpadding="0" cellspacing="0">
-      <tr>
-        <td  align="left" valign="middle" class="header1"></td>
-        <td  class="header2">新增角色(修改)</td>
-        <td  class="header3"></td>
-      </tr>
-    </table></td>
-    <td width="53%"  align="left"></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" ><div id="content1" class="borader">
-<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" >	
-<s:form action="updateEauthority"  name="aForm" method="POST" onsubmit="return checkform(this);">
-<s:hidden name="authorityid"></s:hidden>		  
-				  <!------------------  一般信息  ----------------------->
-				   <tr class="row_height">  
-				   	 <td align="center">角色名称：</td>
-				   	 <td colspan="1" align="left" >
-					 <s:textfield   maxlength="10"  name="name"  cssStyle="width: 160px;"></s:textfield>
-				   	   <font color="#FF0000">*</font></td>
-				   	 </tr>           
-				   <tr class="row_height"> 
-				   	 <td align="center">说明：</td>
-				   	 <td colspan="1" align="left" ><s:textfield   maxlength="100" name="description"  cssStyle="width: 160px;"></s:textfield>
-			   	     <font color="#FF0000">*</font></td>
-				   	 </tr> 					          	
-<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td height="40" align="center" valign="bottom">
-                      <input type="submit" name = "button_editfile" value="确定"  class="submit_2"/>
-                      <input type = "button" onclick = "cancel()" name = "button_editfile1" value="返回"  class="submit_2"/>
-                    </td>
-                  </tr>
-          </table>
-</s:form>
-</table>
+<body>
+<div class="container-fluid">
+<div class="panel panel-primary" style="width:99%; margin: 2px;">
+	<div class="panel-heading">
+		<h3 class="panel-title">角色修改</h3>
+	</div>
+	<form class="form-horizontal" action="updateEauthority.action" name="aForm" method="post" onsubmit="return checkform(this);">
+		<input type="hidden" name="authorityid" value='<s:property value="authorityid"/>'/>
+		<div class="row" style="margin: 15px;">
+			<div class="form-group">
+				<label class="col-md-2 control-label">角色名称</label>
+				<div class="col-md-3">
+				    <input type="text" class="form-control" name="name" value='<s:property value="name"/>'>
+				</div>
+	  		</div>
+	  		<div class="form-group">
+				<label class="col-md-2 control-label">说明</label>
+				<div class="col-md-3">
+				    <input type="text" class="form-control" name="description" value='<s:property value="description"/>'>
+				</div>
+	  		</div>
+	  		<div class="form-group">
+	  			<div class="col-md-offset-4 col-md-1">
+	  				<button type="submit" class="btn btn-success">
+	  					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 确定
+	  				</button>
+	  			</div>
+	  			<div class="col-md-offset-1 col-md-1">
+	  				<button type="submit" class="btn btn-warning" onclick="cancel()">
+	  					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 返回
+	  				</button>
+	  			</div>
+	  		</div>
+  		</div>
+	</form>
 </div>
-</td>
-</tr>
-</table>
+</div>
 </body>
 </html>

@@ -6,83 +6,37 @@
 <%@taglib uri="elile.tld" prefix="elile"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
 ProfessionBean professionBean = new ProfessionBean();
 List<EPapers> p_list = professionBean.getUnUploadPapers();
 %>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<title>成绩上传</title>
-<link href="<%=request.getContextPath() %>/newcss/style.css" rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath() %>/inc/all.css" rel="stylesheet" type="text/css"/>
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>成绩上传一体化</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<%-- <link href="<%=request.getContextPath() %>/newcss/style.css" rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath() %>/inc/all.css" rel="stylesheet" type="text/css"/> --%>
+</head>
 <script language="JavaScript" type="text/JavaScript" src="<%=request.getContextPath() %>/js/dateMy97/WdatePicker.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery/jquery.1.3.min.js"></script>
+<script src="bootstrap/js/jquery-3.1.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 <script language="JavaScript" type="text/JavaScript" >
-
-function modify(stid){	
+function modify(stid){
 	document.aForm.action="ecjpmquestion.action?sjid="+stid;
 	//被修改的地方	document.aForm.myaction.value="modifyload";
-	
 }
-
-
 function doQuery() {
-
   document.aForm.submit();
 }
 
-/* function jumpViewPaper(sjid){
-	window.location.href="previewPaperAction.action?paperid="+sjid;
-}
-//复制试卷
-function copyPaper(sjid){
-	window.location.href="copyPaperAction.action?paperid="+sjid;
-}
-//更改试卷状态
-function changeState(sjid,paperState){
-	window.location.href="changeState.action?paperid="+sjid+"&paperState="+paperState;
-}
-function viewpam(paperid){
-	window.location.href="cjpmAction.action?paperid="+paperid;
-}
-//查看错误率
-function viewRight(paperid){
-	window.location.href="wrongPercent.action?paperId="+paperid;
-}
- */
-//全体成绩报表
-/* function allscoreCount(){
-  var url="kaoshi/answer/allscore.jsp";
- window.location.href=url;
-} */
-
-//未参加考试列表
-/* function unpartexam(){
- var row =0;
-    var paperid="";
-	var values = document.getElementsByName("deleteid");
-	for (var i = 0; i < values.length; i++){
-       	if(values[i].checked == true){
-       		paperid+=values[i].value+",";
-       	   row++;
-       	}
-    }   
-    if(row>0)
-    {
-    	paperid=paperid.substring(0,paperid.length-1);
-		var url="nopartinexam.action?paperid="+paperid;
-	   	window.location.href=url;
-		return false;
-    }else{
-    	alert("您还没有选择");
-    	return false;
-    }
-} */
-
-//组间成绩排名统计报表
-/* function groupbwCount(){
- var url="kaoshi/answer/groupscore.jsp";
- window.location.href=url;
-} */
 //checkbox复选
 function zhpm()
 {
@@ -142,9 +96,64 @@ function checkPaper(){
 	document.aForm.submit();
 }
 </script>
-</script>
-</head>
-<body class="nrbj">
+
+<body>
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">成绩上传</h3>
+		</div>
+		<div class="panel-body">
+		    <p>本功能可以新增角色，可以为每个角色分配菜单</p>
+		</div>
+		<table  width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="table" id="tb" >
+             <tr class="title_font">
+                <td width="5%" align="center" bgcolor="#C7E2F8">
+                	<!-- <input id="checkAll" name="all1" type="checkbox" onClick="selectall()">&nbsp; --><span class="out">序号 </span>
+                </td>
+                <td width="30%" align="center" bgcolor="#C7E2F8"><span class="out">试卷名称</span></td>
+                <td width="12%" align="center" bgcolor="#C7E2F8"><span class="out">考试日期</span></td>
+                <td width="9%" align="center" bgcolor="#C7E2F8"><span class="out">姓名</span></td>
+                <td width="12%" align="center" bgcolor="#C7E2F8"><span class="out">身份证号</span></td>
+                <td width="6%" align="center" bgcolor="#C7E2F8"><span class="out">分数</span></td>
+                <td width="6%" align="center" bgcolor="#C7E2F8"><span class="out">状态</span></td>
+             </tr>
+        <c:forEach var="aBean" items="${list}" varStatus="status">
+             <tr onMouseOver="this.className='td_over'" onMouseOut="this.className=''" id='r1'>
+                <td align='center' class='num_font'>
+                	<!-- <input type="checkbox"  id="checkbox"  name="deleteid" value=""/>&nbsp; --><c:out value="${status.index+1}"/>
+                </td>
+                <td align='center' class='num_font'>
+	            	<a href="#" onClick='modify();'><c:out value="${aBean.sjMc}"/></a>            
+	     	    </td>
+	     	    <td align='center' class='num_font'><fmt:formatDate value="${aBean.sjKksj}" type="date" timeStyle="default" pattern="yyyy-MM-dd"/></td>
+	            <td align='center' class='num_font'><c:out value="${aBean.realname }"></c:out></td>
+	            <td align='center' class='num_font'><c:out value="${aBean.username }"></c:out></td>
+	            <td align='center' class='num_font'><a href="#"><c:out value="${aBean.djZf}"/></a></td>
+	            <td align='center' class='num_font'>
+                <c:choose>
+                <c:when test="${aBean.cheatflag == '0'}">
+                  <font color="green">正常</font>
+                </c:when>
+                <c:when test="${aBean.cheatflag == '1'}">
+                  <font color="red">作弊</font>
+                </c:when>
+                <c:when test="${aBean.cheatflag == '2'}">
+                  <font color="orange">缺考</font>
+                </c:when>
+               </c:choose>
+               </td>
+	            <%-- <td align="center">
+	            	<a href="#" onclick='viewpam(<c:out value="${ aBean.sjId}"/>);'>&lt;查看试卷排名&gt;</a>
+	            	&nbsp;&nbsp;
+	            	<a href="#" onclick='viewRight(<c:out value="${aBean.sjId}"/>);'>&lt;查看错误率&gt;</a>
+	            </td> --%>
+             </tr>
+        </c:forEach>
+    </table> 
+	</div>
+</div>
+
 <table width="99%" border="0" align="right" cellpadding="0" cellspacing="0" style="margin-top:10px; margin-left:8px; ">
   <tr>
     <td width="45%" align="left"><table border="0" align="left" cellpadding="0" cellspacing="0">

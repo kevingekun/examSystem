@@ -20,7 +20,11 @@ import javax.servlet.jsp.JspException;
  */
 public class NavigateBarTag
         extends TagSupport {
-    private String navigateform;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String navigateform;
     private String actionName;
     private String formName;
 
@@ -40,8 +44,41 @@ public class NavigateBarTag
                     total;
 
         StringBuffer result = new StringBuffer();
+        //
+        //result.append("<div style=\"margin-top:-20px;\">&nbsp;共").append(total).append("条记录&nbsp;第").append(currpage).append("页/共").append(pages).append("页").append("</div>");
+        result.append("<nav aria-label=\"Page navigation\">");
+        result.append("<ul class=\"pagination\" style=\"margin-top:-15px;\" >");
+        result.append("<li><a>共").append(total).append("条记录&nbsp;&nbsp;&nbsp;第").append(currpage).append("页/共").append(pages).append("页").append("</a></li>");
+        result.append("<li><a href=\"Javascript:goto('1')\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+        if (currpage > pagenum) {
+        	result.append("<li><a href=\"Javascript:goto('").append(((currpage-1)/pagenum)*pagenum).append("')\" title=\"前").append(pagenum).append("页\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+        }
+        for (int i = ((currpage - 1) / pagenum) * pagenum + 1;(i <= ((currpage - 1) / pagenum + 1) * pagenum &&i <= pages); i++) {
+	       if (i == currpage) {
+	    	   result.append("<li class=\"active\">");
+	       } else {
+	    	   result.append("<li>");
+	       }
+	       result.append("<a href=\"Javascript:goto('").append(i).append("')\">").append(i).append("</a></li>");
+	    }
+        /*result.append("<li><a href=\"#\">1</a></li>");*/
+        if(((currpage-1)/pagenum+1)*pagenum+1<=pages){
+        	result.append("<li><a href=\"Javascript:goto('").append(((currpage-1)/pagenum+1)*pagenum+1).append("')\" title=\"后").append(pagenum).append("页\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>");
+        }
+        result.append("<li><a href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>");
+        result.append("<li><a>" +
+        		"<div style=\"float:left\">转到&nbsp;</div>" +
+        		"<input id=\"gotopage\" name=\"gotopage\" class=\"form-control\" type=\"text\" onkeypress=\"allowKeyScope(48,58)\" style=\"height:20px;width:30px;float:left;font-size:8px;padding:2px;\">" +
+        		"<div style=\"float:left\">&nbsp;页</div>" +
+        		"<div style=\"float:left\">&nbsp;&nbsp;<button class=\"btn btn-default btn-xs\" style=\"height:18px;\" onclick=\"goto2").append(formName).append("();\"><span class=\"glyphicon glyphicon-menu-right\" style=\"color:red;\" aria-hidden=\"true\"></span></button></div>"+
+        		"</a></li>");
+        result.append("</ul></nav>");
+        //<div class=\"row\"><div class=\"col-xs-1\"></div></div>
+        result.append("<input type=\"hidden\" id=\"currpage\" name=\"currpage\" value=\"").append(currpage).append("\">").append("\n");
+        result.append("<input type=\"hidden\" id=\"pagesize\" name=\"pagesize\" value=\"").append(pagesize).append("\">").append("\n");
+        result.append("<input type=\"hidden\" id=\"pagenum\" name=\"pagenum\" value=\"").append(pagenum).append("\">").append("\n");
         
-        result.append("<div class=\"page1\">&nbsp;共").append(total).append("条记录&nbsp;&nbsp;第").append(currpage).append("页/共").append(pages).append("页").append("\n");
+        /*result.append("<div class=\"page1\">&nbsp;共").append(total).append("条记录&nbsp;&nbsp;第").append(currpage).append("页/共").append(pages).append("页").append("\n");
         result.append("&nbsp;分页：").append("\n");
         result.append("&nbsp;<a href=\"Javascript:goto('1')\" title=\"首页\"><FONT class=\"sign2\">9</FONT></a>").append("\n");
         if (currpage > pagenum) {
@@ -67,6 +104,7 @@ public class NavigateBarTag
         result.append("<input type=\"hidden\" id=\"currpage\" name=\"currpage\" value=\"").append(currpage).append("\">").append("\n");
         result.append("<input type=\"hidden\" id=\"pagesize\" name=\"pagesize\" value=\"").append(pagesize).append("\">").append("\n");
         result.append("<input type=\"hidden\" id=\"pagenum\" name=\"pagenum\" value=\"").append(pagenum).append("\">").append("\n");
+        */
         result.append("<script language=\"JavaScript\">").append("\n");
         result.append("//<!--").append("\n");
         result.append("function goto(page){").append("\n");
@@ -130,9 +168,8 @@ public class NavigateBarTag
             throw new JspException(e.getMessage());
             }
         return 0;
-
     }
-
+    
     public void setNavigateform(String navigateform) {
         this.navigateform = navigateform;
     }
