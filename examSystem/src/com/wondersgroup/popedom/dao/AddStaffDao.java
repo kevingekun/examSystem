@@ -37,6 +37,7 @@ import com.wondersgroup.popedom.bo.CalcBsFhDTO;
 import com.wondersgroup.popedom.bo.ExamStaff;
 import com.wondersgroup.popedom.bo.Exam_Arrangement;
 import com.wondersgroup.popedom.bo.HZ95;
+import com.wondersgroup.popedom.bo.ImportExamSysDTO;
 import com.wondersgroup.popedom.bo.WsExamArrangeDTO;
 import com.wondersgroup.utils.WsUtil_yth;
 public class AddStaffDao extends HibernateDaoSupport {
@@ -513,7 +514,7 @@ public class AddStaffDao extends HibernateDaoSupport {
 			@Override
 			public Object execute(Session session) throws Throwable {
 				String sql = "select a.ks_name,c.name,c.idcard,c.zkh,c.dw_name,c.kc_name,c.seat_no," +
-						"a.kd_name,a.kd_address,a.kssj,a.jssj from ADMISSION_CARD_PC a,ADMISSION_CARD_FILE b,ADMISSION_CARD_USER c " +
+						"a.kd_name,a.kd_address,a.kssj,a.jssj,a.major,a.rank from ADMISSION_CARD_PC a,ADMISSION_CARD_FILE b,ADMISSION_CARD_USER c " +
 						"where a.id="+pcid+" and a.id=b.pc_id and b.id = c.file_id";
 				Query query = session.createSQLQuery(sql);
 				List<Object[]> list = query.list();
@@ -661,6 +662,58 @@ public class AddStaffDao extends HibernateDaoSupport {
 				return query.list();
 			}
 		});
+	}
+	
+	public boolean deletePrintCardInfo(final String id){
+		return (Boolean) HibernateUtil.doInSession(new HibernateSessionCallback() {
+			
+			@Override
+			public Object execute(Session session) throws Throwable {
+				String sql = "update ADMISSION_CARD_PC a set a.valid=0 where a.id=?";
+				Query query = session.createSQLQuery(sql).setLong(0, Long.valueOf(id));
+				query.executeUpdate();
+				return true;
+			}
+		});
+	}
+	
+	public ImportExamSysDTO importExamSys(ImportExamSysDTO dto, Connection conn) {
+		 CallableStatement proc = null;  
+		    try {
+		    	proc = conn.prepareCall("{ call import_to_exam_sys(?,?,?) }");
+		    	proc.setString(1, dto.getPcId());  
+		    	proc.registerOutParameter(2, Types.INTEGER);  
+		    	proc.registerOutParameter(3, Types.VARCHAR);  
+		    	proc.execute();  
+		    	dto.setRetCode(Long.valueOf(proc.getString(2)));
+		    	dto.setRetMsg(proc.getString(3));
+		    }  
+		    catch (SQLException ex2) {
+		    	dto.setRetCode(Long.valueOf("2"));
+		    	dto.setRetMsg(ex2.getMessage());
+		    	ex2.printStackTrace();  
+		    }  
+		    catch (Exception ex2) {  
+		    	ex2.printStackTrace();
+		    	dto.setRetCode(Long.valueOf("3"));
+		    	dto.setRetMsg(ex2.getMessage());
+		    }finally{
+				if (proc != null) {
+					try {
+						proc.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				} 
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+		    }
+			return dto; 
 	}
 
 }

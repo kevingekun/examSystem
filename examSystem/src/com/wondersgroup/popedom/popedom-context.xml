@@ -35,6 +35,8 @@
 		<property name="euserService" ref="euserService"></property>
 		<property name="userState" ref="userState"></property>
 		<property name="eauthorityService" ref="eauthorityService"></property>
+		<property name="addexamineeService" ref="addexamineeService"/>
+		
 	</bean>
 	
 	<bean id="updateAuthUser" class="com.wondersgroup.popedom.action.AuthorityUserAction" singleton="false">

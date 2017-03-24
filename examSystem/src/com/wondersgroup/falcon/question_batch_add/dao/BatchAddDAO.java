@@ -28,6 +28,7 @@ import com.wondersgroup.kaoshi.bo.EPapersSet;
 import com.wondersgroup.kaoshi.bo.E_Users_Temp;
 import com.wondersgroup.kaoshi.bo.Tdjobexamdot;
 import com.wondersgroup.kaoshi.bo.Tjobsubject;
+import com.wondersgroup.popedom.bo.EUser;
 import com.wondersgroup.wssip.commons.dao.CommonJdbcDaoUtils;
 
 public class BatchAddDAO extends HibernateDaoSupport {
@@ -149,22 +150,23 @@ public class BatchAddDAO extends HibernateDaoSupport {
 		return (String) HibernateUtil
 				.doInSession(new HibernateSessionCallback() {
 					public Object execute(Session session) throws Throwable {
-						
-						String sql ="select * from hz95 where jd_mc='"+jdmc+"' ";
+
+						String sql = "select * from hz95 where jd_mc='" + jdmc
+								+ "' ";
 						List<String> list1 = session.createSQLQuery(sql).list();
-						if(list1.size()>0){
+						if (list1.size() > 0) {
 							return "";
-						}
-						else{
-						String sql1 = " insert into hz95(JD_ID,JD_MC,KS_GL, AAA131, KS_RS,AAE036) values (pape_sequ.nextval,'"
-								+ jdmc + "','0','1', '0',sysdate)";
-						Query query1 = session.createSQLQuery(sql1);
-						query1.executeUpdate();
-						String sql2 = "select jd_id from hz95 where jd_mc ='"
-								+ jdmc + "'";
-						List<String> list = session.createSQLQuery(sql2).list();
-						String jdid = String.valueOf(list.get(0));
-						return jdid;
+						} else {
+							String sql1 = " insert into hz95(JD_ID,JD_MC,KS_GL, AAA131, KS_RS,AAE036) values (pape_sequ.nextval,'"
+									+ jdmc + "','0','1', '0',sysdate)";
+							Query query1 = session.createSQLQuery(sql1);
+							query1.executeUpdate();
+							String sql2 = "select jd_id from hz95 where jd_mc ='"
+									+ jdmc + "'";
+							List<String> list = session.createSQLQuery(sql2)
+									.list();
+							String jdid = String.valueOf(list.get(0));
+							return jdid;
 						}
 					}
 				});
@@ -256,6 +258,21 @@ public class BatchAddDAO extends HibernateDaoSupport {
 					session.save(user);
 				}
 				return true;
+			}
+		});
+	}
+	public boolean getUserByPass(final String password){
+		return (Boolean) HibernateUtil.doInSession(new HibernateSessionCallback() {
+			
+			@Override
+			public Object execute(Session session) throws Throwable {
+				String sql = "select * from users where password=?";
+				Query query = session.createSQLQuery(sql).setString(0, password);
+				if (query.list().size()>0) {
+					return true;
+				}else{
+					return false;
+				}
 			}
 		});
 	}

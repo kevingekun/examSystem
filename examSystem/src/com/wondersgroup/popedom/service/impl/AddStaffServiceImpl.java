@@ -38,6 +38,7 @@ import com.wondersgroup.popedom.bo.CalcBsFhDTO;
 import com.wondersgroup.popedom.bo.ExamStaff;
 import com.wondersgroup.popedom.bo.Exam_Arrangement;
 import com.wondersgroup.popedom.bo.HZ95;
+import com.wondersgroup.popedom.bo.ImportExamSysDTO;
 import com.wondersgroup.popedom.bo.WsExamArrangeDTO;
 import com.wondersgroup.popedom.dao.AddStaffDao;
 import com.wondersgroup.popedom.service.AddStaffService;
@@ -639,6 +640,16 @@ public class AddStaffServiceImpl implements AddStaffService {
 	@Override
 	public List<Object[]> printView(String pcid) {
 		return addStaffDao.printView(pcid);
+	}
+
+	@Override
+	public boolean deletePrintCardInfo(String id) {
+		return addStaffDao.deletePrintCardInfo(id);
+	}
+
+	@Override
+	public ImportExamSysDTO importExamSys(ImportExamSysDTO dto, Connection conn) {
+		return addStaffDao.importExamSys(dto, conn);
 	}
 
 }

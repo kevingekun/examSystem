@@ -12,22 +12,29 @@
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
 	</head>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/resource/lodop/CheckActivX.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resource/lodop6.217/LodopFuncs.js"></script>
 	<!-- 设置一个常量WebRoot,保存当前应用的contextpath -->
 	<script type="text/javascript">
 		var WebRoot = '${pageContext.request.contextPath}';
 	</script>
 
 	<!-- 注册一个Lodop控件 -->
-	<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	<!-- <object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
 		width=0 height=0>
 		<param name="CompanyName" value="万达信息股份有限公司">
 		<param name="License" value="649717666688688748719056235623">
+	</object> -->
+	
+	<object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+       <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
 	</object>
 
 	<script type="text/javascript">
-	var LODOP = document.getElementById("LODOP");//这行语句是为了符合DTD规范
-	CheckLodop();
+	//var LODOP = document.getElementById("LODOP");//这行语句是为了符合DTD规范
+	
+	var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM'));
+	
+	/* CheckLodop();
 
 	function create() {
 		LODOP.PRINT_INIT("");
@@ -36,37 +43,104 @@
 		//页边距我们设置为 1cm (top、left、rifht、bottom)
 		//width =21-1*2 =21-2=19
 		//height =29.7-1*2=29.7-2=27.7cm
-			LODOP.SET_PRINT_PAGESIZE (3, 0, 0,"A4");
-			LODOP.SET_SHOW_MODE('LANDSCAPE_DEFROTATED',1);
+		LODOP.SET_PRINT_PAGESIZE (3, 0, 0,"A4");
+		LODOP.SET_SHOW_MODE('LANDSCAPE_DEFROTATED',1);
 		LODOP.ADD_PRINT_HTM('1.3cm', '0.7cm', '19cm', '27.7cm', document.getElementById("from_div").innerHTML);  
+		//LODOP.ADD_PRINT_TABLE('1.3cm', '0.7cm', '19cm', '27.7cm', document.getElementById("table_p").innerHTML);  
 	}
 
 	function print() {
 		create();
 		LODOP.PRINT();
 	}
-
+*/
 	function preview() {
-		create();
+		LODOP.PRINT_INITA(1,0,770,1100,"准考证打印预览");
+		
+		<c:forEach var="aBean" items="${printVOs}" varStatus="status">
+			LODOP.PRINT_INITA(15,9,770,1100,"准考证打印");
+			LODOP.ADD_PRINT_RECT(9,9,730,1025,0,1);
+			LODOP.SET_PRINT_STYLEA(0,"ItemType",1);
+			LODOP.ADD_PRINT_TEXT(35,79,611,34,'<c:out value="${aBean[0] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",15);
+			LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+			LODOP.SET_PRINT_STYLEA(0,"Bold",1);
+			LODOP.ADD_PRINT_TEXT(93,330,110,29,"准考证");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",14);
+			LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+			LODOP.SET_PRINT_STYLEA(0,"Bold",1);
+			LODOP.ADD_PRINT_TEXT(148,56,163,25,"姓名："+'<c:out value="${aBean[1] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(147,267,227,25,"准考证号："+'<c:out value="${aBean[3] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(190,56,255,25,"身份证号："+'<c:out value="${aBean[2] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(235,56,439,25,"单位名称："+'<c:out value="${aBean[4] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(278,56,255,25,"专业："+'<c:out value="${aBean[11] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(278,367,131,25,"等级："+'<c:out value="${aBean[12] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(322,56,255,25,"考场："+'<c:out value="${aBean[5] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(320,368,129,25,"座号："+'<c:out value="${aBean[6] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			
+			LODOP.ADD_PRINT_TEXT(367,56,680,25,"考点名称："+'<c:out value="${aBean[7] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(414,56,680,25,"考点地址："+'<c:out value="${aBean[8] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_TEXT(460,56,680,25,"考试时间："+'<c:out value="${aBean[9] }"/>'+" 至 "+'<c:out value="${aBean[10] }"/>');
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",12);
+			LODOP.ADD_PRINT_RECT(551,18,713,467,3,1);
+			LODOP.ADD_PRINT_TEXT(507,19,120,26,"注意事项：");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",14);
+			LODOP.SET_PRINT_STYLEA(0,"Bold",1);
+			LODOP.ADD_PRINT_TEXT(564,30,695,40,"1、考试开始前15 分钟，考试人员凭准考证和身份证（缺一不可）进入考场对号入座，同时将身份证和准考证放在座位左上角，监考人员逐一进行查验。");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+			LODOP.SET_PRINT_STYLEA(0,"Italic",1);
+			LODOP.ADD_PRINT_TEXT(621,31,695,20,"2、考试开始20 分钟后，考试人员不得入场。");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+			LODOP.SET_PRINT_STYLEA(0,"Italic",1);
+			LODOP.ADD_PRINT_TEXT(653,31,695,40,"3、考试人员进入考场时，不准携带书籍、资料等物品，已携带入场的须按照要求存放在指定位置。携带的手机等电子设备要全部关闭。");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+			LODOP.SET_PRINT_STYLEA(0,"Italic",1);
+			LODOP.ADD_PRINT_TEXT(707,32,695,20,"4、考试人员按照座号入座，不得随意调换座位。");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+			LODOP.SET_PRINT_STYLEA(0,"Italic",1);
+			LODOP.ADD_PRINT_TEXT(740,32,695,60,"5、登录系统指令发出后，考试人员方可使用身份证号和准考证号登录考试系统。登录后应仔细核对姓名、准考证号、场次及本人照片等信息，并仔细阅读《考试须知》。考试人员如发现信息错误，应举手示意，听从监考人员的安排处理。");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+			LODOP.SET_PRINT_STYLEA(0,"Italic",1);
+			LODOP.ADD_PRINT_TEXT(811,32,695,60,"6、考试人员登录考试界面后，不得随意退出或关闭浏览器。考试开始指令发出后，考试人员方可开始答卷，系统开始计时。开考20 分钟内未能在考试机上登录并确认的考试人员，视为缺考，考试系统将不再接受该准考证号登录。");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+			LODOP.SET_PRINT_STYLEA(0,"Italic",1);
+			LODOP.ADD_PRINT_TEXT(879,32,695,40,"7、考试机如出现故障，考试人员须举手示意，由技术人员进行处理，严禁故意关机或自行重新启动计算机以及其他恶意操作行为。");
+			LODOP.SET_PRINT_STYLEA(0,"FontSize",11);
+			LODOP.SET_PRINT_STYLEA(0,"Italic",1);
+			LODOP.ADD_PRINT_RECT(160,560,121,158,1,1);
+			LODOP.ADD_PRINT_TEXT(229,571,100,20,"照片粘贴处");
+			LODOP.SET_PRINT_STYLEA(0,"Alignment",2);
+			LODOP.NewPage();
+		</c:forEach>
 		LODOP.PREVIEW();
 	}
 </script>
 	<body lang=ZH-CN style='text-justify-trim:punctuation'>
 			<div>
-				<a href="javascript:print();">打印</a>
+				<!-- <a href="javascript:print();">打印</a> -->
 				<a href="javascript:preview();">预览</a>
 				<a href="javascript:window.close();">关闭</a>
-			<s:debug></s:debug>
+			<%-- <s:debug></s:debug> --%>
 			</div>
 			<br>
 			<center>
 			<div id="from_div" align="left">
 			<c:forEach var="aBean" items="${printVOs}" varStatus="status">
-				<div class=WordSection1 style='layout-grid:15.6pt'>
+				<div class=WordSection1 style='layout-grid:15.6pt;'>
 
-<div style='border:solid windowtext 1.0pt;padding:1.0pt 4.0pt 1.0pt 4.0pt;width: 700px'>
-<p class=MsoNormal align=center style='text-align:center;border:none;
-padding:0cm'><span lang=EN-US style='font-size:16.0pt'>&nbsp;</span></p>
+<div style='border:solid windowtext 1.0pt;padding:1.0pt 4.0pt 1.0pt 4.0pt;width: 700px;'>
+<%-- <p class=MsoNormal align=center style='text-align:center;border:none;
+padding:0cm'><span lang=EN-US style='font-size:16.0pt'>&nbsp;</span></p> --%>
 
 <p class=MsoNormal align=center style='text-align:center;border:none;
 padding:0cm'><span style='font-size:16.0pt;font-family:宋体'><c:out value="${aBean[0] }"></c:out> </span></p>
@@ -96,12 +170,22 @@ font-family:宋体'>名：<c:out value="${aBean[1] }"></c:out></span>
 </p>
 
 <p class=MsoNormal align=left style='text-align:left;text-indent:18.0pt;border:none;padding:0cm'>
+<span style='font-size:12.0pt;font-family:宋体'>专</span>
+<span lang=EN-US style='font-size:12.0pt;'>&nbsp;&nbsp;&nbsp; </span>
+<span style='font-size:12.0pt;font-family:宋体'>业：</span>
+<span lang=EN-US style='font-size:12.0pt;'><c:out value="${aBean[11] }"></c:out>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+<span style='font-size:12.0pt;font-family:宋体'>等级：</span>
+<span lang=EN-US style='font-size:12.0pt;'><c:out value="${aBean[12] }"></c:out></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;text-indent:18.0pt;border:none;padding:0cm'>
 <span style='font-size:12.0pt;font-family:宋体'>考</span>
 <span lang=EN-US style='font-size:12.0pt;'>&nbsp;&nbsp;&nbsp; </span>
 <span style='font-size:12.0pt;font-family:宋体'>场：</span>
 <span lang=EN-US style='font-size:12.0pt;'><c:out value="${aBean[5] }"></c:out>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
 <span style='font-size:12.0pt;font-family:宋体'>座号：</span>
 <span lang=EN-US style='font-size:12.0pt;'><c:out value="${aBean[6] }"></c:out></span></p>
+
+
 
 <p class=MsoNormal align=left style='text-align:left;text-indent:18.0pt;border:none;padding:0cm'>
 <span style='font-size:12.0pt;font-family:宋体'>考点名称：<c:out value="${aBean[7] }"></c:out></span></p>
@@ -116,8 +200,8 @@ font-family:宋体'>名：<c:out value="${aBean[1] }"></c:out></span>
 <span style='font-size:12.0pt;font-family:宋体'>至</span>
 <span lang=EN-US style='font-size:12.0pt;'> <c:out value="${aBean[10] }"></c:out></span>
 </p>
-<p class=MsoNormal style='line-height:200%;border:none;padding:0cm'><u><span
-lang=EN-US style='font-size:12.0pt;line-height:200%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<p class=MsoNormal style='line-height:60%;border:none;padding:0cm'><u><span
+lang=EN-US style='font-size:12.0pt;line-height:60%'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;</span></u></p>
 
 
@@ -128,9 +212,9 @@ lang=EN-US style='font-size:12.0pt;line-height:200%'>&nbsp;&nbsp;&nbsp;&nbsp;&nb
 </p>
 <p class=MsoListParagraph style='border:none;padding:0cm'>
 	<span style='font-family:宋体'>1、考试开始前</span><span lang=EN-US>15</span>
-	<span style='font-family:宋体'>分钟，考试人员凭准考证和身份证（缺一不可）进入考场对号入座，同时将身份</span>
+	<span style='font-family:宋体'>分钟，考试人员凭准考证和身份证（缺一不可）进入考场对号入座，同时将身</span>
 	<br>
-	<span style='font-family:宋体'>&nbsp;&nbsp;证和准考证放在座位左上角，监考人员逐一进行查验。</span>
+	<span style='font-family:宋体'>&nbsp;&nbsp;份证和准考证放在座位左上角，监考人员逐一进行查验。</span>
 </p>
 
 <p class=MsoListParagraph style='border:none;padding:0cm'>
@@ -166,28 +250,29 @@ lang=EN-US style='font-size:12.0pt;line-height:200%'>&nbsp;&nbsp;&nbsp;&nbsp;&nb
 </p>
 
 <p class=MsoListParagraph style='border:none;padding:0cm'>
-	<span style='font-family:宋体'>7、考试机如出现故障，考试人员须举手示意，由技术人员进行处理，严禁故意关机或自行重新启动</span>
+	<span style='font-family:宋体'>7、考试机如出现故障，考试人员须举手示意，由技术人员进行处理，严禁故意关机或自行重新启</span>
 	<br>
-	<span style='font-family:宋体'>&nbsp;&nbsp;计算机以及其他恶意操作行为。</span>
+	<span style='font-family:宋体'>&nbsp;&nbsp;动计算机以及其他恶意操作行为。</span>
+</p>
+
+<%-- <p class=MsoListParagraph style='border:none;padding:0cm'>
+	<span style='font-family:宋体'>8、考试结束指令发出后，考试人员应立即停止答卷，向系统提交试卷，并按要求退场。提前结束</span>
+	<br>
+	<span style='font-family:宋体'>&nbsp;&nbsp;考试的，应立即退场，不得在考场附近逗留、喧哗。</span>
 </p>
 
 <p class=MsoListParagraph style='border:none;padding:0cm'>
-	<span style='font-family:宋体'>8、考试结束指令发出后，考试人员应立即停止答卷，向系统提交试卷，并按要求退场。提前结束考</span>
+	<span style='font-family:宋体'>9、考试人员要严格遵守考场纪律，自觉维护考场秩序，不得交头接耳、大声喧哗。一经发现有违</span>
 	<br>
-	<span style='font-family:宋体'>&nbsp;&nbsp;试的，应立即退场，不得在考场附近逗留、喧哗。</span>
-</p>
-
-<p class=MsoListParagraph style='border:none;padding:0cm'>
-	<span style='font-family:宋体'>9、考试人员要严格遵守考场纪律，自觉维护考场秩序，不得交头接耳、大声喧哗。一经发现有违反</span>
+	<span style='font-family:宋体;'>&nbsp;&nbsp;反考纪行为的，一律取消考试成绩和补考资格，通报所在单位党组织，并按照相关规定作出处</span>
 	<br>
-	<span style='font-family:宋体;'>&nbsp;&nbsp;考纪行为的，一律取消考试成绩和补考资格，通报所在单位党组织，并按照相关规定作出处理。</span>
-</p>
-<p>
-<span style='font-family:宋体;page-break-before:always;'>&nbsp;&nbsp;</span>
-</p>
+	<span style='font-family:宋体;'>&nbsp;&nbsp;理。</span>
+</p> --%>
+<%-- <p>
+<span style='page-break-after:always;'>&nbsp;&nbsp;</span>
+</p> --%>
 
 </div>
-
 </div>
 </c:forEach>
 </div>

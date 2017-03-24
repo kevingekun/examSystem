@@ -1,24 +1,17 @@
 package com.wondersgroup.popedom.action;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.struts2.ServletActionContext;
-import org.hibernate.Hibernate;
 
 import com.wondersgroup.falcon.model.auth.UserTeam;
-import com.wondersgroup.falcon.persistence.HibernateUtil;
 import com.wondersgroup.kaoshi.util.AbstractAction;
 import com.wondersgroup.popedom.bo.EUser;
-import com.wondersgroup.popedom.bo.EuserTest;
-import com.wondersgroup.popedom.bo.ExamStaff;
 import com.wondersgroup.popedom.bo.Users_yth;
 import com.wondersgroup.popedom.service.AddExamineeService;
-import com.wondersgroup.technocracy.bo.Addexpert;
 
 public class AddExamineeAction extends AbstractAction {
 

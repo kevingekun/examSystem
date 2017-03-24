@@ -217,6 +217,10 @@ public class BatchAddServiceImpl implements BatchAddService{
 	public boolean savePrintCardUsers(List<Admission_card_user> users) {
 		return batchAddDAO.savePrintCardUsers(users);
 	}
+	@Override
+	public boolean getUserByPass(String password) {
+		return batchAddDAO.getUserByPass(password);
+	}
 	
 	
 }

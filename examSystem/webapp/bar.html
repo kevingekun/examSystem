@@ -3,14 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>bar</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <style type="text/css">
 <!--
 body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
 	background-color: #97c2cf;
 }
 -->
@@ -18,18 +14,19 @@ body {
 <script>
 function fr(){
 	var f = parent.document.getElementById("fr").cols;
-	
-	if(f=="208,5,*"){
+	if(f=="210,5,*"){
 		parent.document.getElementById("fr").cols = "0,5,*";
 		document.getElementById("di").className="bar1"
+		document.getElementById("sp").className="glyphicon glyphicon-menu-right";
+		document.getElementById("sp").style.cssText = "margin-left:-6px;margin-top:250px";
+		
 	}else{
-		parent.document.getElementById("fr").cols = "208,5,*";
+		parent.document.getElementById("fr").cols = "210,5,*";
 		document.getElementById("di").className="bar"
+		document.getElementById("sp").className="glyphicon glyphicon-menu-left";
+		document.getElementById("sp").style.cssText = "margin-left:-3px;margin-top:250px";
 	}
 	
-}
-function onLoad(){
-	document.getElementById("di").focus();
 }
 </script>
 </head>
@@ -37,8 +34,9 @@ function onLoad(){
 <table width="5" border="0" cellspacing="0" cellpadding="0" height="70%">
   <tr>
     <td valign="middle" >
-    	<div class="bar" style="CURSOR: pointer; height:59px;" 
-    		title="收起菜单" onClick="fr()" id="di"></div>
+    	<div class="bar" style="CURSOR: pointer; height:500px;" title="收起菜单" onClick="fr()" id="di">
+    		<span id="sp" class="glyphicon glyphicon-menu-left" aria-hidden="true" style="margin-left:-3px;margin-top:300px"></span>
+    	</div>
     </td>
   </tr>
 </table>

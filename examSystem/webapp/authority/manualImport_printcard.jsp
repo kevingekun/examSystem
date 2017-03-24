@@ -17,15 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/jquery.min.js"></script>
 </head>
 <script>
-	function submit() {
+	function submit(){
 		document.fileupload.submit();
-	}
-
-	function checkPaper() {
-		if (document.all.mc.value == "") {
-			alert("请填写鉴定批次名称");
-			$("#file").val("");
-		}
 	}
 	function templateDownload() {
 		window.location.href = "templateDownload.action?flag=printcard";
@@ -51,8 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <tr>
                         <td><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
                             <tr>
-                              <td  align="left" valign="middle" class="header7"></td>
-                              <td  class="header8">导入条件</td>
+                              <td align="left" valign="middle" class="header7"></td>
+                              <td class="header8">导入条件</td>
                             </tr>
                         </table></td>
                       </tr>

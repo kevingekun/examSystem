@@ -1,154 +1,200 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib uri="elile.tld" prefix="elile"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<title>用户列表</title>
-<link href="<%=request.getContextPath()%>/newcss/style.css" rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath()%>/inc/all.css" rel="stylesheet" type="text/css" />
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>用户列表</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
-<script>
-	function adduser() {
-		var oBol = /[^\d\.]/g.test(adduser_form.id.value);
-		//window.alert(oBol ? '错误' : '正确');
-		if (oBol)
-			alert("ID 字段只能输入数字");
-		else
-			adduser_form.submit();
+<body>
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">考试安排</h3>
+		</div>
+		<div class="panel-body">
+			<form method="post" action="userview.action" name="lookup" class="form-inline">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="username">用户名</label>
+							<input type="text" class="form-control" name="username" id="username" value='<s:property value="username"/>'/>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="realname">人员姓名</label>
+							<input type="text" class="form-control" name="realname" id="realname" value='<s:property value="realname"/>'/>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="userstar">用户类别</label>
+							<select class="form-control" name="userstar" id="userstar">
+								<option value="" >请选择</option>
+								<option value="0" <s:if test="userstar==0">selected="selected"</s:if>>业务用户</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="margin-top:5px;">
+					<div class="col-md-1 col-md-offset-3">
+						<button class="btn btn-primary btn-sm" type="submit">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span> 查询
+						</button>
+					</div>
+					<div class="col-md-1 col-md-offset-3">
+						<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 人员新增
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<table class="table table-striped table-bordered table-hover table-condensed" style="text-align:center;">
+			<tr class="info">
+				<td width="5%"><span class="out">用户名 </span></td>
+				<td width="12%"><span class="out">姓名</span></td>
+				<td width="9%"><span class="out">帐户状态</span></td>
+				<td width="9%"><span class="out">操作</span></td>
+			</tr>
+			<s:iterator value="users" id="user" status="state">
+				<tr>
+					<td><s:property value="#user.username" /></td>
+					<td><s:property value="#user.realname" /></td>
+					<td><s:if test="#user.enabled==1">
+							正常
+						</s:if> <s:elseif test="#user.enabled==2">
+							锁定
+						</s:elseif> <s:elseif test="#user.enabled==3">
+							不可用
+						</s:elseif>
+					</td>
+					<td align="center">
+						<a class="btn btn-info btn-xs active" href="viewAuthUser.action?userid=<s:property value='#user.id'/>">
+							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 角色分配
+						</a>
+					</td>
+				</tr>
+			</s:iterator>
+		</table>
+		<form action="userview.action" name="userViewForm">
+			<s:hidden name="username"></s:hidden>
+			<s:hidden name="realname"></s:hidden>
+			<s:hidden name="enabled"></s:hidden>
+			<s:hidden name="userstar"></s:hidden>
+			<elile:navigateBar navigateform="navigateform" actionName="userview.action" formName="userViewForm" />
+		</form>
+	</div>
+</div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<h4 class="modal-title" id="myModalLabel">人员新增</h4>
+		</div>
+		<div class="modal-body">
+			<form id="form1" name="addgg" method="post" action="addexaminee.action">
+	      		<div class="row">
+	      			<div class="col-md-4 text-right">
+	      				<label for="">身份证号</label>
+	      			</div>
+	      			<div class="col-md-8">
+	      				<input class="form-control" type=text id="username" name="euser.username" onblur="isidrepeat()"/>
+	      			</div>
+	      		</div>
+	      		<div class="row" style="margin-top:5px;">
+	      			<div class="col-md-4 text-right">
+	      				<label for="">姓名</label>
+	      			</div>
+	      			<div class="col-md-8">
+	      				<input class="form-control" type=text id="realname" name="euser.realname"/>
+	      			</div>
+	      		</div>
+	      		<div class="row" style="margin-top:5px;">
+	      			<div class="col-md-4 text-right">
+	      				<label for="">密码</label>
+	      			</div>
+	      			<div class="col-md-8">
+	      				<input class="form-control" type="password" id="inputpassword" name="inputpassword"/>
+	      			</div>
+	      		</div>
+	      		<div class="row" style="margin-top:5px;">
+	      			<div class="col-md-4 text-right">
+	      				<label for="">确认密码</label>
+	      			</div>
+	      			<div class="col-md-8">
+	      				<input class="form-control" type="password" id="confirmpassword" name="euser.password"/>
+	      			</div>
+	      		</div>
+	      		<div class="row" style="margin-top:5px;">
+	      			<div class="col-md-4 text-right">
+	      				<label for="">角色</label>
+	      			</div>
+	      			<div class="col-md-8">
+	      				<select id="role" name="role" class="form-control">
+							<c:forEach var="m" items="${addlist}" varStatus="status">
+								<option value="<c:out value='${m[0]}'/>">
+									<c:out value='${m[1]}' />
+								</option>
+							</c:forEach>
+						</select>
+	      			</div>
+	      		</div>
+	      		<div class="row" style="margin-top:5px;">
+	      			<div class="col-md-1 col-md-offset-9">
+	      				<div class="form-group">
+	      					<button type="button" class="btn btn-primary btn-sm" onclick="closewindow()">提 交</button>
+	      				</div>
+	      			</div>
+	      		</div>
+      		</form>
+      	</div>
+	</div>
+  </div>
+</div>
+<script src="bootstrap/js/jquery-3.1.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function closewindow() {
+		var inputpassword = document.getElementById("inputpassword").value;
+		var confirmpassword = document.getElementById("confirmpassword").value;
+		if (inputpassword == confirmpassword) {
+			document.getElementById("form1").submit();
+		} else {
+			alert("输入密码和确认密码不一致！");
+		}
 	}
-
-	function setdisVisible(id) {
-		setdisvisible_form.userid.value = id;
-		setdisvisible_form.submit();
-	}
-
-	function edituser(id) {
-		edituser_form.userid.value = id;
-		edituser_form.submit();
-	}
-	function individualdistribute(id) {
-		individualdistribute_form.userid.value = id;
-		individualdistribute_form.submit();
-	}
-	function openAdd() {
-		document.addrole.submit();
-
-		// var return_val = window.showModalDialog("authority/addexaminee.jsp","","dialogWidth=800px;dialogHeight=500px;center:yes;scroll:no;status:no");
-		//if(return_val == "refresh")
-		//window.location.reload();
-
+	function isidrepeat() {
+		var id = document.getElementById("username").value; //证件号码
+		$.ajax({
+			type : 'post',
+			async : false,
+			url : 'queryuser.action?username=' + id,
+			success : function(result) {
+				if (result == "1") {
+					alert("该身份证号已经存在,请勿重复添加!");
+					return;
+				}
+			},
+			error : function() {
+				alert("error");
+			}
+		});
 	}
 </script>
-<body class="nrbj">
-	<table width="99%" border="0" align="right" cellpadding="0" cellspacing="0" style="margin-top:10px; margin-left:8px; ">
-		<tr>
-			<td width="45%" align="left"><table border="0" align="left" cellpadding="0" cellspacing="0">
-					<tr>
-						<td align="left" valign="middle" class="header1"></td>
-						<td class="header2">人员管理</td>
-						<td class="header3" width="24"><img src="<%=request.getContextPath()%>/newimages/content_right_bj.gif " width="24" height="22"></td>
-					</tr>
-				</table></td>
-			<td width="53%" align="left"></td>
-		</tr>
-		<tr>
-			<td colspan="2" valign="top"><div id="content1" class="borader">
-					<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-						<tr>
-							<td class="borader3"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-												<tr>
-													<td align="left" valign="middle" class="header7"></td>
-													<td class="header8">查询条件</td>
-												</tr>
-											</table></td>
-									</tr>
-								</table> <s:form method="post" action="userview.action" name="lookup">
-									<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-										<tr>
-											<td height="8" colspan="7"></td>
-										</tr>
-										<tr>
-											<td width="13%" height="28" align="right">用户名：</td>
-											<td width="18%" align="left"><s:textfield name="username" size="20" /></td>
-											<td width="13%" align="right">人员姓名：</td>
-											<td width="18%"><s:textfield name="realname" size="20" /></td>
-											<td width="13%" align="right">帐户状态：</td>
-											<td width="18%">
-											<select name="userstar">
-													<option value="" >请选择</option>
-													<option value="0" <s:if test="userstar==0">selected="selected"</s:if>>业务用户</option>
-													<!-- <option value="1" <s:if test="userstar==1">selected="selected"</s:if>>考生</option>
-													<option value="2" <s:if test="userstar==2">selected="selected"</s:if>>考场</option>
-													<option value="3" <s:if test="userstar==3">selected="selected"</s:if>>考点</option> -->
-											</select> <%-- <s:select list="userState" name="enabled" listKey="key" listValue="value" headerKey="0" headerValue="--全部--">
-                      		</s:select> --%></td>
-											<td>&nbsp;</td>
-										</tr>
-									</table>
-									<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:8px; padding-right:16px;">
-										<tr>
-											<td align="center"><input name="button_editfile" type="submit" class="submit_2" value="查 询" /></td>
-										</tr>
-										<tr height="8px"></tr>
-									</table>
-								</s:form></td>
-						</tr>
-					</table>
-
-					<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:12px;">
-						<tr>
-							<td class="borader3"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-												<tr>
-													<td align="left" class="header7"></td>
-													<td class="header8">查询结果</td>
-													<td class="header8" width="90%"><input name="button_editfile" type="button" class="submit_2" value="人员新增" onclick="openAdd()" /></td>
-												</tr>
-											</table></td>
-									</tr>
-								</table>
-								<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="table_list" id="tb">
-									<tr class="title_font">
-										<td width="5%" align="center" bgcolor="#C7E2F8"><span class="out">用户名 </span></td>
-										<td width="12%" align="center" bgcolor="#C7E2F8"><span class="out">姓名</span></td>
-										<td width="9%" align="center" bgcolor="#C7E2F8"><span class="out">帐户状态</span></td>
-										<td width="9%" align="center" bgcolor="#C7E2F8"><span class="out">操作</span></td>
-									</tr>
-									<s:iterator value="users" id="user" status="state">
-										<tr onMouseOver="this.className='td_over'" onMouseOut="this.className=''" id='r1'>
-											<td align='center' class='num_font'><s:property value="#user.username" /></td>
-											<td align='center' class='num_font'><s:property value="#user.realname" /></td>
-											<td align='center' class='num_font'><s:if test="#user.enabled==1">
-										正常
-									</s:if> <s:elseif test="#user.enabled==2">
-										锁定
-									</s:elseif> <s:elseif test="#user.enabled==3">
-										不可用
-									</s:elseif></td>
-											<td align="center"><a href="viewAuthUser.action?userid=<s:property value='#user.id'/>">角色分配</a></td>
-										</tr>
-
-
-									</s:iterator>
-								</table> 
-								<form action="userview.action" name="userViewForm" style="margin-top: 6px;">
-									<s:hidden name="username"></s:hidden>
-									<s:hidden name="realname"></s:hidden>
-									<s:hidden name="enabled"></s:hidden>
-									<s:hidden name="userstar"></s:hidden>
-									<elile:navigateBar navigateform="navigateform" actionName="userview.action" formName="userViewForm" />
-								</form>
-								<s:form action="addrole.action" name="addrole" method="post">
-
-								</s:form></td>
-						</tr>
-					</table>
-				</div></td>
-		</tr>
-	</table>
 </body>
 </html>

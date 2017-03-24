@@ -31,6 +31,8 @@ public class Admission_card_pc implements java.io.Serializable {
 	private String remark;// undefined
 	private String valid;// undefined
 	private Date time;// undefined
+	private String major;// undefined
+	private String rank;// undefined
 
 	public Admission_card_pc() {
 	}
@@ -141,6 +143,22 @@ public class Admission_card_pc implements java.io.Serializable {
 
 	public void setTime(Date time) {
 		this.time = time;
+	}
+	@Column(name = "MAJOR", length = 100)
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+	@Column(name = "RANK", length = 100)
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
 	}
 
 	@Override

@@ -2,14 +2,19 @@ package com.wondersgroup.popedom.action;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import net.sf.json.JSONArray;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.wondersgroup.falcon.paper.model.EPapers;
 import com.wondersgroup.falcon.paper.model.JiaoShiJi;
@@ -18,6 +23,7 @@ import com.wondersgroup.kaoshi.bo.Admission_card_pc;
 import com.wondersgroup.kaoshi.bo.Admission_card_user;
 import com.wondersgroup.kaoshi.util.AbstractPageNavAction;
 import com.wondersgroup.popedom.bo.HZ95;
+import com.wondersgroup.popedom.bo.ImportExamSysDTO;
 import com.wondersgroup.popedom.service.AddStaffService;
 
 public class Arrange_jdpcAction extends AbstractPageNavAction {
@@ -32,6 +38,8 @@ public class Arrange_jdpcAction extends AbstractPageNavAction {
 	private String info4;
 	private String flag;
 	private String jdid;
+	
+	private String pcid;
 	
 	private List<Admission_card_pc> acpList;
 	private List<Admission_card_file> acfList;
@@ -48,9 +56,40 @@ public class Arrange_jdpcAction extends AbstractPageNavAction {
 	public String arrangePrintCard(){
 		this.acpList = addstaffService.find_admission_card_pc();
 		this.acfList = addstaffService.find_admission_card_file();
+		info="0";
 		return SUCCESS;
 	}
-	
+	/**
+	 *将打印准考证考生信息导入考务系统 
+	 * @author gkk
+	 * @date 2017-3-3 上午9:49:02
+	 */
+	public void importExamSys(){
+		ApplicationContext ctx = WebApplicationContextUtils
+				.getWebApplicationContext(getRequest().getSession()
+						.getServletContext());
+		DataSource dataSource = (DataSource) ctx.getBean("dataSource");
+		Connection conn = null;
+		try {
+			conn = dataSource.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		ImportExamSysDTO dto = new ImportExamSysDTO();
+		dto.setPcId(pcid);
+		dto = addstaffService.importExamSys(dto, conn);
+		
+		HttpServletResponse response = ServletActionContext.getResponse();
+		try {
+			response.getWriter().write(dto.getRetMsg());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 	public void checkSjmc(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		try {
@@ -73,7 +112,12 @@ public class Arrange_jdpcAction extends AbstractPageNavAction {
 		getRequest().getSession().setAttribute("info2", "0");
 		return SUCCESS;
 	}
-	
+	/**
+	 * 考生与准考证批次关联
+	 * @return
+	 * @author gkk
+	 * @date 2017-3-3 上午9:13:35
+	 */
 	public String relateksAndkspc(){
 		boolean b = this.addstaffService.relateksAndkspc(sjid, checkid);
 		if (b) {
@@ -81,7 +125,9 @@ public class Arrange_jdpcAction extends AbstractPageNavAction {
 		}else{
 			info="2";
 		}
-		getRequest().getSession().setAttribute("info2", "0");
+		this.acpList = addstaffService.find_admission_card_pc();
+		this.acfList = addstaffService.find_admission_card_file();
+		//getRequest().getSession().setAttribute("info2", "1");
 		return SUCCESS;
 	}
 	
@@ -257,6 +303,12 @@ public class Arrange_jdpcAction extends AbstractPageNavAction {
 		this.printVOs = printVOs;
 	}
 
-	
+	public String getPcid() {
+		return pcid;
+	}
+
+	public void setPcid(String pcid) {
+		this.pcid = pcid;
+	}
 
 }

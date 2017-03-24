@@ -44,7 +44,7 @@ function logout(){
 <!-- <form action="logout.action" name="lgout" id="lgout" method="post"></form> -->
 <input type=hidden name="gdrecallno" id="gdrecallno" value="">
 <input type=hidden name="gdcaller" id="gdcaller" value="">
-<frameset rows="150,*" frameborder="NO" border="0" framespacing="0">
+<frameset rows="124,*" frameborder="NO" border="0" framespacing="0">
   <frame src="<%=request.getContextPath() %>/topMenuViewAction.action" id="topFrame" name="topFrame" scrolling="NO" noresize >
   <frame  name="main"  id="main"  target="main"  src="main.html"  scrolling="auto" width="100%">      
 </frameset> 

@@ -163,8 +163,10 @@
 			<result name="success" type="redirect-action">arrangejdpc.action</result>
 		</action>
 		<action name="relateksAndkspc" class="arrange_jdpc" method="relateksAndkspc">
-			<result name="success" type="redirect-action">arrangePrintCard.action</result>
+			<result name="success">/authority/print_card_arrange.jsp</result>
 		</action>
+		<action name="importExamSys" class="arrange_jdpc" method="importExamSys"></action>
+		
 		<!-- 试卷上传一体化 -->
 		<action name="uploadPaper" class="uploadPaperAction">
 			<result name="success">/paper/paper_upload.jsp</result>
@@ -291,7 +293,7 @@
 		<package name="ajaxip" extends="json-default">
 		<action name="queryip" class="monitoraction" method="queryPingIp" >
 			<result type="json">
-				<param name="root">fenshu</param> 
+				<param name="root">fenshu</param>
 			</result>
 		</action>
 		<action name="updateqiangzhi" class="monitoraction" method="updateMonitor" >
@@ -299,5 +301,8 @@
 				<param name="root">fenshu</param> 
 			</result>
 		</action>
+		<!-- 删除准考证批次信息 -->
+		<action name="deletePrintCardInfo" class="examarrangement" method="deletePrintCardInfo"></action>
+		
 		</package>
 </struts>

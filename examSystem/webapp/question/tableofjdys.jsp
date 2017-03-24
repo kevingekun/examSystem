@@ -5,24 +5,18 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<base href="<%=basePath%>">
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>选择鉴定要素表</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+	<script type="text/javascript" src="bootstrap/js/jquery-3.1.1.min.js"></script>
 
-<title>选择鉴定要素表</title>
-
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
-<link href="newcss/style.css" rel="stylesheet" type="text/css" />
-<link href="inc/all.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#table_jdys tr:gt(0)").remove();//清空table
@@ -55,12 +49,6 @@ $(document).ready(function(){
 			alert("error");
 		}
 	});
-	$("#table_jdys tr").mouseover(function(){
-		this.className="td_over";
-	});
-	$("#table_jdys tr").mouseout(function(){
-		this.className="";
-	});
 })
 function checkjdys(id,name){
 	$("#id").val(id);
@@ -80,20 +68,20 @@ function submt(){
 </script>
 </head>
 
-<body style="background-color: rgba(243, 246, 248, 1)">
+<body>
 	<div style="height:460px; overflow:auto;border:1px solid silver;">
-		<table id="table_jdys" width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="table_list">
-			<tr class="title_font">
-				<td width="5%" align="center" bgcolor="#C7E2F8"><span class="out">选择 </span></td>
-				<td width="5%" align="center" bgcolor="#C7E2F8"><span class="out">序号 </span></td>
-				<td width="30%" align="center" bgcolor="#C7E2F8"><span class="out">行为领域 </span></td>
-				<td width="30%" align="center" bgcolor="#C7E2F8"><span class="out">鉴定范围</span></td>
-				<td width="30%" align="center" bgcolor="#C7E2F8"><span class="out">鉴定点</span></td>
+		<table id="table_jdys" class="table table-striped table-bordered table-hover table-condensed text-center">
+			<tr class="info">
+				<td width="5%"><span class="out">选择 </span></td>
+				<td width="5%"><span class="out">序号 </span></td>
+				<td width="20%"><span class="out">行为领域 </span></td>
+				<td width="20%"><span class="out">鉴定范围</span></td>
+				<td width="50%"><span class="out">鉴定点</span></td>
 			</tr>
 		</table>
 	</div>
-	<div style="width: 100%;text-align:center;margin-top: 8px">
-		<input class="submit_2" type="button" value="确定" onclick="submt()"/>
+	<div style="width: 100%;text-align:center;margin-top: 4px">
+		<input class="btn btn-success btn-sm" type="button" value="确定" onclick="submt()"/>
 		<input id="id" type="hidden"/>
 		<input id="name" type="hidden"/>
 	</div>

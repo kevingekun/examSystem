@@ -12,22 +12,27 @@ import com.wondersgroup.falcon.acegi.AcegiUtil;
 import com.wondersgroup.falcon.acegi.UserDetailsImpl;
 import com.wondersgroup.kaoshi.bo.EKaoshi;
 import com.wondersgroup.kaoshi.util.AbstractPageNavAction;
-import com.wondersgroup.kaoshi.util.PageReturn;
 import com.wondersgroup.popedom.bo.EAuthority;
 import com.wondersgroup.popedom.bo.EUser;
 import com.wondersgroup.popedom.bo.ExamLimitKs;
+import com.wondersgroup.popedom.service.AddExamineeService;
 import com.wondersgroup.popedom.service.EAuthorityService;
 import com.wondersgroup.popedom.service.EUserService;
 
 public class UserAction extends AbstractPageNavAction {
 	private EUserService  euserService;
 	private EAuthorityService eauthorityService;
+	private AddExamineeService addexamineeService;
 	public void setEauthorityService(EAuthorityService eauthorityService) {
 		this.eauthorityService = eauthorityService;
 	}
 	public void setEuserService(EUserService euserService) {
 		this.euserService = euserService;
 	}
+	public void setAddexamineeService(AddExamineeService addexamineeService) {
+		this.addexamineeService = addexamineeService;
+	}
+
 	//显示被屏蔽的考试的人员
 	private List<EKaoshi> eKaoshi;
 	
@@ -49,6 +54,8 @@ public class UserAction extends AbstractPageNavAction {
 	private List<EAuthority> eauthorities;
 	private List users;
 	
+	private List<Object[]> addlist;
+	
 	//查询条件
 	private String username;
 	private String realname;
@@ -63,7 +70,7 @@ public class UserAction extends AbstractPageNavAction {
 		//eu.setEnabled(enabled);
 		this.pageReturn=this.euserService.findAllUsers(this.pageTool,eu);
 		this.users=this.pageReturn.getReturnList();
-		
+		this.addlist = this.addexamineeService.queryRole();
 		//找到所有的角色
 		eauthorities=this.eauthorityService.findAllauthority();
 		return SUCCESS;
@@ -219,7 +226,11 @@ public class UserAction extends AbstractPageNavAction {
 	public void setVpass(String vpass) {
 		this.vpass = vpass;
 	}
-	
-	
+	public List<Object[]> getAddlist() {
+		return addlist;
+	}
+	public void setAddlist(List<Object[]> addlist) {
+		this.addlist = addlist;
+	}
 
 }

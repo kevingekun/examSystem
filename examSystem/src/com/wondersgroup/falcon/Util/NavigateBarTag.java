@@ -47,7 +47,7 @@ public class NavigateBarTag
         //
         //result.append("<div style=\"margin-top:-20px;\">&nbsp;共").append(total).append("条记录&nbsp;第").append(currpage).append("页/共").append(pages).append("页").append("</div>");
         result.append("<nav aria-label=\"Page navigation\">");
-        result.append("<ul class=\"pagination\" style=\"margin-top:-15px;\" >");
+        result.append("<ul class=\"pagination\" >");
         result.append("<li><a>共").append(total).append("条记录&nbsp;&nbsp;&nbsp;第").append(currpage).append("页/共").append(pages).append("页").append("</a></li>");
         result.append("<li><a href=\"Javascript:goto('1')\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
         if (currpage > pagenum) {
@@ -65,7 +65,7 @@ public class NavigateBarTag
         if(((currpage-1)/pagenum+1)*pagenum+1<=pages){
         	result.append("<li><a href=\"Javascript:goto('").append(((currpage-1)/pagenum+1)*pagenum+1).append("')\" title=\"后").append(pagenum).append("页\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>");
         }
-        result.append("<li><a href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>");
+        result.append("<li><a href=\"Javascript:goto('").append(pages).append("')\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>");
         result.append("<li><a>" +
         		"<div style=\"float:left\">转到&nbsp;</div>" +
         		"<input id=\"gotopage\" name=\"gotopage\" class=\"form-control\" type=\"text\" onkeypress=\"allowKeyScope(48,58)\" style=\"height:20px;width:30px;float:left;font-size:8px;padding:2px;\">" +

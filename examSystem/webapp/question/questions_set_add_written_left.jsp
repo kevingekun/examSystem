@@ -6,23 +6,19 @@
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 	
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<base href="<%=basePath%>">
-
-<title>加载机考试题信息树</title>
-
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
-<link rel="StyleSheet" type="text/css" href="js/dtree2/dtree.css" />
-<script language="javascript" src="js/dtree2/dtree.js"></script>
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>加载机考试题信息树</title>
+	<link rel="StyleSheet" type="text/css" href="js/dtree2/dtree.css" />
+	<script language="javascript" src="js/dtree2/dtree.js"></script>
 </head>
 <body bgcolor="#ebf3f6" scroll="yes">
-	<div style="height:600px;overflow:auto">
+	<div style="height:580px;overflow:auto">
 	<table width="100%" border="0">
 		<tr>
 			<td width="98%" bgcolor="#ebf3f6">

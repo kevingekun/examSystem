@@ -193,6 +193,7 @@ public class CjpmAction extends AbstractPageAction {
 		// System.out.println(paperId);
 		//this.eanswerpaperService.saveEAnswerresult(new Long(paperId).longValue());
 		wpList = this.eanswerpaperService.getpaperXfState(Long.valueOf(paperId));
+		this.sjMc = this.eanswerpaperService.getPaperByid(Long.valueOf(paperId)).getSjMc();
 		if (wpList.size()>0) {
 			return "success_xf";
 		}else{
@@ -200,11 +201,8 @@ public class CjpmAction extends AbstractPageAction {
 			PageReturn pagereturn = this.eanswerpaperService.findwrongPercent(
 					this.pageTool, new Long(paperId).longValue());
 			this.epaperquention = pagereturn.getReturnList();
-			
 			return SUCCESS;
 		}
-		
-
 	}
 
 	// 查询某个用户参加过的答卷

@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html;charset=gbk"%>
+<%@ page language="java" contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="elile.tld" prefix="elile"%>
 <%
@@ -7,197 +7,78 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<base href="<%=basePath%>">
-<title>◊ÈæÌ</title>
-<link rel="stylesheet" type="text/css" href="newcss/style.css" />
-<link rel="stylesheet" type="text/css" href="inc/all.css" />
-<script type="text/javascript" src="js/jquery/jquery.1.3.min.js"></script>
-<script type="text/javascript">
-	function showPaper(){
-		$("#questionadd").hide();
-		$("#questionadd_written").hide();
-		$("#paperadd").show();
-	}
-	function showQuestionOfCpt(){
-		$("#paperadd").hide();
-		$("#questionadd_written").hide();
-		$("#questionadd").show();
-	}
-	function showQuestionOfWrt(){
-		$("#paperadd").hide();
-		$("#questionadd").hide();
-		$("#questionadd_written").show();
-	}
-</script>
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ÁªÑÂç∑</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="bootstrap/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<style type="text/css">
+.panel{
+	margin-bottom:0px;
+}
+.col-md-3{
+	padding-right:0px;
+}
+.col-md-9{
+	padding-left:0px;
+}
+	
+</style>
 </head>
-<body class="nrbj">
-	<table width="99%" border="0" align="right" cellpadding="0" cellspacing="0" style="margin-top:10px; margin-left:8px; ">
-		<tr>
-			<td width="45%" align="left"><table border="0" align="left" cellpadding="0" cellspacing="0">
-					<tr>
-						<td align="left" valign="middle" class="header1"></td>
-						<td class="header2">
-							<a style="color: white;" href="javascript:void(0)" onclick="showPaper()"> ‘æÌ–≈œ¢¬º»Î</a>
-						</td>
-						<td class="header3" width="24">
-							<img src="newimages/content_right_bj.gif " width="24" height="22">
-						</td>
-						<td class="header2">
-							<a style="color: white;" href="javascript:void(0)" onclick="showQuestionOfCpt()">ª˙øº ‘Ã‚¬º»Î</a>
-						</td>
-						<td class="header3" width="24">
-							<img src="newimages/content_right_bj.gif " width="24" height="22">
-						</td>
-						<td class="header2">
-							<a style="color: white;" href="javascript:void(0)" onclick="showQuestionOfWrt()">± ¥ ‘Ã‚¬º»Î</a>
-						</td>
-						<td class="header3" width="24">
-							<img src="newimages/content_right_bj.gif " width="24" height="22">
-						</td>
-					</tr>
-				</table></td>
-			<td width="53%" align="left"></td>
-		</tr>
-		<tr id="paperadd">
-			<td colspan="2" valign="top">
-				<div id="content1" class="borader">
-					<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-						<tr>
-							<td class="borader3">
-								<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td>
-											<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-												<tr>
-													<td align="left" valign="middle" class="header7"></td>
-													<td class="header8"> ‘æÌ¬º»Î</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-								<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td height="2"></td>
-									</tr>
-								</table>
-								<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:10px;">
-									<tr>
-										<td align="center" valign="middle" class="num_font">
-											<table width="98%" height="33" border="0" align="center" cellpadding="0" cellspacing="2" bgcolor="#D2E8FF" style="border-width:1px; border-style:solid; border-color:#8DD6F4; ">
-												<tr>
-													<td bgcolor="#FFFFFF" width="25%">
-														<div align="center">
-															<iframe name="LeftTree1" src="question/papers_set_add_left.jsp" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" width="100%" height="600px"></iframe>
-														</div>
-													</td>
-													<td bgcolor="#FFFFFF" width="75%"><iframe name="MainWin1" src="question/papers_set_add_right.jsp" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" width="100%" height="600px"> </iframe></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
+<body>
+<div class="container-fluid">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">ËØïÈ¢òÂΩïÂÖ•<span class="label label-success">Êï¥Â•ó</span></h3>
+		</div>
+	</div>
+	<div>
+	  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs" role="tablist">
+	    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">ËØïÂç∑‰ø°ÊÅØÂΩïÂÖ•</a></li>
+	    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Êú∫ËÄÉËØïÈ¢òÂΩïÂÖ•</a></li>
+	    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Á¨îÁ≠îËØïÈ¢òÂΩïÂÖ•</a></li>
+	  </ul>
+	  <!-- Tab panes -->
+	  <div class="tab-content">
+	    <div role="tabpanel" class="tab-pane active" id="home">
+	    	<div class="row">
+				<div class="col-md-3">
+					<iframe name="LeftTree1" src="question/papers_set_add_left.jsp" scrolling="auto" width="100%" height="600px"></iframe>
 				</div>
-			</td>
-		</tr>
-
-		<tr id="questionadd" style="display: none;">
-			<td colspan="2" valign="top">
-				<div id="content1" class="borader">
-					<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-						<tr>
-							<td class="borader3">
-								<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td>
-											<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-												<tr>
-													<td align="left" valign="middle" class="header7"></td>
-													<td class="header8">ª˙øº ‘Ã‚¬º»Î</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-								<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td height="2"></td>
-									</tr>
-								</table>
-								<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:10px;">
-									<tr>
-										<td align="center" valign="middle" class="num_font">
-											<table width="98%" height="33" border="0" align="center" cellpadding="0" cellspacing="2" bgcolor="#D2E8FF" style="border-width:1px; border-style:solid; border-color:#8DD6F4; ">
-												<tr>
-													<td bgcolor="#FFFFFF" width="25%">
-														<div align="center">
-															<iframe name="LeftTree2" src="question/questions_set_add_left.jsp" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" width="100%" height="600px"></iframe>
-														</div>
-													</td>
-													<td bgcolor="#FFFFFF" width="75%"><iframe name="MainWin2" src="question/questions_set_add_right.jsp" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" width="100%" height="600px"> </iframe></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
+				<div class="col-md-9">
+					<iframe name="MainWin1" src="question/papers_set_add_right.jsp" scrolling="auto" width="100%" height="600px"></iframe>
 				</div>
-			</td>
-		</tr>
-		<tr id="questionadd_written" style="display: none;">
-			<td colspan="2" valign="top">
-				<div id="content1" class="borader">
-					<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-						<tr>
-							<td class="borader3">
-								<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td>
-											<table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-												<tr>
-													<td align="left" valign="middle" class="header7"></td>
-													<td class="header8">± ¥ ‘Ã‚¬º»Î</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-								<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td height="2"></td>
-									</tr>
-								</table>
-								<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0" style="margin-top:10px;">
-									<tr>
-										<td align="center" valign="middle" class="num_font">
-											<table width="98%" height="33" border="0" align="center" cellpadding="0" cellspacing="2" bgcolor="#D2E8FF" style="border-width:1px; border-style:solid; border-color:#8DD6F4; ">
-												<tr>
-													<td bgcolor="#FFFFFF" width="25%">
-														<div align="center">
-															<iframe name="LeftTree3" src="question/questions_set_add_written_left.jsp" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" width="100%" height="600px"></iframe>
-														</div>
-													</td>
-													<td bgcolor="#FFFFFF" width="75%"><iframe name="MainWin3" src="question/questions_set_add_written_right.jsp" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" width="100%" height="600px"> </iframe></td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
+			</div>
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="profile">
+	    	<div class="row">
+				<div class="col-md-3">
+					<iframe name="LeftTree2" src="question/questions_set_add_left.jsp" scrolling="auto" width="100%" height="600px"></iframe>
 				</div>
-			</td>
-		</tr>
-	</table>
-
+				<div class="col-md-9">
+					<iframe name="MainWin2" src="question/questions_set_add_right.jsp" scrolling="auto" width="100%" height="600px"></iframe>
+				</div>
+			</div>
+	    </div>
+	    <div role="tabpanel" class="tab-pane" id="messages">
+	    	<div class="row">
+				<div class="col-md-3">
+					<iframe name="LeftTree3" src="question/questions_set_add_written_left.jsp" scrolling="auto" width="100%" height="600px"></iframe>
+				</div>
+				<div class="col-md-9">
+					<iframe name="MainWin3" src="question/questions_set_add_written_right.jsp" scrolling="auto" width="100%" height="600px"></iframe>
+				</div>
+			</div>
+	    </div>
+	  </div>
+	</div>
+</div>
 </body>
 </html>

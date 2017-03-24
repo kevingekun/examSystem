@@ -23,18 +23,17 @@ String session_sjid = (String)session.getAttribute("sjid");
 String session_tkid = (String)session.getAttribute("tkid");
 Integer stlx = (Integer)session.getAttribute("stlx_written");
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<base href="<%=basePath%>">
-<title>试题新增</title>
-<script type="text/javascript" src="js/jquery/autoresize.min.js"></script>
-<link rel="stylesheet" type="text/css" href="newcss/style.css" />
-<link rel="stylesheet" type="text/css" href="inc/all.css" />
-<link rel="StyleSheet" type="text/css" href="authority/js/dtree.css" />
-<script type="text/javascript" src="js/jquery/jquery.1.3.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/imgUploadPreview/uploadPreview.js"></script>
-<script type="text/javascript" src="js/util/numeral.js"></script>
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>笔答试题录入</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/imgUploadPreview/uploadPreview.js"></script>
 <style type="text/css">
 .img_xx{
 	height: 40px;
@@ -42,15 +41,278 @@ Integer stlx = (Integer)session.getAttribute("stlx_written");
 .checkoption{
 	width:200px;
 }
+.row-a{
+	margin-top:10px;
+}
 </style>
+
+<%
+	String messge = (String) request.getAttribute("messge");
+	if (messge != null) {
+%>
+<script language="javascript">
+	alert('<%=messge%>');
+</script>
+<%
+	}
+%>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<%
+				if(!"".equals(session_sjmc)&&session_sjmc!=null){
+					out.print("<span class=\"label label-success\">"+session_sjmc+"_机考</span>");
+				}else{
+					out.print("<span class=\"label label-warning\">请选择试卷</span>");
+				}
+			%>
+		</div>
+		<div class="panel-body">
+			<form name="addform" action="<%=request.getContextPath()%>/QuestionServlet" method="post" enctype="multipart/form-data">
+				<input type=hidden name="actionType" value="add" />
+				<input type=hidden name="sjType" value="written" /><!-- 笔答试卷 -->
+				<div class="row form-inline">
+					<div class="col-md-4 form-group">
+						<label for="ST_LXID">试题类型</label>
+		    			<select class="form-control input-sm" name="ST_LXID" id="ST_LXID" onChange="changeDiv(this.options[selectedIndex].value)" style="width: 160px">
+							<option value=0>请选择</option>
+							<option value=2>单选题</option>
+							<option value=8>多选题</option>
+							<option value=3>判断题</option>
+						</select>
+		    			<font color="red">*</font>
+					</div>
+					<div class="col-md-4 form-group" style="width:200px;"></div>
+					<div class="col-md-4 form-group" style="position: relative;z-index:100;">
+						<div class="thumbnail form-group" style="position:absolute;width:300px;margin-top:-15px;">
+							<img id="imgPv" src="<%=request.getContextPath()%>/images/default/imgPv.png" />
+							<div class="caption form-group">
+								<label for="img">图片：</label>
+				    			<input class="form-control input-sm" name="img" id="img" type="file" style="width:220px">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row form-inline row-a">
+					<div class="col-md-4 form-group">
+						<label for="ST_FZ">本题分值</label>
+						<input class="form-control input-sm" name="ST_FZ" id="ST_FZ" type="number" value="1">
+						<font color="red">*</font>
+					</div>
+				</div>
+				<div class="row form-inline row-a">
+					<div class="col-md-4 form-group">
+						<label for="ST_FJLJ">题目备注</label>
+						<input class="form-control input-sm" name="ST_FJLJ" id="ST_FJLJ" type="text" >
+						<input id="sjid" name="sjid" type="hidden" />
+						<input id="ST_ZYXID" name="ST_ZYXID" type="hidden" />
+						<input id="ST_NODE_NAME" name="ST_NODE_NAME" type="hidden" />
+					</div>
+				</div>
+				<div class="row form-inline row-a">
+					<div class="col-md-4 form-group">
+						<label for="ST_TG1">试题题干</label>
+						<textarea class="form-control" id="ST_TG1" name="ST_TG" style="width:350px;" rows="6"></textarea>
+						<font color="red">*</font>
+					</div>
+				</div>
+				<div id="div1" style="margin-top:10px;display:none">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="radio-inline">
+												<input type="radio" name="singleoptionkey" value="A"> A
+											</label>
+										<td><textarea class="form-control" id="singleoption" name="singleoption" rows="2" ></textarea></td>
+										<td>
+											<input class="form-control input-sm input-img" name="ST_IMG_A" id="ST_IMG_A" type="file" onchange="fileChange(this)" title="选择图片">
+										</td>
+										<td>
+											<img id="imgPvA" class="img_xx" />
+										</td>
+									</tr>
+								</table>
+							</td>	
+						</tr>
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="radio-inline">
+												<input type="radio" name="singleoptionkey" value="B"> B
+											</label>
+										</td>
+										<td><textarea class="form-control" id="singleoption" name="singleoption" rows="2"></textarea></td>
+										<td>
+											<input class="form-control input-sm input-img" name="ST_IMG_B" id="ST_IMG_B" type="file" onchange="fileChange(this)" title="选择图片">
+										</td>
+										<td>
+											<img id="imgPvB" class="img_xx" />
+										</td>
+									</tr>
+								</table>
+							</td>	
+						</tr>
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="radio-inline">
+												<input type="radio" name="singleoptionkey" value="C"> C
+											</label>
+										</td>
+										<td><textarea class="form-control" id="singleoption" name="singleoption" rows="2"></textarea></td>
+										<td>
+											<input class="form-control input-sm input-img" name="ST_IMG_C" id="ST_IMG_C" type="file" onchange="fileChange(this)" title="选择图片">
+										</td>
+										<td>
+											<img id="imgPvC" class="img_xx" />
+										</td>
+									</tr>
+								</table>
+							</td>	
+						</tr>
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="radio-inline">
+												<input type="radio" name="singleoptionkey" value="D"> D
+											</label>
+										</td>
+										<td><textarea class="form-control" id="singleoption" name="singleoption" rows="2"></textarea></td>
+										<td>
+											<input class="form-control input-sm input-img" name="ST_IMG_D" id="ST_IMG_D" type="file" onchange="fileChange(this)" title="选择图片">
+										</td>
+										<td>
+											<img id="imgPvD" class="img_xx" />
+										</td>
+										<td>
+											<input class="btn btn-success btn-sm" type="button" onclick="addLine(this,1)" value="增加"/>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="div2" style="margin-top:10px;display:none">
+					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="checkbox-inline">
+												<input type="checkbox" name="manyoptionkey" value="A"> A
+											</label>
+										</td>
+										<td><textarea name="manyoption" id="manyoption1" class="form-control manyoptionkey" rows="2"></textarea></td>
+										<td>
+										<input class="form-control input-sm input-img" name="ST_IMG_A" id="ST_IMG_Amany" type="file" onchange='fileChange(this)' title="选择图片">
+									</td>
+									<td>
+										<img id="imgPvAmany" class="img_xx" />
+									</td>
+									</tr>
+								</table>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="checkbox-inline">
+												<input type="checkbox" name="manyoptionkey" value="B"> B
+											</label>
+										</td>
+										<td><textarea name="manyoption" id="manyoption2" class="form-control manyoptionkey" rows="2"></textarea></td>
+										<td>
+											<input class="form-control input-sm input-img" name="ST_IMG_B" id="ST_IMG_Bmany" type="file" onchange='fileChange(this)' title="选择图片">
+										</td>
+										<td>
+											<img id="imgPvBmany" class="img_xx" />
+										</td>
+									</tr>
+								</table>
+								</td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="checkbox-inline">
+												<input type="checkbox" name="manyoptionkey" value="C"> C
+											</label>
+										</td>
+										<td><textarea name="manyoption" id="manyoption3" class="form-control manyoptionkey" rows="2"></textarea></td>
+										<td>
+											<input class="form-control input-sm input-img" name="ST_IMG_C" id="ST_IMG_Cmany" type="file" onchange='fileChange(this)' title="选择图片">
+										</td>
+										<td>
+											<img id="imgPvCmany" class="img_xx" />
+										</td>
+									</tr>
+								</table>
+								</td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td width="60">
+											<label class="checkbox-inline">
+												<input type="checkbox" name="manyoptionkey" value="D"> D
+											</label>
+										</td>
+										<td><textarea name="manyoption" id="manyoption4" class="form-control manyoptionkey" rows="2"></textarea></td>
+										<td>
+											<input class="form-control input-sm input-img" name="ST_IMG_D" id="ST_IMG_Dmany" type="file" onchange='fileChange(this)' title="选择图片">
+										</td>
+										<td>
+											<img id="imgPvDmany" class="img_xx" />
+										</td>
+										<td>
+											<input class="btn btn-success btn-sm" type="button" onclick="addLine(this,2)" value="增加"/>
+										</td>
+									</tr>
+								</table>
+								</td>
+						</tr>
+					</table>
+				</div>
+				<div id="div3" style="margin-top:10px;display:none">
+					<label class="radio-inline">
+						<input type="radio" name="verdictkey" value="T"> 对
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="verdictkey" value="F"> 错
+					</label>
+				</div>
+				<div class="row" style="margin-top:8px;">
+					<div class="col-md-4" style="margin-left:200px;float:left;">
+						<button name="add" type="button" class="btn btn-success" onclick="jvavscript:checkSubmit();" >确定</button>
+					</div>
+					<div class="col-md-4" style="margin-left:100px;float:left;">
+						<button name="res" type="reset" class="btn btn-warning">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
 <script type="text/javascript">
 var sjid = "<%=sjid%>";
 var tkid = "<%=tkid%>";
 var stlx = "<%=stlx%>";
 $(function(){
-	//文本框只能输入数字，并屏蔽输入法和粘贴  
-	$("#ST_FZ").numeral();
-	
 	if(sjid==""||sjid=="null"){
 		sjid="<%=session_sjid%>";
 	}
@@ -96,33 +358,33 @@ function addLine(obj,num){
 			var objCell;
 			objCell=objRow.insertCell(0);
 			if(num==1){
-				objCell.innerHTML="<input type=radio name='singleoptionkey' value='"+tm+"'>"+tm+":";
+				objCell.innerHTML="<label class=\"radio-inline\"><input type='radio' name='singleoptionkey' value='"+tm+"'>"+tm+"</label>";
 				
 				objCell=objRow.insertCell(1);
 				objCell.innerHTML=objSourceRow.cells[1].innerHTML;
 				
 				objCell=objRow.insertCell(2);
-				objCell.innerHTML="<input name='ST_IMG_"+tm+"' id='ST_IMG_"+tm+"' type='file' onchange='fileChange(this)' title='选择图片'>";
+				objCell.innerHTML="<input class='form-control input-sm input-img' name='ST_IMG_"+tm+"' id='ST_IMG_"+tm+"' type='file' onchange='fileChange(this)' title='选择图片'>";
 				
 				objCell=objRow.insertCell(3);
 				objCell.innerHTML="<img id='imgPv"+tm+"' style='height: 40px'/>";
 			}
 			if(num==2){
-				objCell.innerHTML="<input type=checkbox name='manyoptionkey' value='"+tm+"'>"+tm+":";
+				objCell.innerHTML="<label  class=\"checkbox-inline\"><input type='checkbox' name='manyoptionkey' value='"+tm+"'>"+tm+"</label>";
 				
 				objCell=objRow.insertCell(1);
 				objCell.innerHTML=objSourceRow.cells[1].innerHTML;
 				
 				objCell=objRow.insertCell(2);
-				objCell.innerHTML="<input name='ST_IMG_"+tm+"' id='ST_IMG_"+tm+"many' type='file' onchange='fileChange(this)' title='选择图片'>";
+				objCell.innerHTML="<input class=\"form-control input-sm input-img\" name='ST_IMG_"+tm+"' id='ST_IMG_"+tm+"many' type='file' onchange='fileChange(this)' title='选择图片'>";
 				
 				objCell=objRow.insertCell(3);
 				objCell.innerHTML="<img id='imgPv"+tm+"many' style='height: 40px'/>";
 			}
-			
-			
 			objCell=objRow.insertCell(4);
-			objCell.innerHTML=objSourceRow.cells[4].innerHTML.replace(/增加/,'删除');
+			/* objCell.innerHTML=objSourceRow.cells[4].innerHTML.replace("btn-success",'btn-danger'); */
+			objCell.innerHTML=objSourceRow.cells[4].innerHTML.replace("增加",'删除');
+			objCell.innerHTML=objCell.innerHTML.replace("btn-success",'btn-danger');
 		}else{
 			alert("超出系统支持数量。");
 		}
@@ -321,7 +583,7 @@ function addLine(obj,num){
 					div1.style.display="none";
 					div2.style.display="none";					
 					div3.style.display="none";
-					div4.style.display="none";	
+					/* div4.style.display="none";	
 					div5.style.display="none";
 					div6.style.display="none";
 					div7.style.display="none";					
@@ -330,13 +592,13 @@ function addLine(obj,num){
 					div10.style.display="none";	
 					div11.style.display="none";					
 					div12.style.display="none";	
-					div13.style.display="none";				
+					div13.style.display="none";				 */
 					break;			
 				case "2"://单选
 					div1.style.display="block";
 					div2.style.display="none";					
 					div3.style.display="none";
-					div4.style.display="none";	
+					/* div4.style.display="none";	
 					div5.style.display="none";
 					div6.style.display="none";
 					div7.style.display="none";					
@@ -345,13 +607,13 @@ function addLine(obj,num){
 					div10.style.display="none";	
 					div11.style.display="none";					
 					div12.style.display="none";
-					div13.style.display="none";							
+					div13.style.display="none";	 */						
 					break;
 				case "8"://多选
 					div1.style.display="none";
 					div2.style.display="block";					
 					div3.style.display="none";
-					div4.style.display="none";	
+					/* div4.style.display="none";	
 					div5.style.display="none";
 					div6.style.display="none";
 					div7.style.display="none";					
@@ -360,7 +622,7 @@ function addLine(obj,num){
 					div10.style.display="none";
 					div11.style.display="none";					
 					div12.style.display="none";
-					div13.style.display="none";							
+					div13.style.display="none"; */							
 					break;
 				case "3"://判断题
 					div1.style.display="none";
@@ -584,711 +846,5 @@ function addLine(obj,num){
 		}
 	}
 </script>
-<script type="text/javascript">
-
-$(function(){
-	$('textarea#ST_TG1').autoResize({
-    // On resize:
-    onResize : function() {
-        $(this).css({opacity:0.8});
-    },
-    // After resize:
-    animateCallback : function() {
-        $(this).css({opacity:1});
-    },
-    // Quite slow animation:
-    animateDuration : 100,
-    // More extra space:
-    extraSpace : 20,
-		limit: 150
-});
-})
-
-$(function(){
-	$('textarea#casekey').autoResize({
-    // On resize:
-    onResize : function() {
-        $(this).css({opacity:0.8});
-    },
-    // After resize:
-    animateCallback : function() {
-        $(this).css({opacity:1});
-    },
-    // Quite slow animation:
-    animateDuration : 100,
-    // More extra space:
-    extraSpace : 20,
-	limit: 300
-});
-})
-$(function(){
-	$('textarea#verdictsay').autoResize({
-    // On resize:
-    onResize : function() {
-        $(this).css({opacity:0.8});
-    },
-    // After resize:
-    animateCallback : function() {
-        $(this).css({opacity:1});
-    },
-    // Quite slow animation:
-    animateDuration : 100,
-    // More extra space:
-    extraSpace : 20,
-	limit: 300
-});
-})
-</script>
-<%
-	String messge = (String) request.getAttribute("messge");
-	if (messge != null) {
-%>
-<script language="javascript">
-	alert('<%=messge%>');
-</script>
-<%
-	}
-%>
-</head>
-<body class="nrbj">
-	<table width="99%" border="0" align="right" cellpadding="0" cellspacing="0" style="margin-top: 10px; margin-left: 8px;">
-		<tr>
-			<td width="45%" align="left">
-				<table border="0" align="left" cellpadding="0" cellspacing="0">
-					<tr>
-						<td align="left" valign="middle" class="header1"></td>
-						<td class="header2">
-							<%
-							if(!"".equals(session_sjmc)&&session_sjmc!=null){
-								out.print(session_sjmc+"_笔答");
-							}else{
-								out.print("请选择试卷");
-							}
-							%>
-						</td>
-						<td class="header3"></td>
-					</tr>
-				</table>
-			</td>
-			<td width="53%" align="left"></td>
-		</tr>
-		<tr>
-			<td colspan="2" valign="top">
-				<div id="content1" class="borader">
-					<form name="addform" action="<%=request.getContextPath()%>/QuestionServlet" method="post" enctype="multipart/form-data">
-						<input type=hidden name="actionType" value="add" />
-						<input type=hidden name="sjType" value="written" /><!-- 笔答试卷 -->
-						<table width="760" border="0" align="center" cellpadding="0" cellspacing="0">
-							<tr class="row_height">
-								
-								<td height="26" align="right" width="10%">试题题型：</td>
-								<td width="20%">
-									<select class="selector" name="ST_LXID" onChange="changeDiv(this.options[selectedIndex].value)" style="width: 160px">
-										<option value=0>请选择</option>
-										<option value=2>单选题</option>
-										<option value=8>多选题</option>
-										<option value=3>判断题</option>
-										<option value=1>填空题</option>
-										<option value=4>问答题</option>
-										<option value=5>计算题</option>
-										<option value=6>论述题</option>
-										<option value=7>绘图题</option>
-									</select>
-									<font color="red">*</font>
-								</td>
-								<td align="left">
-					        		<div style="position: relative;width: 100%">
-								  		<div style="width: 300px;height:200px;float:right;right:1;top:-10;position:absolute; z-index:100; ">
-								  			<img id="imgPv" src="<%=request.getContextPath()%>/images/default/imgPv.png" style="height: 200px;width: 300px"/>
-										</div>
-									</div>
-					        	</td>
-							</tr>
-							<tr>
-								<td align="right" height="26">本题分值：</td>
-								<td>
-									<input name="ST_FZ" id="ST_FZ" type="text" style="width: 160px" value="1">
-								<font color="red">*</font>
-								</td>
-							</tr>
-							<tr>
-								<td align="right" height="26">备注：</td>
-								<td>
-									<input name="ST_FJLJ" id="ST_FJLJ" type="text" style="width: 160px">
-									<input id="sjid" name="sjid" type="hidden" />
-									<input id="ST_ZYXID" name="ST_ZYXID" type="hidden" />
-									<input id="ST_NODE_NAME" name="ST_NODE_NAME" type="hidden" />
-								</td>
-							</tr>
-							<tr>
-								<td align="right" height="26">图片：</td>
-								<td>
-									<input name="img" id="img" type="file" title="选择图片" />
-								</td>
-							</tr>
-							<tr>
-								<td height="26" align="right">题目：</td>
-								<td colspan="1"><textarea id="ST_TG1" name="ST_TG" style="width:300px;" rows="6"></textarea></td>
-							</tr>
-						</table>
-
-						<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
-							<tr>
-								<td height="40" align="center" valign="bottom" width="40%">
-									<input name="add" type=button class="submit_2" onClick="jvavscript:checkSubmit();" value="新 增" /> &nbsp; 
-								</td>
-								<td height="40" align="left" valign="bottom" >
-									<input name="res" type="reset" class="submit_2" value="重 置" />
-								</td>
-							</tr>
-						</table>
-
-						<div id="div1" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="3">&nbsp;单选题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">可选项：</td>
-									<td width="80%" align="center">
-										<table width=760 border=0 align="center" cellspacing="1" cellspadding=1>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=radio name="singleoptionkey" value="A" /> A:</td>
-															<td><textarea id="singleoption" name="singleoption" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_A" id="ST_IMG_A" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvA" class="img_xx"/>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=radio name="singleoptionkey" value="B" /> B:</td>
-															<td><textarea id="singleoption" name="singleoption" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_B" id="ST_IMG_B" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvB" class="img_xx"/>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=radio name="singleoptionkey" value="C" /> C:</td>
-															<td><textarea id="singleoption" name="singleoption" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_C" id="ST_IMG_C" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvC" class="img_xx"/>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=radio name="singleoptionkey" value="D" /> D:</td>
-															<td><textarea id="singleoption" name="singleoption" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_D" id="ST_IMG_D" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvD" class="img_xx"/>
-															</td>
-															<td><input name="add2" type="button" id="add2" value="增加" onClick="addLine(this,1)" /></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-									<td width="10%">&nbsp;</td>
-								</tr>
-							</table>
-						</div>
-
-						<div id="div2" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="3">&nbsp;多选题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">可选项：</td>
-									<td width="80%" align="center">
-										<table width=760 border=0 align="center" cellspacing="1" cellspadding=1>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="manyoptionkey" value="A" /> A:</td>
-															<td><textarea name="manyoption" id="manyoption1" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_A" id="ST_IMG_Amany" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvAmany" class="img_xx"/>
-															</td>
-														</tr>
-													</table>
-											</tr>
-											<tr>
-												<td>
-
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="manyoptionkey" value="B" /> B:</td>
-															<td><textarea name="manyoption" id="manyoption2" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_B" id="ST_IMG_Bmany" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvBmany" class="img_xx"/>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="manyoptionkey" value="C" /> C:</td>
-															<td><textarea name="manyoption" id="manyoption3" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_C" id="ST_IMG_Cmany" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvCmany" class="img_xx"/>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="manyoptionkey" value="D" /> D:</td>
-															<td><textarea name="manyoption" id="manyoption4" class="checkoption" rows="3"></textarea></td>
-															<td>
-																<input name="ST_IMG_D" id="ST_IMG_Dmany" type="file" onchange="fileChange(this)" title="选择图片">
-															</td>
-															<td>
-																<img id="imgPvDmany" class="img_xx"/>
-															</td>
-															<td><input name="add2" type="button" id="add2" value="增加" onClick="addLine(this,2)" /></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-
-										</table>
-									</td>
-								</tr>
-
-
-							</table>
-						</div>
-
-
-						<div id="div3" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="3">&nbsp;判断题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">判断选项：</td>
-									<td width="80%" align="center">
-										<table width=760 border=0 align="center" cellspacing="1" cellspadding=1>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=radio name="verdictkey" value="T" /> 对:</td>
-															<td><input type=radio name="verdictkey" value="F" /> 错</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-
-
-							</table>
-						</div>
-						<div id="div4" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="3">&nbsp;判断说明题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">判断选项：</td>
-									<td width="80%" align="center">
-										<table width=760 border=0 align="center" cellspacing="1" cellspadding="1">
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=radio name="verdictsaykey" value="T" /> 对:</td>
-															<td><input type=radio name="verdictsaykey" value="F" /> 错</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-								<tr bgcolor="#ffffff"> 
-									<td width="10%" align="right">说明：</td>
-									<td width="80%" align="center">
-										<table width=760 border=0 align="center" cellspacing="1" cellspadding=1>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><textarea id="verdictsay" name="verdictsay" style="width: 750px;" rows="4"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-
-							</table>
-						</div>
-						<div id="div5" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;录音题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="recordkey" id="recordkey" style="width: 580px;" rows="5"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">录音文件：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><input id="recordpath" readonly="readonly" type=text name="recordpath" size="80" value="" /></td>
-															<td>
-																<button onclick="showluyinti();">选择录音</button>
-															</td>
-															<td><input type="hidden" id="recordLuyinId" /></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</div>
-
-						<div id="div6" style="display: none">
-
-
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;填空题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="fillkey" id="fillkey" style="width: 750px; height: 80px;"></textarea></td>
-															<td>请以一定符号间隔。</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-
-
-							</table>
-						</div>
-						<div id="div7" style="display: none">
-
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;问答题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="askkey" id="askkey" style="width: 750px; height: 50px;"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-
-
-							</table>
-
-
-						</div>
-
-
-						<div id="div8" style="display: none">
-
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;案例分析题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="casekey" id="casekey" style="width: 750px;" rows="5"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-
-
-							</table>
-
-						</div>
-						<div id="div9" style="display: none">
-
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;计算题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="calculatekey" id="calculatekey" style="width: 750px;" rows="5"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-
-
-							</table>
-
-						</div>
-						<div id="div10" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="3">&nbsp;不定项选择题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">可选项：</td>
-									<td width="80%" align="center">
-										<table width=760 border=0 align="center" cellspacing="1" cellspadding=1>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="uncertainoptionkey" value="A" /> A:</td>
-															<td><textarea name="uncertainoption" id="uncertainoption1" style="width:580px;" rows="3"></textarea></td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="uncertainoptionkey" value="B" /> B:</td>
-															<td><textarea name="uncertainoption" id="uncertainoption2" style="width:580px;" rows="3"></textarea></td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="uncertainoptionkey" value="C" /> C:</td>
-															<td><textarea name="uncertainoption" id="uncertainoption3" style="width:580px;" rows="3"></textarea></td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<table border="0" cellpadding="0" cellspacing="0">
-														<tr>
-															<td width="60"><input type=checkbox name="uncertainoptionkey" value="D" /> D:</td>
-															<td><textarea name="uncertainoption" id="uncertainoption4" style="width:580px;" rows="3"></textarea></td>
-															<td><input name="add2" type="button" id="add2" value="增加" onClick="addLine(this,2)" /></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-
-										</table>
-									</td>
-								</tr>
-
-
-							</table>
-						</div>
-						<div id="div11" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;论述题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="discusskey" id="discusskey" style="width: 750px; height: 50px;"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</div>
-						<div id="div12" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;点库题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="databasekey" id="databasekey" style="width: 750px; height: 50px;"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</div>
-						<div id="div13" style="display: none">
-							<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-								<tr>
-									<td width=40% colspan="2">&nbsp;拨测题答案区：</td>
-								</tr>
-								<tr bgcolor="#ffffff">
-									<td width="10%" align="right">答案：</td>
-									<td width="90%">
-										<table width=100% border=0 cellspadding=1 cellspacing="1">
-											<tr>
-												<td>
-													<table>
-														<tr>
-															<td><textarea name="telephonekey" id="telephonekey" style="width: 750px; height: 50px;"></textarea></td>
-															<td>&nbsp;</td>
-															<td></td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</form>
-				</div>
-
-			</td>
-		</tr>
-	</table>
-
 </body>
 </html>

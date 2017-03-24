@@ -10,7 +10,7 @@
                 <constant name="struts.multipart.maxSize" value="9000000"/>
             </interceptor-ref>
             <interceptor-ref name="defaultStack" /> -->
-            <result name="success">question/question_add_batch_common.jsp</result>
+            <result name="success">question/question_add_batch.jsp</result>
             <result name="success_cmp">question/question_add_batch_cmp_right.jsp</result>
              <result name="success_manual">authority/manualImport.jsp</result>
              <result name="success_printcard">authority/manualImport_printcard.jsp</result>

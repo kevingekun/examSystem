@@ -101,6 +101,8 @@ public class PrintCardServlet extends HttpServlet {
 		acp.setJssj(RequestUtils.getString(request, "jssj", ""));
 		acp.setValid("1");
 		acp.setTime(new Date());
+		acp.setMajor(RequestUtils.getString(request, "major", ""));
+		acp.setRank(RequestUtils.getString(request, "rank", ""));
 
 		PrintCardService pcService = new PrintCardService();
 		String rtUrl = "";
@@ -112,8 +114,8 @@ public class PrintCardServlet extends HttpServlet {
 			e.printStackTrace();
 			rtUrl = "../error.jsp";
 			request.setAttribute("wrongMessage", e.getMessage());
+			request.getRequestDispatcher(rtUrl).forward(request, response);
 		}
-		request.getRequestDispatcher(rtUrl).forward(request, response);
 
 	}
 
@@ -145,7 +147,6 @@ public class PrintCardServlet extends HttpServlet {
 		List<Object[]> list = pService.queryPrintCardList(acp, currpage, pagesize);
 		
 		request.setAttribute("printList", list);
-		System.out.println(list);
 		request.setAttribute("navigateform", navigateform);
 		
 		request.getRequestDispatcher("../authority/print_card_list.jsp").forward(request, response);

@@ -1,30 +1,30 @@
 package com.wondersgroup.falcon.Util;
 /**
  * 
- * <p>Title:[类标题] </p>
- * <p>Description: [类功能描述]</p> 
+ * <p>Title:[锟斤拷锟斤拷锟絔 </p>
+ * <p>Description: [锟洁功锟斤拷锟斤拷锟斤拷]</p> 
  *
  * Created by [www] [Aug 6, 2009]
- * Midified by [修改人] [修改时间]
+ * Midified by [锟睫革拷锟斤拷] [锟睫革拷时锟斤拷]
  *
  */
 
 public class PageTool {
 	
 	/*
-	 * 第几页
+	 * 锟节硷拷页
 	 */
 	private int cur=1;  
 	/*
-	 * 每页显示多少行
+	 * 每页锟斤拷示锟斤拷锟斤拷锟斤拷
 	 */
     private int size=10;   
     /*
-     * 一共多少行
+     * 一锟斤拷锟斤拷锟斤拷锟斤拷
      */
     private int total=0;
     /*
-     *从第几行开始
+     *锟接第硷拷锟叫匡拷始
      */
     private int start;
     

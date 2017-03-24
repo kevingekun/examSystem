@@ -75,8 +75,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="panel-body">
 		    <p>本功能可以新增角色，可以为每个角色分配菜单</p>
 		</div>
-			<s:form action="deleteEauthority" name="aForm" method="POST">
-			<table class="table table-striped table-bordered table-hover table-condensed" id="tb" style="margin-top: -12px;" >
+		<s:form action="deleteEauthority" name="aForm" method="POST">
+			<table class="table table-striped table-bordered table-hover table-condensed" id="tb" >
 				<tr class="info">
 					<td align="center"><span class="out">选择 </span></td>
 					<td align="center"><span class="out">序号</span></td>
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td align="center"><span class="out">操作</span></td>
 				</tr>
 				<s:iterator value="eauthoritys" id="eauthority" status="state">
-					<tr onMouseOver="this.className='td_over'" onMouseOut="this.className=''" id='r1'>
+					<tr id='r1'>
 						<td class="text-center" style="width: 8%"><input type='checkbox' name='deleEauthories' value='<s:property value="#eauthority.id"/>'></td>
 						<td class="text-center"><s:property value="#state.index+1" /></td>
 						<td class="text-center"><s:property value="#eauthority.name" /></td>
@@ -101,27 +101,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 				</s:iterator>
 			</table>
-			</s:form>
+		</s:form>
+		<div style="margin-top:-30px;">
 			<s:form action="eauthority.action" name="aForm1" method="post">
 				<elile:navigateBar navigateform="navigateform" actionName="eauthority.action" formName="aForm1" />
 			</s:form>
-			<div class="panel-footer" style="margin-top: -20px;">
-				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-3" style="text-align: center;">
-						<button type="button" class="btn btn-success" name="button_editfile" onclick="add()">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
-						</button>
-					</div>
-	 				<div class="col-md-3" style="text-align: center;">
-						<button type="button" class="btn btn-danger" name="button_editfile2" onclick="del()">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
-						</button>
-					</div>
-					<div class="col-md-3"></div>
+		</div>
+		<div class="panel-footer" style="margin-top: -20px;">
+			<div class="row">
+				<div class="col-md-3" ></div>
+				<div class="col-md-3" style="text-align: center;">
+					<button type="button" class="btn btn-success" name="button_editfile" onclick="add()">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+					</button>
 				</div>
+ 				<div class="col-md-3" style="text-align: center;">
+					<button type="button" class="btn btn-danger" name="button_editfile2" onclick="del()">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
+					</button>
+				</div>
+				<div class="col-md-3"></div>
 			</div>
 		</div>
+	</div>
 </div>
 </body>
 </html>

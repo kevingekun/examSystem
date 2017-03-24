@@ -1,25 +1,19 @@
 package com.wondersgroup.popedom.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.wondersgroup.falcon.acegi.AcegiUtil;
 import com.wondersgroup.falcon.acegi.UserDetailsImpl;
-import com.wondersgroup.falcon.exceptions.InfrastructureException;
-import com.wondersgroup.falcon.paper.model.EAnswerpaper;
 import com.wondersgroup.falcon.persistence.HibernateSessionCallback;
 import com.wondersgroup.falcon.persistence.HibernateUtil;
 import com.wondersgroup.kaoshi.bo.EKaoshi;
-import com.wondersgroup.kaoshi.util.PageReturn;
-import com.wondersgroup.kaoshi.util.PageTool;
 import com.wondersgroup.popedom.bo.EUser;
 import com.wondersgroup.popedom.bo.EUserMenus;
 
@@ -87,9 +81,7 @@ public class EUserMenusDao extends HibernateDaoSupport {
 						EKaoshi n = new EKaoshi();
 						Criteria criteria = session
 								.createCriteria(EKaoshi.class);
-						AcegiUtil acegiUtil = new AcegiUtil();
-						EUser user = ((UserDetailsImpl) acegiUtil
-								.getUserDetails()).getUser();
+						EUser user = ((UserDetailsImpl) AcegiUtil.getUserDetails()).getUser();
 						criteria.add(Restrictions.eq("Ryid", user.getId()));
 						List li = criteria.list();
 						if (li != null && li.size() > 0) {
@@ -107,9 +99,7 @@ public class EUserMenusDao extends HibernateDaoSupport {
 		return (String) HibernateUtil
 				.doInSession(new HibernateSessionCallback() {
 					public Object execute(Session session) throws Throwable {
-						AcegiUtil acegiUtil = new AcegiUtil();
-						EUser user = ((UserDetailsImpl) acegiUtil
-								.getUserDetails()).getUser();
+						EUser user = ((UserDetailsImpl) AcegiUtil.getUserDetails()).getUser();
 						String sql = "select e.id from e_exam_arrange e where  e.usertype ='1'and  e.userid='"
 								+ user.getId() + "'";
 						Query query = session.createSQLQuery(sql.toString());

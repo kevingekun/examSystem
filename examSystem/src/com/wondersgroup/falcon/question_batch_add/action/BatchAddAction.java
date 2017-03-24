@@ -42,7 +42,6 @@ import com.wondersgroup.falcon.question.model.EQuestiontype;
 import com.wondersgroup.falcon.question.model.Tmdot;
 import com.wondersgroup.falcon.question_batch_add.service.BatchAddService;
 import com.wondersgroup.kaoshi.bo.Admission_card_file;
-import com.wondersgroup.kaoshi.bo.Admission_card_pc;
 import com.wondersgroup.kaoshi.bo.Admission_card_user;
 import com.wondersgroup.kaoshi.bo.Ae02;
 import com.wondersgroup.kaoshi.bo.EPapersSet;
@@ -112,17 +111,17 @@ public class BatchAddAction extends AbstractAction {
 	    	try {
 	    		cell = row.getCell(0);
 	    		s=(cell==null)?"":cell.getStringCellValue();
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 	    		et.setEquestiontype(checkEQuestiontype(s));//试题类型
 	    		
 	    		cell = row.getCell(1);
 		    	s=(cell==null)?"":cell.getStringCellValue();
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 		    	et.setBxType(s);//重要程度
 		    	
 		    	cell = row.getCell(2);
 		    	s=(cell==null)?"":cell.getStringCellValue();
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 		    	et.setEimportance(checkImportance(s));//难易度
 		    	
 		    	cell = row.getCell(3);
@@ -135,17 +134,17 @@ public class BatchAddAction extends AbstractAction {
 		    	
 		    	cell = row.getCell(5);
 		    	s=(cell==null)?"":String.valueOf((int)cell.getNumericCellValue());
-		    	state=(cell==null)?state*0:state*1;
+		    	state=("".equals(s))?state*0:state*1;
 		    	et.setJdysId(Integer.parseInt(s));//关联鉴定要素时的要素id
 	    		
 	    		cell = row.getCell(6);
 	    		s=(cell==null)?"":cell.getStringCellValue().trim();
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 	    		et.setStTg(s);//题目
 	    		
 	    		cell = row.getCell(7);
 		    	s=(cell==null)?"":cell.getStringCellValue().replace(" ", "");
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 	    		String da = "";
 	    		if(!"".equals(s)&&s.length()>1){
 	    			for(int k=0;k<s.length();k++){
@@ -289,10 +288,10 @@ public class BatchAddAction extends AbstractAction {
 /*
  * 人工成绩导入
  */
-	public String displayExcel_manual() throws ClassNotFoundException{
+	public String displayExcel_manual() throws ClassNotFoundException {
 		InputStream inp;
 		Workbook wb = null;
-		
+
 		try {
 			inp = new FileInputStream(file_excel);
 			wb = WorkbookFactory.create(inp);
@@ -306,109 +305,79 @@ public class BatchAddAction extends AbstractAction {
 			e.printStackTrace();
 		}
 		Sheet sheet = wb.getSheetAt(0);
-	    int rowCount = sheet.getLastRowNum()-sheet.getFirstRowNum();
-	    Cell cell;
-    	String password = "",realname="",username="";
-    	long sequence = 0;
-    	boolean flag=true,state=true;
-    	Random random = new Random();
-    	sequence = random.nextInt(999999);
-    	String jdid = batchAddService.getjdid(jdmc);
-    	if(jdid==""){
-    		wrongMessage="鉴定批次名称重复，请核对后重新操作";
-    		return "error1";
-    	}
-    	else{
-    	list_error = new ArrayList<E_Users_Temp>();
-    	List<Object> list = new ArrayList<Object>();
-	    for (int i = 1; i < rowCount+1; i++) {
-	    	boolean f = true;
-	    	E_Users_Temp users = new E_Users_Temp();
-	    	E_Users_Temp error = new E_Users_Temp();
-	    	Row row = sheet.getRow(i);
-	    	try {
-	    		if(row.getCell(0)!=null){
-	    	          row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
-	    	          password=(row.getCell(0).getStringCellValue().trim());
-	    	          if("".equals(password)||f==false){
-	    	        	 f = false&f; 
-	    	          }
-	    	     }
-	    		else{
-	    	    	 f = false&f; 
-	    	    	 password="";
-	    	     }
-	    		if(row.getCell(1)!=null){
-	    	          row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
-	    	          realname=(row.getCell(1).getStringCellValue().trim());
-	    	          if("".equals(realname)||f==false){
-		    	        	 f = false&f; 
-		    	          }
-	    	     }
-	    		else{
-	    			 f = false&f; 
-	    			 realname="";
-	    		}
-	    		if(row.getCell(2)!=null){
-	    	          row.getCell(2).setCellType(Cell.CELL_TYPE_STRING);
-	    	          username=(row.getCell(2).getStringCellValue().trim());
-	    	          if("".equals(username)||f==false){
-		    	        	 f = false&f;
-		    	          }
-	    	         
-	    	     }
-	    		else{
-	    			f=false&f;
-	    			username="";
-	    		} 
-	    	    	 
-	    		if(f==true){
-	    			users.setPassword(password);
-	    			users.setRealname(realname);
-	    			users.setUsername(username);
-	    			users.setFlag(1);
-	    			users.setJd_id(Long.valueOf(jdid));
-	    			Date time = new Date();
-	    			users.setImportdate(time);//导入时间
-	    			flag=true&flag;
-	    			batchAddService.saveEuserstemp(users);
-		    	}
-	    		else if(f==false){
-	    			error.setPassword(password);
-	    			error.setRealname(realname);
-	    			error.setUsername(username);
-	    			list_error.add(error);
-		    	}
-			} catch (Exception e) {
-				e.printStackTrace();
-				flag=false&flag;
+		int rowCount = sheet.getLastRowNum() - sheet.getFirstRowNum();
+		
+		Cell cell;
+    	String s = "";
+		long state = 1;
+		String jdid = batchAddService.getjdid(jdmc);
+		if (jdid == "") {
+			wrongMessage = "鉴定批次名称重复，请核对后重新操作";
+			return "error";
+		} else {
+			list_users = new ArrayList<E_Users_Temp>();
+			list_error = new ArrayList<E_Users_Temp>();
+			List<Object> list = new ArrayList<Object>();
+			for (int i = 1; i < rowCount + 1; i++) {
+				E_Users_Temp users = new E_Users_Temp();
+				Row row = sheet.getRow(i);
+				
+				cell = row.getCell(0);
+	    		s=(cell==null)?"":cell.getStringCellValue().trim();
+	    		state=(cell==null)?state*0:state*1;
+	    		users.setPassword(s);
+	    		
+	    		boolean b = batchAddService.getUserByPass(s);//判断准考证号在数据库中是否已存在
+	    		
+	    		cell = row.getCell(1);
+	    		s=(cell==null)?"":cell.getStringCellValue().trim();
+	    		state=(cell==null)?state*0:state*1;
+	    		if (b) {
+					s+="-准考证号重复";
+					state = state*0;
+				}
+	    		users.setRealname(s);
+	    		
+	    		cell = row.getCell(2);
+	    		s=(cell==null)?"":cell.getStringCellValue().trim();
+	    		state=(cell==null)?state*0:state*1;
+	    		users.setUsername(s);
+	    		
+	    		users.setFlag(1);
+				users.setJd_id(Long.valueOf(jdid));
+				users.setImportdate(new Date());// 导入时间
+				
+				if(state==1){
+					list_users.add(users);
+					batchAddService.saveEuserstemp(users);
+				}else{
+					list_error.add(users);
+					state = 1;
+				}
 			}
+			list_1_size =String.valueOf(list_users.size());
+			list_2_size =String.valueOf(list_error.size());
+			if(list_users.size()>0){
+				ApplicationContext ctx = WebApplicationContextUtils
+						.getWebApplicationContext(getRequest().getSession()
+								.getServletContext());
+				DataSource dataSource = (DataSource) ctx.getBean("dataSource");
+				Connection conn = null;
+				try {
+					conn = dataSource.getConnection();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				list = this.batchAddService.excuteProc(jdid, conn);
+				if (!"0".equals(String.valueOf(list.get(0)))) {
+					wrongMessage = (String) list.get(1);
+					return "error";
+				}
+			}
+			return "success_manual";
+			
 		}
-	    if(flag==true)
-	    {
-	    	ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(getRequest().getSession().getServletContext()); 
-			DataSource dataSource = (DataSource) ctx.getBean("dataSource");
-			Connection conn = null;
-			try {
-				conn = dataSource.getConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-	    	list = this.batchAddService.excuteProc(jdid,conn);
-	  	    
-	    }
-	    if("0".equals(String.valueOf(list.get(0)))&&flag==true){
-	    	list_users =batchAddService.getusers(jdid);	
-		    return "success_manual";
-	    }
-	   /* if(state==true&&flag==true){
-	    list_users =batchAddService.getusers(jdid);	
-	    return "success_manual";
-	    }*/
-	    else
-	    	 return "error";
 	}
-    	}
 	
 	public String displayExcel_cmp(){
 		InputStream inp;
@@ -442,7 +411,7 @@ public class BatchAddAction extends AbstractAction {
 	    		
 	    		cell = row.getCell(0);
 		    	s=(cell==null)?"":cell.getStringCellValue();
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 		    	et.setEquestiontype(checkEQuestiontype(s));//试题类型
 		    	
 		    	cell = row.getCell(1);
@@ -455,12 +424,12 @@ public class BatchAddAction extends AbstractAction {
 		    	
 		    	cell = row.getCell(3);
 		    	s=(cell==null)?"":String.valueOf((int)cell.getNumericCellValue());
-		    	state=(cell==null)?state*0:state*1;
+		    	state=("".equals(s))?state*0:state*1;
 		    	et.setStFz(s);//分值
 	    		
 	    		cell = row.getCell(4);
 	    		s=(cell==null)?"":cell.getStringCellValue().trim();
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 	    		if(s==null||"".equals(s)){
 	    			break;
 	    		}
@@ -468,7 +437,7 @@ public class BatchAddAction extends AbstractAction {
 	    		
 	    		cell = row.getCell(5);
 		    	s=(cell==null)?"":cell.getStringCellValue().replace(" ", "");
-	    		state=(cell==null)?state*0:state*1;
+	    		state=("".equals(s))?state*0:state*1;
 	    		String da = "";
 	    		if(!"".equals(s)&&s.length()>1){
 	    			for(int k=0;k<s.length();k++){

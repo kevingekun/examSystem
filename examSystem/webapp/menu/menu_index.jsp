@@ -1,27 +1,62 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-
-<title>菜单</title>
-
-<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">
-			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-				<meta http-equiv="description" content="This is my page">
-					<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-					<link href="<%=request.getContextPath()%>/css2/style.css" rel="stylesheet" type="text/css" />
-					<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery/jquery.1.3.min.js"></script>
-					<script language="JavaScript">
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>菜单</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<style type="text/css">
+.panel-body{
+	padding:1px 20px;
+}
+.container-fluid{
+	padding:0;
+}
+.panel{
+	border-radius:0px;
+	border:0px;
+	margin-bottom:0px;
+}
+.panel-collapse a{
+	width:100%;
+	height:25px;
+}
+.nav>li>a{
+	padding:4px 20px;
+}
+.panel-collapse a:hover{
+	text-decoration:none;
+	font-size:11pt;
+	color:#FF0000;
+	display:block;
+	width:100%;
+	height:25px;
+}
+.panel-heading a:hover{
+	text-decoration:none;
+}
+.panel-heading a{
+	width:100%;
+}
+.panel-primary > .panel-heading{
+	border-top-left-radius:0px;
+	border-top-right-radius:0px;
+	background-color:#2F6B8A;
+}
+</style>
+<script src="bootstrap/js/jquery-3.1.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script language="JavaScript">
 function doAction(i,u){
-	
 	 parent.head.location.href="head.jsp?menuid="+i;
 	 parent.main.location.href=u;
 }
@@ -41,11 +76,8 @@ function doMenu(i){
 		window.parent.content.location.replace(href);
 	}
 	function showGg(href){
-		var return_val = window.showModalDialog("kaoshi/paper/ExamNotice.jsp", 
+		window.showModalDialog("kaoshi/paper/ExamNotice.jsp", 
 				"","dialogWidth=1200px;dialogHeight=600px;center:yes;scroll:yes;status:no;controlbox:false");
-		/* if (return_val.code == "true") {
-			window.parent.content.location.replace(href);
-		} */
 		window.parent.content.location.replace(href);
 	}
 	function dochange(id){
@@ -85,91 +117,68 @@ function doMenu(i){
 		$("#d_index").css('display','none');
 	}
 </script>
-<style type="text/css">
-<!--
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #97c2cf;
-}
--->
-</style>
 </head>
-
 <body>
-	<table width="209" border="0" cellspacing="0" cellpadding="0">
-		<c:if test="${userStar!='1' }">
-		<tr>
-			<td class="header05">&gt;&gt; 菜单导航</td>
-			<td class="header06">&nbsp;</td>
-		</tr>
-		</c:if>
-	</table>
-	<table width="201" height="100%" border="0" cellpadding="0" cellspacing="0" class="left_menu_border">
-		<tr class="left_users_info">
-		<c:if test="${userStar!='1' }">
-			<td align="left" valign="top">
-				<s:iterator value="eusermenus" status="status" id="menu">
-					<div id="left_menu">
-						<div class="title_title" id='menu<s:property value="#status.index+1"/>' onclick='doMenu(<s:property value="#status.index+1"/>)' style="cursor: pointer" onmouseover="style.color='#ff3366';" onmouseout="style.color='#000';">
-							<img src="<%=request.getContextPath()%>/images/left_menu/new_2.jpg" style="padding-top: 8px;" />
-							<s:property value="#menu.menuname" />
-						</div>
-						<ul id='submenu<s:property value="#status.index+1"/>' <s:if test="#status.first!=true">style="display:none;"</s:if>>
-							<s:iterator value="#menu.childMenusView" id="childMenu" status="st">
-								<s:if test="#status.first==true">
-									<c:if test="${st.first==true}">
-										<script language="JavaScript">
-				         			LoadRight('<c:out value="${childMenu.menueurl}"/>')
-				         			</script>
-									</c:if>
-								</s:if>
-								<li><a href='<%=request.getContextPath()%>/<s:property value="#childMenu.menueurl" />' target="content"><s:property value="#childMenu.menuname" /> </a></li>
-							</s:iterator>
-						</ul>
-					</div>
-				</s:iterator>
-			</td>
-		</c:if>
-		<c:if test="${userStar=='1' }">
-		<td align="left" valign="top">
-				<s:iterator value="eusermenus" status="status" id="menu">
-					<div id="left_menu">
-						<%-- <div class="title_title" id='menu<s:property value="#status.index+1"/>' onclick='doMenu(<s:property value="#status.index+1"/>)' style="cursor: pointer" onmouseover="style.color='#ff3366';" onmouseout="style.color='#000';">
-							<img src="<%=request.getContextPath()%>/images/left_menu/new_2.jpg" style="padding-top: 8px;" />
-							<s:property value="#menu.menuname" />
-						</div> --%>
-						<%-- <ul id='submenu<s:property value="#status.index+1"/>' <s:if test="#status.first!=true">style="display:none;"</s:if>>
-							<s:iterator value="#menu.childMenusView" id="childMenu" status="st">
-								<s:if test="#status.first==true">
-									<c:if test="${st.first==true}">
-										<script language="JavaScript">
-				         			LoadRight('<c:out value="${childMenu.menueurl}"/>')
-				         			</script>
-									</c:if>
-								</s:if>
-								<li><a href='<%=request.getContextPath()%>/<s:property value="#childMenu.menueurl" />' target="content"><s:property value="#childMenu.menuname" /> </a></li>
-							</s:iterator>
-						</ul> --%>
-							<s:iterator value="#menu.childMenusView" id="childMenu" status="st">
-								<s:if test="#status.first==true">
-									<c:if test="${st.first==true}">
-										<script language="JavaScript">
-											showGg('<c:out value="${childMenu.menueurl}"/>');
-				         					//LoadRight('<c:out value="${childMenu.menueurl}"/>');
-				         				</script>
-									</c:if>
-								</s:if>
-								<%-- <li><a href='<%=request.getContextPath()%>/<s:property value="#childMenu.menueurl" />' target="content"><s:property value="#childMenu.menuname" /> </a></li> --%>
-							</s:iterator>
-					</div>
-				</s:iterator>
-			</td>
+	<div class="container-fluid">
+		<div class="panel panel-primary">
+			<c:if test="${userStar!='1' }">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>  菜单导航
+					</h3>
+				</div>
 			</c:if>
-		</tr>
-	</table>
+			<c:if test="${userStar!='1' }">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<ul class="nav nav-pills nav-stacked">
+						<s:iterator value="eusermenus" status="status" id="menu">
+							<li role="presentation">
+								<div class="panel panel-info">
+									<div class="panel-heading" role="tab" id="menu<s:property value="#status.index+1"/>">
+										<h4 class="panel-title">
+											<a role="button" data-toggle="collapse" data-parent="#accordion" style="display:block" href="#collapse<s:property value="#status.index+1"/>" aria-expanded="true" aria-controls="collapse<s:property value="#status.index+1"/>">
+												<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>  
+												<s:property value="#menu.menuname" />
+											</a>
+										</h4>
+									</div>
+									<div id="collapse<s:property value="#status.index+1"/>" class="panel-collapse collapse <s:if test="#status.first==true">in</s:if>" role="tabpanel" aria-labelledby="menu<s:property value="#status.index+1"/>">
+										<ul class="nav nav-pills nav-stacked">
+											<s:iterator value="#menu.childMenusView" id="childMenu" status="st">
+												<li>
+													<s:if test="#status.first==true">
+														<c:if test="${st.first==true}">
+															<script language="JavaScript">
+										         				LoadRight('<c:out value="${childMenu.menueurl}"/>');
+										         			</script>
+														</c:if>
+													</s:if>
+													<a href='<%=request.getContextPath()%>/<s:property value="#childMenu.menueurl" />' target="content"><s:property value="#childMenu.menuname" /> </a>
+												</li>
+											</s:iterator>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</s:iterator>
+					</ul>
+				</div>
+			</c:if>
+			<c:if test="${userStar=='1' }">
+				<s:iterator value="eusermenus" status="status" id="menu">
+					<s:iterator value="#menu.childMenusView" id="childMenu" status="st">
+						<s:if test="#status.first==true">
+							<c:if test="${st.first==true}">
+								<script language="JavaScript">
+									showGg('<c:out value="${childMenu.menueurl}"/>');
+		         				</script>
+							</c:if>
+						</s:if>
+					</s:iterator>
+				</s:iterator>
+			</c:if>
+		</div>
+	</div>
 	<c:if test="${userStar=='1' }">
 		<div style="margin-top: 10px" id="d_index">
 			<table id="paperindex" style="font-size: 20px;margin-left: 5px;text-align:center;" cellspacing="5" ></table>

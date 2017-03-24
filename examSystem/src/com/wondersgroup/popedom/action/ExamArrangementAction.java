@@ -1,8 +1,13 @@
 package com.wondersgroup.popedom.action;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.wondersgroup.kaoshi.util.AbstractPageNavAction;
 import com.wondersgroup.popedom.bo.ExamStaff;
@@ -16,6 +21,7 @@ public class ExamArrangementAction extends AbstractPageNavAction {
 	private List<ExamStaff> staff;
 	private String examId;// 鉴定批次号
 	private List<Exam_Arrangement> eArrangement;
+	private String id;
 
 	private InputStream excelStream;
 	private String downloadFileName;
@@ -60,6 +66,22 @@ public class ExamArrangementAction extends AbstractPageNavAction {
 			e.printStackTrace();
 		}
 		return SUCCESS;
+	}
+	/**
+	 * 删除准考证打印中的考试批次信息
+	 * 
+	 * @author gkk
+	 * @date 2017-3-2 下午4:10:48
+	 */
+	public void deletePrintCardInfo() {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		boolean b = addstaffService.deletePrintCardInfo(id);
+		String rtmsg = b==true?"success":"error";
+		try {
+			response.getWriter().write(rtmsg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<ExamStaff> getStaff() {
@@ -116,6 +138,14 @@ public class ExamArrangementAction extends AbstractPageNavAction {
 
 	public void setDownloadFileName(String downloadFileName) {
 		this.downloadFileName = downloadFileName;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

@@ -14,11 +14,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>菜单赋权</title>
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<%-- <link href="<%=request.getContextPath() %>/newcss/style.css" rel="stylesheet" type="text/css" />
-	<link href="<%=request.getContextPath() %>/inc/all.css" rel="stylesheet" type="text/css"/> --%>
 </head>
-<script type="text/javascript" src="<%=request.getContextPath() %>/authority/js/dhtmlXCommon.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/authority/js/dhtmlXTree.js"></script>
+<script type="text/javascript" src="authority/js/dhtmlXCommon.js"></script>
+<script type="text/javascript" src="authority/js/dhtmlXTree.js"></script>
 <script>
 function save(){
 	document.aForm.usermenusids.value=tree.getAllCheckedBranches();

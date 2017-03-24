@@ -14,6 +14,7 @@ import com.wondersgroup.popedom.bo.CalcBsFhDTO;
 import com.wondersgroup.popedom.bo.ExamStaff;
 import com.wondersgroup.popedom.bo.Exam_Arrangement;
 import com.wondersgroup.popedom.bo.HZ95;
+import com.wondersgroup.popedom.bo.ImportExamSysDTO;
 import com.wondersgroup.popedom.bo.WsExamArrangeDTO;
 
 public interface AddStaffService {
@@ -34,6 +35,8 @@ public interface AddStaffService {
 	public List<Admission_card_pc> find_admission_card_pc();
 	
 	public List<Admission_card_file> find_admission_card_file();
+	
+	public ImportExamSysDTO importExamSys(ImportExamSysDTO dto,Connection conn);
 
 	public String findSjmc(String sjmc);
 
@@ -50,6 +53,8 @@ public interface AddStaffService {
 			List<Exam_Arrangement> list2);
 
 	public InputStream exportRinfo(List<Exam_Arrangement> list);
+	
+	public boolean deletePrintCardInfo(String id);
 
 	public List<JiaoShiJi> findsj();
 

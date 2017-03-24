@@ -12,7 +12,7 @@ public abstract class AbstractPageNavAction extends ActionSupport implements Ser
 	protected PageTool pageTool = new PageTool();
 	protected PageReturn pageReturn=new PageReturn();
 	private int  currpage=1;
-	private int  pagenum=20;
+	private int  pagenum=10;
 	public int getPagenum() {
 		return pagenum; 
 	}

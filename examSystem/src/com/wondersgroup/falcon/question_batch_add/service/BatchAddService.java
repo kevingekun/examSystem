@@ -48,6 +48,8 @@ public interface BatchAddService {
 	void savePrintCardFileInfo(Admission_card_file acf);
 	
 	boolean savePrintCardUsers(List<Admission_card_user> users);
+	
+	public boolean getUserByPass(String password);
 
 	
 }

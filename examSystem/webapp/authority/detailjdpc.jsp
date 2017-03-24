@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$("#alreadyTable tr:gt(0)").remove();//清空table
+		$("#jdpcTable tr:gt(0)").remove();//清空table
 		var id = "<%= request.getParameter("jdid")%>";
 		
 		$.ajax({
