@@ -28,13 +28,18 @@ List<Tjobsubject> professions = professionBean.getDistinctProfessions();
 .panel {
 	margin-bottom: 0px;
 }
-
+.row{
+	margin-left:0px;
+	margin-right:0px;
+}
 .col-md-3 {
 	padding-right: 0px;
+	padding-left: 0px;
 }
 
 .col-md-9 {
 	padding-left: 0px;
+	padding-right:0px;
 }
 </style>
 <script type="text/javascript">
@@ -119,8 +124,8 @@ function info_jdys_Download(){
 		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active panel-body" id="home">
-				<div class="row form-inline">
+			<div role="tabpanel" class="tab-pane active panel" id="home">
+				<div class="row form-inline panel-body">
 					<div class="col-md-3 form-group">
 						<label for="gzid">工种</label>
 		    			<select class="form-control input-sm" id="gzid" name="gzid" onchange="gzChange(this)">
@@ -161,7 +166,7 @@ function info_jdys_Download(){
 					<li role="presentation">
 						<a href="#failed" aria-controls="failed" role="tab" data-toggle="tab">错误试题<span class="badge" style="background-color:red"><c:out value="${list_2_size}"></c:out></span></a>
 					</li>
-					<li style="float:right">
+					<li style="float:right;margin-right:15px">
 						<input type=hidden name="actionType" value="query">
 						<input id="batchNumber" value="<c:out value="${batchNumber}"/>" type="hidden">
 						<button class="btn btn-primary btn-sm" id="bcsmt" type="button" onclick="batchSubmit()" >

@@ -143,7 +143,7 @@ Ext.onReady(function(){
         }
         ],
         renderTo: 'editor-grid',
-        width: 1122,
+        //width: 1122,
         height: 310,
         title: title,//'鉴定要素 > '+gzmc+' > '+dj
         frame: true,

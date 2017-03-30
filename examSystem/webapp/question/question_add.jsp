@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 }
 .col-md-9{
 	padding-left:0px;
+	padding-right:0px;
 }
 </style>
 </head>
@@ -33,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h3 class="panel-title">试题录入<span class="label label-success">单个</span></h3>
 		</div>
 		<div class="panel-body">
-			<div class="row">
+			<div class="row" style="margin-right:0px">
 				<div class="col-md-3">
 					<iframe name="LeftTree" src="question/question_add_left.jsp" scrolling="auto" width="100%" height="700px"></iframe>
 				</div>

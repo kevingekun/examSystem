@@ -37,7 +37,7 @@
 <script type="text/javascript" src="js/jquery/jquery.1.11.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="js/ext-editgrid/resources/css/ext-all.css" />
 <script type="text/javascript" src="js/ext-editgrid/examples/shared/include-ext.js"></script>
-<script type="text/javascript" src="js/ext-editgrid/examples/shared/options-toolbar.js"></script>
+<!-- <script type="text/javascript" src="js/ext-editgrid/examples/shared/options-toolbar.js"></script>右上角grid样式变更 -->
 <script type="text/javascript">
 var gzid = '<%=gzid%>',
 	dj='<%=gzdj%>',

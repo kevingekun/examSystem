@@ -27,6 +27,7 @@
 }
 .col-md-9{
 	padding-left:0px;
+	padding-right:0px;
 }
 	
 </style>
@@ -48,7 +49,7 @@
 	  <!-- Tab panes -->
 	  <div class="tab-content">
 	    <div role="tabpanel" class="tab-pane active" id="home">
-	    	<div class="row">
+	    	<div class="row" style="margin-right:0px">
 				<div class="col-md-3">
 					<iframe name="LeftTree1" src="question/papers_set_add_left.jsp" scrolling="auto" width="100%" height="600px"></iframe>
 				</div>
@@ -58,7 +59,7 @@
 			</div>
 	    </div>
 	    <div role="tabpanel" class="tab-pane" id="profile">
-	    	<div class="row">
+	    	<div class="row" style="margin-right:0px">
 				<div class="col-md-3">
 					<iframe name="LeftTree2" src="question/questions_set_add_left.jsp" scrolling="auto" width="100%" height="600px"></iframe>
 				</div>
@@ -68,7 +69,7 @@
 			</div>
 	    </div>
 	    <div role="tabpanel" class="tab-pane" id="messages">
-	    	<div class="row">
+	    	<div class="row" style="margin-right:0px">
 				<div class="col-md-3">
 					<iframe name="LeftTree3" src="question/questions_set_add_written_left.jsp" scrolling="auto" width="100%" height="600px"></iframe>
 				</div>

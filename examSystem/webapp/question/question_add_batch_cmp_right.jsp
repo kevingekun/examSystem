@@ -101,7 +101,7 @@ if(sjid!=null&&!"".equals(sjid)){
 		<li role="presentation">
 			<a href="#failed" aria-controls="failed" role="tab" data-toggle="tab">错误试题<span class="badge" style="background-color:red"><c:out value="${list_2_size}"></c:out></span></a>
 		</li>
-		<li style="float:right">
+		<li style="float:right;margin-right:15px">
 			<input id="batchNumber" value="<c:out value="${batchNumber}"/>" type="hidden"> 
 			<input id="sjid" name="sjid" value="<c:out value="${sjid}"/>" type="hidden"> 
 			<button class="btn btn-primary btn-sm" id="bcsmt" type="button" onclick="batchSubmit()" >
